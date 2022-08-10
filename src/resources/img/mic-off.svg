@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="188" viewBox="0 0 184 188">
+  <g id="Group_126" data-name="Group 126" transform="translate(-23 779)">
+    <g id="Icon_ionic-md-mic-off" data-name="Icon ionic-md-mic-off" transform="translate(31.774 -777.142)">
+      <path id="Path_89" data-name="Path 89" d="M133.3,123.895,122.377,113l-3.925-3.917-1.927-1.931L59.064,49.8v.142L13.575,4.467,3.651,14.329,59.064,69.669V81.49a28.253,28.253,0,0,0,38.346,26.324l13.287,13.24A51.661,51.661,0,0,1,87.4,126.74c-25.839,0-49.788-19.933-49.788-47.829H21.64c0,31.588,25.527,58.541,56.295,62.771v33.634H96.805V141.682a68.1,68.1,0,0,0,25.281-9.28l39.086,39,9.859-9.846L157.147,147.7l-23.882-23.777L157.15,147.7Z" transform="translate(-3.651 8.468)" fill="#fff"/>
+      <path id="Path_90" data-name="Path 90" d="M69.76,92.208V30.439a28.306,28.306,0,0,0-56.612,0V40.794L69.395,96.983A27.415,27.415,0,0,0,69.76,92.208Z" transform="translate(42.265 -2.25)" fill="#fff"/>
+      <path id="Path_91" data-name="Path 91" d="M47.593,17.227H31.618A46.372,46.372,0,0,1,25.493,40.28L36.8,51.568A60.488,60.488,0,0,0,47.593,17.227Z" transform="translate(101.944 70.153)" fill="#fff"/>
+      <path id="Path_92" data-name="Path 92" d="M43.866,42.859,29.96,29.017l13.888,13.86Z" transform="translate(123.54 127.151)" fill="#fff"/>
+    </g>
+    <rect id="Rectangle_57" data-name="Rectangle 57" width="184" height="188" transform="translate(23 -779)" fill="none"/>
+  </g>
+</svg>

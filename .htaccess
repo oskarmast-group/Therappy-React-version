@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.)$ https://test.terappy.mx.com/$1 [R,L] RewriteEngine on RewriteCond %{REQUEST_URI} !^/$ 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond {REQUEST_FILENAME} !-f
+RewriteRule ^(.)$ / [L,QSA]
