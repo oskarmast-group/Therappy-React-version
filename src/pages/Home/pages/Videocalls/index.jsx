@@ -78,6 +78,7 @@ const Videocalls = () => {
     useEffect(() => {
         if (mediaStream && videoRef.current) {
             videoRef.current.srcObject = mediaStream;
+            
         }
     }, [mediaStream]);
 
