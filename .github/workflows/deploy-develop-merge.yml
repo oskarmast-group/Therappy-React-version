@@ -16,7 +16,7 @@ jobs:
           touch .env
           echo REACT_APP_API_URL="https://pure-bayou-82597.herokuapp.com" >> .env
           cat .env
-      - run: npm ci && npm run build
+      - run: npm i && npm run build
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
