@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import TopShape from 'resources/img/top-wave.svg';
 import BottomShape from 'resources/img/bottom-wave.svg';
+import SideMenu from 'components/SideMenu';
 
 const Main = styled.main`
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    padding-bottom: 0;
+    margin-bottom: 58px;
+    min-height: 0;
 `;
 
 const TopDecoration = styled.div`
@@ -30,7 +34,7 @@ const BottomDecoration = styled.div`
     }
 `;
 
-const MainContainer = ({ children, withTopDecoration = true, withBottomDecoration = false }) => {
+const MainContainer = ({ children, withTopDecoration = true, withBottomDecoration = false, withSideMenu = true, menuOpen = false, toggleMenu }) => {
     return (
         <>
             {withTopDecoration && (
@@ -44,6 +48,7 @@ const MainContainer = ({ children, withTopDecoration = true, withBottomDecoratio
                     <img src={BottomShape} alt={"curva de decoración inferior"}/>
                 </BottomDecoration>
             )}
+            {withSideMenu && <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
         </>
     );
 };

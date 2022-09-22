@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Body = styled.p`
@@ -6,7 +7,7 @@ export const Body = styled.p`
     color: #1e2205;
 `;
 
-export const CustomLink = styled.a`
+export const CustomLink = styled(Link)`
     color: #1e2205;
     text-decoration: none;
 `;

@@ -1,4 +1,304 @@
-[
-    {"id": "1", "token":"34e5c238-9db0-45e6-92de-da2f0f491116", "username": "cborreguin@gmail.com", "password": "123456"},
-    {"id": "2", "token":"a903035d-41ae-4df2-aa56-7b1ad6c1455c", "username": "sammohdz@hotmail.com", "password": "abcdef"}
-]
+{
+    "cborreguin@gmail.com": {
+        "email": "cborreguin@gmail.com",
+        "token": "34e5c238-9db0-45e6-92de-da2f0f491116",
+        "password": "123456",
+        "name": "Cedric",
+        "lastName": "Borreguín Ortega",
+        "profileImg": "302207616_10221756205035048_490767533651676393_n.jpg",
+        "userType": "client",
+        "assignedTherapist": "daliahernandez@terapy.mx"
+    },
+    "sammohdz@hotmail.com": {
+        "email": "sammohdz@hotmail.com",
+        "token": "a903035d-41ae-4df2-aa56-7b1ad6c1455c",
+        "password": "abcdef",
+        "name": "Samuel",
+        "lastName": "Hernández",
+        "profileImg": "942054_10151463012013650_325287990_n.jpg",
+        "userType": "client",
+        "assignedTherapist": null
+    },
+    "daliahernandez@terapy.mx": {
+        "email": "daliahernandez@terapy.mx",
+        "token": "868620e5-9ed6-43cf-96ac-69a566d7a54c",
+        "password": "abcDEF123",
+        "name": "Dalia Lisbeth",
+        "lastName": "Hernández Ortiz",
+        "title": "Psic.",
+        "experience": "Maestría de Psicoterapia Psicoanalítica de familia y pareja, Diplomado en Psicoterapia Psicoanalítica, experiencia en terapia de jóvenes, adultos y de pareja.",
+        "about": "",
+        "rating": 4.85,
+        "reviews": 3,
+        "phrase": "El papel del psicoanalista no es desear algo para alguien, sino lograr que pueda alcanzar su deseo.- Francoise Dolto",
+        "profileImg": "Dalia_Lisbeth_Hdez_O.png",
+        "userType": "therapist",
+        "categories": [1, 2, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    },
+    "azuricarballal@terapy.mx": {
+        "email": "azuricarballal@terapy.mx",
+        "token": "a53b574f-973d-42ed-8c1e-9ee7c0116de4",
+        "password": "abcDEF123",
+        "name": "Azuri",
+        "lastName": "Carballal Fernández",
+        "title": "Psic.",
+        "experience": "Psicóloga Clínica con formación en evaluación de TEA por Educación Especial ( de USAER), certificación en lengua de señas mexicana (B3), somatizacion, análisis infantil y terapia para jóvenes y adultos.",
+        "about": "",
+        "rating": 4.35,
+        "reviews": 1,
+        "phrase": "Finalmente, el viaje hacia los orígenes es más importante que los orígenes mismos.- Julia Kristeva",
+        "profileImg": "Azuri_Carballal_F.png",
+        "userType": "therapist",
+        "categories": [1, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    },
+    "xavierhernandez@terapy.mx": {
+        "email": "xavierhernandez@terapy.mx",
+        "token": "c9cfc6f1-e462-43a5-ae1b-f3877ba2f5fb",
+        "password": "abcDEF123",
+        "name": "Xavier",
+        "lastName": "Hernández Guerrero",
+        "title": "Psic.",
+        "experience": "Psicólogo clínico con formación en psicoterapia individual de adolescentes y adultos, formación en psicooncología para la evaluación hospitalaria y tratamiento psicológico del paciente con cáncer y su familia.",
+        "about": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "phrase": "Borrar lo que pasó no se puede. Mirarlo de otra forma sí.",
+        "profileImg": "Xavier_Hernandez_G.png",
+        "userType": "therapist",
+        "categories": [1, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    },
+    "viridianacadena@terapy.mx": {
+        "email": "viridianacadena@terapy.mx",
+        "token": "5c34891f-8376-4423-a84c-805efbfcd3eb",
+        "password": "abcDEF123",
+        "name": "Viridiana",
+        "lastName": "Cadena Reyes",
+        "title": "Psic.",
+        "experience": "Psicóloga clínica con formación en psicoterapia individual de niños, jovenes y adultos, manejo de psicología educativa.",
+        "about": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "phrase": "Lo que niegas te somete, lo que aceptas te transforma. Aquello a lo que te resistes persiste .- Carl Jung. ",
+        "profileImg": "Viridiana_Cadena_R.png",
+        "userType": "therapist",
+        "categories": [1, 2, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    },
+    "karlaescalera@terapy.mx": {
+        "email": "karlaescalera@terapy.mx",
+        "token": "83860f6d-941e-4f1e-a41f-d89b37c0a27d",
+        "password": "abcDEF123",
+        "name": "Karla",
+        "lastName": "Escalera Rodriguez",
+        "title": "Psic.",
+        "experience": "Psicóloga clínica con formación en adolescentes y adultos. Diplomado en actualización en psicoterapia psicoanalítica, diplomado en introducción al psicoanálisis contemporáneo, diplomado en técnica psicoanalítica.",
+        "about": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "phrase": "Somos seres deseantes destinados a la incompletud y es eso lo que nos hace caminar.",
+        "profileImg": "Karla_Escalera_R.png",
+        "userType": "therapist",
+        "categories": [1, 2, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    },
+    "franciscojortega@terapy.mx": {
+        "email": "franciscojortega@terapy.mx",
+        "token": "07ea9c65-7dc1-4057-a417-e210e99d1dc1",
+        "password": "abcDEF123",
+        "name": "Francisco Javier",
+        "lastName": "Ortega Muñoz",
+        "title": "Psic.",
+        "experience": "Psicólogo clínico formado en psicoterapia individual con orientación psicoanalítica enfocado en adolescentes y adultos.",
+        "about": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "phrase": "- Las creencias de la gente acerca de sus habilidades tienen un gran efecto en esas capacidades.- Bandura",
+        "profileImg": "Francisco_Javier_Ortega_M.png",
+        "userType": "therapist",
+        "categories": [1, 2, 3],
+        "timeAvailability": {
+            "hours": {
+                "monday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "tuesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "wednesday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "thursday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "friday": [
+                    [9, 12],
+                    [13, 18]
+                ],
+                "saturday": [[9, 15]],
+                "sunday": null
+            },
+            "specialDates": {
+                "2022-09-16": null,
+                "2022-12-24": [[9, 12]],
+                "2022-12-25": null
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-const TYPE = `[INGREDIENTS]`;
+const TYPE = `[CATEGORIES]`;
 
 export default {
     FETCH_START: `${TYPE} FETCH START`,

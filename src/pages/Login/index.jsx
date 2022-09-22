@@ -45,9 +45,9 @@ const Login = () => {
 
     const login = async () => {
         try {
-            const r = await fetch('data/users.json');
+            const r = await fetch(process.env.PUBLIC_URL + '/data/users.json');
             const users = await r.json();
-            const auth = users.find(({ username })=> username === user);
+            const auth = users[user];
             if(!auth) {
                 setError('Error');
                 return;
@@ -93,9 +93,9 @@ const Login = () => {
                     }}
                 />
                 <Body style={{ textAlign: 'center', marginTop: '20px' }}>
-                    ¿Olvidaste tu contraseña?{' '}
+                    ¿Olvidaste tu contraseña?
                     <b>
-                        <CustomLink href="/recovery">Recupérala</CustomLink>
+                        <CustomLink to="/recovery">Recupérala</CustomLink>
                     </b>
                 </Body>
                 {error && <ErrorText>"Error al iniciar sesión, verifique sus datos"</ErrorText>}

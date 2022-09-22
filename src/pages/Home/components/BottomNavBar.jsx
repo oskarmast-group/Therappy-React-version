@@ -68,7 +68,6 @@ const BottomNavBar = ({ location }) => {
                 <Item icon={HomeSVG} path={'/home/resumen'} current={location.pathname} />
                 <Item icon={MessagesSVG} path={'/home/mensajes'} current={location.pathname} />
                 <Item icon={CalendarSVG} path={'/home/calendario'} current={location.pathname} />
-                <Item icon={VideocallsSVG} path={'/home/llamada'} current={location.pathname} />
             </BottomNavBarComponent>
         </BottomNavBarContainer>
     );

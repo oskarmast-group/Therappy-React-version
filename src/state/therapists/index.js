@@ -2,7 +2,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import Dispatcher from './dispatcher';
 import selector from './selector';
 
-const useIngredients = () => {
+const useTherapist = () => {
     const dispatcher = new Dispatcher(useDispatch());
     const data = useSelector(selector, shallowEqual)
 
@@ -10,4 +10,4 @@ const useIngredients = () => {
 }
 
 
-export default useIngredients;
+export default useTherapist;

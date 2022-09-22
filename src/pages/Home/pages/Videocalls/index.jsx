@@ -7,13 +7,13 @@ import MicOffSVG from 'resources/img/mic-off.svg';
 import CamOnSVG from 'resources/img/cam-on.svg';
 import CamOffSVG from 'resources/img/cam-off.svg';
 import Button from 'components/Button';
-import adapter from 'webrtc-adapter';
 import { useStreamingSocket } from './useStreamingSocket';
 
 const VideoContainer = styled.div`
     display: flex;
     position: relative;
     min-height: 200px;
+    max-height: 250px;
     background-color: black;
     margin-bottom: 20px;
 `;
@@ -21,6 +21,7 @@ const VideoContainer = styled.div`
 const OwnVideo = styled.video`
     width: 100%;
     max-width: 100%;
+    max-height: 100%;
     height: auto;
     display: block;
     position: relative;
@@ -38,6 +39,7 @@ const OwnVideo = styled.video`
 const RemoteVideo = styled.video`
     width: 100%;
     max-width: 100%;
+    max-height: 100%;
     height: auto;
     display: none;
     &.active {

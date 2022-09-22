@@ -8,10 +8,17 @@ import Calendar from './pages/Calendar';
 import Videocalls from './pages/Videocalls';
 import BottomNavBar from './components/BottomNavBar';
 import TopBar from './components/TopBar';
+import useUser from 'state/user';
+import { useEffect } from 'react';
 
 const Home = ({ location }) => {
     const { path, url } = useRouteMatch();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [ user, userDispatcher ] = useUser();
+
+    useEffect(()=>{
+        userDispatcher.fetchStart();
+    }, []);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -19,8 +26,8 @@ const Home = ({ location }) => {
 
     return (
         <>
-            <MainContainer>
-                <TopBar />
+            <MainContainer menuOpen={menuOpen} toggleMenu={toggleMenu} >
+                <TopBar toggleMenu={toggleMenu} />
                 <Switch>
                     <Route exact path={path}>
                         <Redirect to={`${url}/resumen`} />

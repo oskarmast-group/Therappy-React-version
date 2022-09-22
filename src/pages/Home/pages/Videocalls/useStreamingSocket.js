@@ -1,21 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { API } from 'resources/constants/urls';
 import openSocket from 'socket.io-client';
+import adapter from 'webrtc-adapter';
 
 const socket = openSocket(API);
 let pc;
 let isStarted = false;
 let isInitiator = false;
+let turnReady;
+
+let pcConfig = {
+    iceServers: [
+        {
+            urls: 'stun:stun.l.google.com:19302',
+        },
+    ],
+};
+
+if (window.location.hostname !== 'localhost') {
+    requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
+}
+
+function requestTurn(turnURL) {
+    var turnExists = false;
+    for (var i in pcConfig.iceServers) {
+        if (pcConfig.iceServers[i].urls.substr(0, 5) === 'turn:') {
+            turnExists = true;
+            turnReady = true;
+            break;
+        }
+    }
+    if (!turnExists) {
+        console.log('Getting TURN server from ', turnURL);
+        // No TURN server. Get one from computeengineondemand.appspot.com:
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var turnServer = JSON.parse(xhr.responseText);
+                console.log('Got TURN server: ', turnServer);
+                pcConfig.iceServers.push({
+                    urls: 'turn:' + turnServer.username + '@' + turnServer.turn,
+                    credential: turnServer.password,
+                });
+                turnReady = true;
+            }
+        };
+        xhr.open('GET', turnURL, true);
+        xhr.send();
+    }
+}
 
 export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remoteStream) => {
-
     const connectToRoom = (roomId) => {
         socket.emit('create or join', roomId);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         window.onbeforeunload = () => sendMessage('bye');
-    },[])
+    }, []);
 
     useEffect(() => {
         socket.off('created').on('created', (room, clientId) => {
@@ -65,7 +107,7 @@ export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remo
         });
     });
 
-    function start(){
+    function start() {
         console.log('>>>>>> start');
         console.log(localStream);
         if (!isStarted && !!localStream && !pc) {
@@ -84,7 +126,7 @@ export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remo
                 (e) => console.log('createOffer() error: ', e)
             );
         }
-    };
+    }
 
     const sendMessage = (message) => {
         console.log('Client sending message: ', message);
@@ -119,7 +161,7 @@ export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remo
         isStarted = false;
         pc.close();
         pc = null;
-        if(remoteStream) {
+        if (remoteStream) {
             remoteStream.getTracks().forEach((track) => {
                 track.stop();
             });
