@@ -1,6 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { processError } from 'state/utils';
 import Types from './types';
+import { push } from 'connected-react-router';
 
 function* fetchStartAsync() {
     try {
@@ -10,6 +11,9 @@ function* fetchStartAsync() {
         const res = yield fetch(process.env.PUBLIC_URL + '/data/users.json');
         const users = yield res.json();
         const auth = users[email];
+        if(!auth) {
+            yield put(push('/logout'))
+        }
         yield put({ type: Types.FETCH_SUCCESS, payload: auth });
     } catch (error) {
         const message = processError(error);

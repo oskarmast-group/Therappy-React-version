@@ -41,9 +41,9 @@ const Input = ({ style = {}, icon, inputProps = {}, labelProps = {} }) => {
     const { value, ...restInputProps } = inputProps;
     const mergedInputProps = { ...defaultInputProps, ...restInputProps };
 
-    const { label = '', ...restLabelProps } = labelProps;
+    const { label = '', /*...restLabelProps*/ } = labelProps;
 
-    const validValue = (!!value || value === 0 || value === '0') && !!label;
+    //const validValue = (!!value || value === 0 || value === '0') && !!label;
 
     return (
         <Container style={style}>

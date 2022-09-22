@@ -87,30 +87,30 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                 <ul>
                     <li>
                         <Link to="/perfil">
-                            <img src={PersonSVG} />
+                            <img src={PersonSVG} alt={'Persona'} />
                             <p>Perfil</p>
-                            <img src={ArrowSVG} />
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
                         <Link to="/pruebas">
-                            <img src={VideoSVG} />
+                            <img src={VideoSVG} alt={'Video'} />
                             <p>Probar audio/video</p>
-                            <img src={ArrowSVG} />
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
                         <Link to="/pagos">
-                            <img src={CardSVG} />
+                            <img src={CardSVG} alt={'Tarjeta'} />
                             <p>Pagos</p>
-                            <img src={ArrowSVG} />
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
                         <Link to="/logout">
-                            <img src={LogOutSVG} />
+                            <img src={LogOutSVG} alt={'Cerrar sesión'} />
                             <p>Cerrar Sesión</p>
-                            <img src={ArrowSVG} />
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                 </ul>

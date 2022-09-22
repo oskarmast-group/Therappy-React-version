@@ -14,10 +14,11 @@ import { useEffect } from 'react';
 const Home = ({ location }) => {
     const { path, url } = useRouteMatch();
     const [menuOpen, setMenuOpen] = useState(false);
-    const [ user, userDispatcher ] = useUser();
+    const [ , userDispatcher ] = useUser();
 
     useEffect(()=>{
         userDispatcher.fetchStart();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const toggleMenu = () => {

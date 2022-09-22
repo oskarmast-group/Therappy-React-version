@@ -2,7 +2,7 @@ import React from 'react';
 import { DARKER_TEXT, DARK_TEXT } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
-import TherapistsList from './components/TherapistsList';
+import TherapistSelectionSection from './components/TherapistSelectionSection';
 
 const Salute = styled.h1`
     font-size: 34px;
@@ -35,7 +35,7 @@ const Summary = () => {
                 !!user.user.assignedTherapist ? (
                     <div>{user?.user?.assignedTherapist}</div>
                 ) : (
-                    <TherapistsList />
+                    <TherapistSelectionSection />
                 )
             ) : (
                 <div>Cargando...</div>

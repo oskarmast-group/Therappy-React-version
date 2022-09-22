@@ -35,9 +35,9 @@ const TopBar = ({ toggleMenu }) => {
 
     return (
         <TopBarComponent>
-            <MenuButton src={MenuSVG} onClick={toggleMenu} style={{ marginTop: '10px' }} />
+            <MenuButton src={MenuSVG} onClick={toggleMenu} style={{ marginTop: '10px' }} alt={'Menu'} />
             <ProfileContainer>
-                <img src={user?.user?.profileImg ? `${process.env.PUBLIC_URL}/images/${user.user.profileImg}` : NoProfileSVG} />
+                <img src={user?.user?.profileImg ? `${process.env.PUBLIC_URL}/images/${user.user.profileImg}` : NoProfileSVG} alt={'Imagen de perfil'} />
             </ProfileContainer>
         </TopBarComponent>
     );

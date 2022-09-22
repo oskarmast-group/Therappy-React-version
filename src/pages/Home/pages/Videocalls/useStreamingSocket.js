@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { API } from 'resources/constants/urls';
 import openSocket from 'socket.io-client';
-import adapter from 'webrtc-adapter';
+//import adapter from 'webrtc-adapter';
 
 const socket = openSocket(API);
 let pc;

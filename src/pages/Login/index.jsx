@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Person from 'resources/img/person.svg';
 import { Body, CustomLink } from 'components/Text';
 import Button from 'components/Button';
+import { AUTH_VALIDATION } from 'resources/constants/constants';
 
 const Logo = styled.img`
     width: 60%;
@@ -58,6 +59,7 @@ const Login = () => {
             }
             setError('');
             localStorage.setItem('auth', JSON.stringify(auth));
+            localStorage.setItem('authValidation', AUTH_VALIDATION);
             window.location.href = '/';
         } catch (e) {
             console.error(e);

@@ -12,6 +12,10 @@ const Main = styled.main`
     padding-bottom: 0;
     margin-bottom: 58px;
     min-height: 0;
+
+    &.fullscreen {
+        margin-bottom: 0;
+    }
 `;
 
 const TopDecoration = styled.div`
@@ -34,7 +38,7 @@ const BottomDecoration = styled.div`
     }
 `;
 
-const MainContainer = ({ children, withTopDecoration = true, withBottomDecoration = false, withSideMenu = true, menuOpen = false, toggleMenu }) => {
+const MainContainer = ({ children, withBottomNavigation=true, withTopDecoration = true, withBottomDecoration = false, withSideMenu = true, menuOpen = false, toggleMenu }) => {
     return (
         <>
             {withTopDecoration && (
@@ -42,7 +46,7 @@ const MainContainer = ({ children, withTopDecoration = true, withBottomDecoratio
                     <img src={TopShape} alt={"curva de decoración superior"}/>
                 </TopDecoration>
             )}
-            <Main>{children}</Main>
+            <Main className={withBottomNavigation ? '' : 'fullscreen'}>{children}</Main>
             {withBottomDecoration && (
                 <BottomDecoration>
                     <img src={BottomShape} alt={"curva de decoración inferior"}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import HomeSVG from 'resources/img/home.svg';
 import MessagesSVG from 'resources/img/messages.svg';
 import CalendarSVG from 'resources/img/calendar.svg';
-import VideocallsSVG from 'resources/img/videocalls.svg';
+//import VideocallsSVG from 'resources/img/videocalls.svg';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ const Item = ({ icon, path, current }) => {
     const active = isCurrent(path, current, 2);
     return (
         <ItemContainer to={path}>
-            <img src={icon} />
+            <img src={icon} alt={`icono ${current}`} />
             <div className={active ? 'active' : ''} />
         </ItemContainer>
     );
