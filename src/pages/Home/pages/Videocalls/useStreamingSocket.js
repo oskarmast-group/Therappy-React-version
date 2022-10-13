@@ -15,8 +15,9 @@ let pcConfig = {
             urls: 'stun:stun.terappy.mx:5349',
         },
         {
-            urls: 'turn:coturn@turn.terappy.mx:5349',
+            urls: 'turn:turn.terappy.mx:5349',
             credential: 'tdKp3tbOOzWl0vSZ7kGwE97t5',
+            username: 'coturn'
         }
     ],
 };
