@@ -12,6 +12,9 @@ const TopBarComponent = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     align-items: center;
+    @media screen and (max-height: 670px) {
+        height: 36px;
+    }
 `;
 
 const MenuButton = styled.img`

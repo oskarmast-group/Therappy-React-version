@@ -1,15 +1,12 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { categoriesAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import Types from './types';
 
 function* fetchStartAsync() {
     try {
-        console.log('res');
-        const res = yield fetch(process.env.PUBLIC_URL + '/data/categories.json');
-        console.log(res);
-        const users = yield res.json();
-        const categories = Object.values(users);
-        yield put({ type: Types.FETCH_SUCCESS, payload: categories });
+        const res = yield categoriesAPI.getAll();
+        yield put({ type: Types.FETCH_SUCCESS, payload: res });
     } catch (error) {
         const message = processError(error);
         console.error(message);

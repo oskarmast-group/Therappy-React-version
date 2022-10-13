@@ -1,1 +1,4 @@
-export const API = process.env.REACT_APP_API_URL || 'https://pure-bayou-82597.herokuapp.com';
+export const API = process.env.REACT_APP_API_URL;
+
+export const IMAGES_URL = process.env.REACT_APP_IMAGES_URL;
+

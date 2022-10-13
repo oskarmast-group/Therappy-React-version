@@ -6,10 +6,25 @@ import Logout from 'pages/Logout';
 import Login from 'pages/Login';
 import Therapists from 'pages/Therapists';
 import RouterProvider from 'providers/router';
+import ErrorManagement from 'components/ErrorManagement';
+import useCategories from 'state/categories';
+import useTherapist from 'state/therapists';
+import useUser from 'state/user';
 
 const App = () => {
+    const [categories, categoriesDispatcher] = useCategories();
+    const [therapist, therapistDispatcher] = useTherapist();
+    const [user, userDispatcher] = useUser();
+
     return (
         <RouterProvider>
+            <ErrorManagement
+                states={{
+                    categories: { state: categories.error, resetError: categoriesDispatcher.resetError },
+                    therapist: { state: therapist.error, resetError: therapistDispatcher.resetError },
+                    user: { state: user.error, resetError: userDispatcher.resetError },
+                }}
+            />
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/logout" component={Logout} />

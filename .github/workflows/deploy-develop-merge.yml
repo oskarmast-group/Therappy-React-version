@@ -12,10 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: 'Create env file'
-        run: |
-          touch .env
-          echo REACT_APP_API_URL="https://pure-bayou-82597.herokuapp.com" >> .env
-          cat .env
       - run: npm i && CI=false npm run build
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -24,4 +20,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build/
-          server-dir: public_html/terappyapptest/
+          server-dir: public_html/terappyapp/

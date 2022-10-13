@@ -1,1 +1,0 @@
-export const AUTH_VALIDATION = process.env.REACT_APP_AUTH_VALIDATION;

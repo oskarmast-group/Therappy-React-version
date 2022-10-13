@@ -1,13 +1,12 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { therapistAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import Types from './types';
 
 function* fetchStartAsync() {
     try {
-        const res = yield fetch(process.env.PUBLIC_URL + '/data/users.json');
-        const users = yield res.json();
-        const therapists = Object.values(users).filter(({ userType })=> userType === 'therapist');
-        yield put({ type: Types.FETCH_SUCCESS, payload: therapists });
+        const res = yield therapistAPI.getAll()
+        yield put({ type: Types.FETCH_SUCCESS, payload: res });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -19,8 +18,24 @@ function* fetchStart() {
   yield takeLatest(Types.FETCH_START, fetchStartAsync);
 }
 
+function* fetchProfileStartAsync({ payload }) {
+    try {
+        const res = yield therapistAPI.getOne(payload)
+        yield put({ type: Types.FETCH_PROFILE_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_PROFILE_ERROR, payload: message });
+    }
+}
+
+function* fetchProfileStart() {
+  yield takeLatest(Types.FETCH_PROFILE_START, fetchProfileStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
+        call(fetchProfileStart),
     ]);
 }

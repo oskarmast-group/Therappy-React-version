@@ -6,18 +6,25 @@ import styled from 'styled-components';
 import Person from 'resources/img/person.svg';
 import { Body, CustomLink } from 'components/Text';
 import Button from 'components/Button';
-import { AUTH_VALIDATION } from 'resources/constants/constants';
+import { authAPI } from 'resources/api';
 
 const Logo = styled.img`
     width: 60%;
     margin-top: 60px;
     align-self: center;
+    @media screen and (max-height: 670px) {
+        margin-top: 20px;
+    }
 `;
 
 const Catchphrase = styled.p`
     text-align: center;
     font-size: 1rem;
     font-weight: 700;
+
+    @media screen and (max-height: 670px) {
+        font-size: 0.875rem;
+    }
 `;
 
 const Title = styled.h1`
@@ -25,6 +32,11 @@ const Title = styled.h1`
     font-size: 1.5rem;
     font-weight: 700;
     color: #1e2205;
+
+    @media screen and (max-height: 670px) {
+        font-size: 1.3rem;
+        margin: 5px 0;
+    }
 `;
 
 const ErrorText = styled.p`
@@ -34,9 +46,22 @@ const ErrorText = styled.p`
     color: #D50000;
 `;
 
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @media screen and (max-height: 670px) {
+        gap: 10px;
+    }
+`;
+
+const ForgotPassword = styled(Body)`
+    text-align: center;
+`;
+
 const Login = () => {
     const [user, setUser] = useState('');
-    const [passsword, setPassword] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const submit = (e) => {
@@ -46,20 +71,8 @@ const Login = () => {
 
     const login = async () => {
         try {
-            const r = await fetch(process.env.PUBLIC_URL + '/data/users.json');
-            const users = await r.json();
-            const auth = users[user];
-            if(!auth) {
-                setError('Error');
-                return;
-            }
-            if(auth.password !== passsword) {
-                setError('Error');
-                return;
-            }
-            setError('');
-            localStorage.setItem('auth', JSON.stringify(auth));
-            localStorage.setItem('authValidation', AUTH_VALIDATION);
+            const res = await authAPI.login({email: user, password});
+            localStorage.setItem('auth', JSON.stringify(res));
             window.location.href = '/';
         } catch (e) {
             console.error(e);
@@ -72,7 +85,7 @@ const Login = () => {
             <Logo src={TherappyLogo} alt={'Logo Therappy'} />
             <Catchphrase>Ayuda psicológica profesional por videollamada</Catchphrase>
             <Title>Iniciar Sesión</Title>
-            <form onSubmit={submit}>
+            <Form onSubmit={submit}>
                 <Input
                     icon={Person}
                     inputProps={{
@@ -84,25 +97,24 @@ const Login = () => {
                     }}
                 />
                 <Input
-                    style={{ marginTop: '20px' }}
                     icon={Person}
                     inputProps={{
                         required: true,
                         type: 'password',
-                        value: passsword,
+                        value: password,
                         onChange: (e) => setPassword(e.target.value),
                         placeholder: 'Contraseña',
                     }}
                 />
-                <Body style={{ textAlign: 'center', marginTop: '20px' }}>
-                    ¿Olvidaste tu contraseña?
+                <ForgotPassword>
+                    ¿Olvidaste tu contraseña?{' '}
                     <b>
                         <CustomLink to="/recovery">Recupérala</CustomLink>
                     </b>
-                </Body>
+                </ForgotPassword>
                 {error && <ErrorText>"Error al iniciar sesión, verifique sus datos"</ErrorText>}
-                <Button style={{ marginTop: '20px' }}>Continuar</Button>
-            </form>
+                <Button>Continuar</Button>
+            </Form>
         </MainContainer>
     );
 };

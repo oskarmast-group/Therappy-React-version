@@ -11,3 +11,11 @@ export const CustomLink = styled(Link)`
     color: #1e2205;
     text-decoration: none;
 `;
+
+export const SectionTitle = styled.h3`
+    color: #1e2205;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 15px 0;
+    margin-bottom: 5px;
+`;

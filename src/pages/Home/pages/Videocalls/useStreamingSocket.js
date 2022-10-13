@@ -12,43 +12,47 @@ let turnReady;
 let pcConfig = {
     iceServers: [
         {
-            urls: 'stun:stun.l.google.com:19302',
+            urls: 'stun:stun.terappy.mx:5349',
         },
+        {
+            urls: 'turn:coturn@turn.terappy.mx:5349',
+            credential: 'tdKp3tbOOzWl0vSZ7kGwE97t5',
+        }
     ],
 };
 
-if (window.location.hostname !== 'localhost') {
-    requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
-}
+// if (window.location.hostname !== 'localhost') {
+//     requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
+// }
 
-function requestTurn(turnURL) {
-    var turnExists = false;
-    for (var i in pcConfig.iceServers) {
-        if (pcConfig.iceServers[i].urls.substr(0, 5) === 'turn:') {
-            turnExists = true;
-            turnReady = true;
-            break;
-        }
-    }
-    if (!turnExists) {
-        console.log('Getting TURN server from ', turnURL);
-        // No TURN server. Get one from computeengineondemand.appspot.com:
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var turnServer = JSON.parse(xhr.responseText);
-                console.log('Got TURN server: ', turnServer);
-                pcConfig.iceServers.push({
-                    urls: 'turn:' + turnServer.username + '@' + turnServer.turn,
-                    credential: turnServer.password,
-                });
-                turnReady = true;
-            }
-        };
-        xhr.open('GET', turnURL, true);
-        xhr.send();
-    }
-}
+// function requestTurn(turnURL) {
+//     var turnExists = false;
+//     for (var i in pcConfig.iceServers) {
+//         if (pcConfig.iceServers[i].urls.substr(0, 5) === 'turn:') {
+//             turnExists = true;
+//             turnReady = true;
+//             break;
+//         }
+//     }
+//     if (!turnExists) {
+//         console.log('Getting TURN server from ', turnURL);
+//         // No TURN server. Get one from computeengineondemand.appspot.com:
+//         var xhr = new XMLHttpRequest();
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4 && xhr.status === 200) {
+//                 var turnServer = JSON.parse(xhr.responseText);
+//                 console.log('Got TURN server: ', turnServer);
+//                 pcConfig.iceServers.push({
+//                     urls: 'turn:' + turnServer.username + '@' + turnServer.turn,
+//                     credential: turnServer.password,
+//                 });
+//                 turnReady = true;
+//             }
+//         };
+//         xhr.open('GET', turnURL, true);
+//         xhr.send();
+//     }
+// }
 
 export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remoteStream) => {
     const connectToRoom = (roomId) => {
@@ -113,10 +117,10 @@ export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remo
         if (!isStarted && !!localStream && !pc) {
             console.log('>>>>>> creating peer connection');
             createPeerConnection();
-            pc.addStream(localStream);
-            isStarted = true;
         }
         if (isInitiator && !!pc) {
+            pc.addStream(localStream);
+            isStarted = true;
             pc.createOffer(
                 (sessionDescription) => {
                     pc.setLocalDescription(sessionDescription);
@@ -172,7 +176,7 @@ export const useStreamingSocket = (localStream, setRemoteStream, setOnCall, remo
 
     function createPeerConnection() {
         try {
-            pc = new RTCPeerConnection(null);
+            pc = new RTCPeerConnection(pcConfig);
             pc.onicecandidate = handleIceCandidate;
             pc.onaddstream = handleRemoteStreamAdded;
             pc.onremovestream = handleRemoteStreamRemoved;

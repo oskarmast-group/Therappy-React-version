@@ -9,12 +9,18 @@ const Main = styled.main`
     display: flex;
     flex-direction: column;
     padding: 20px;
+    padding-top: 0;
     padding-bottom: 0;
     margin-bottom: 58px;
     min-height: 0;
 
     &.fullscreen {
         margin-bottom: 0;
+    }
+
+    @media screen and (max-height: 670px) {
+        padding: 10px;
+        padding-top: 0;
     }
 `;
 

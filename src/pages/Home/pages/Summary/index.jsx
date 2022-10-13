@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import TherapistSelectionSection from './components/TherapistSelectionSection';
 
 const Salute = styled.h1`
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 600;
     color: ${DARKER_TEXT};
     margin: 0;
@@ -15,7 +15,7 @@ const Salute = styled.h1`
 `;
 
 const Subtitle = styled.h2`
-    font-size: 27px;
+    font-size: 21px;
     font-weight: 600;
     color: ${DARK_TEXT};
     margin: 0;
@@ -25,15 +25,15 @@ const Summary = () => {
     const [user] = useUser();
     return (
         <>
-            <header style={{ marginBottom: '20px', minHeight: 0 }}>
+            <header style={{ marginBottom: '15px', minHeight: 0 }}>
                 <Salute>
                     Hola, <span>{user?.user?.name ?? ''}</span>
                 </Salute>
                 <Subtitle>¿Cómo te encuentras hoy?</Subtitle>
             </header>
-            {!!user?.user ? (
-                !!user.user.assignedTherapist ? (
-                    <div>{user?.user?.assignedTherapist}</div>
+            {user?.user && !user.fetching.state ? (
+                !!user.user.extraData?.therapist ? (
+                    <div>{user?.user?.extraData?.therapist?.name}</div>
                 ) : (
                     <TherapistSelectionSection />
                 )

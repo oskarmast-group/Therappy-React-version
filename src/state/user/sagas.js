@@ -1,20 +1,12 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { profileAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import Types from './types';
-import { push } from 'connected-react-router';
 
 function* fetchStartAsync() {
     try {
-        const storage = localStorage.getItem("auth");
-        const parsedAuth = JSON.parse(storage);
-        const { email } = parsedAuth;
-        const res = yield fetch(process.env.PUBLIC_URL + '/data/users.json');
-        const users = yield res.json();
-        const auth = users[email];
-        if(!auth) {
-            yield put(push('/logout'))
-        }
-        yield put({ type: Types.FETCH_SUCCESS, payload: auth });
+        const res = yield profileAPI.profile();
+        yield put({ type: Types.FETCH_SUCCESS, payload: res });
     } catch (error) {
         const message = processError(error);
         console.error(message);

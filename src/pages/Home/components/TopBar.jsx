@@ -1,5 +1,6 @@
 import React from 'react';
 import { GREEN } from 'resources/constants/colors';
+import { IMAGES_URL } from 'resources/constants/urls';
 import MenuSVG from 'resources/img/menu.svg';
 import NoProfileSVG from 'resources/img/no-profile.svg';
 import useUser from 'state/user';
@@ -37,7 +38,7 @@ const TopBar = ({ toggleMenu }) => {
         <TopBarComponent>
             <MenuButton src={MenuSVG} onClick={toggleMenu} style={{ marginTop: '10px' }} alt={'Menu'} />
             <ProfileContainer>
-                <img src={user?.user?.profileImg ? `${process.env.PUBLIC_URL}/images/${user.user.profileImg}` : NoProfileSVG} alt={'Imagen de perfil'} />
+                <img src={user?.user?.profileImg ? `${IMAGES_URL}${user.user.profileImg}` : NoProfileSVG} alt={'Imagen de perfil'} />
             </ProfileContainer>
         </TopBarComponent>
     );

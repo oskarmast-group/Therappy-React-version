@@ -86,21 +86,21 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
             <Navigation>
                 <ul>
                     <li>
-                        <Link to="/perfil">
+                        <Link to="/">
                             <img src={PersonSVG} alt={'Persona'} />
                             <p>Perfil</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
-                        <Link to="/pruebas">
+                        <Link to="/">
                             <img src={VideoSVG} alt={'Video'} />
                             <p>Probar audio/video</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
-                        <Link to="/pagos">
+                        <Link to="/">
                             <img src={CardSVG} alt={'Tarjeta'} />
                             <p>Pagos</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
