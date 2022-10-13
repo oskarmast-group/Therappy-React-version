@@ -12,13 +12,23 @@ let turnReady;
 let pcConfig = {
     iceServers: [
         {
-            urls: 'stun:stun.terappy.mx:5349',
+            urls: 'stun:openrelay.metered.ca:80',
         },
         {
-            urls: 'turn:turn.terappy.mx:5349',
-            credential: 'tdKp3tbOOzWl0vSZ7kGwE97t5',
-            username: 'coturn'
-        }
+            urls: 'turn:openrelay.metered.ca:80',
+            username: 'openrelayproject',
+            credential: 'openrelayproject',
+        },
+        {
+            urls: 'turn:openrelay.metered.ca:443',
+            username: 'openrelayproject',
+            credential: 'openrelayproject',
+        },
+        {
+            urls: 'turn:openrelay.metered.ca:443?transport=tcp',
+            username: 'openrelayproject',
+            credential: 'openrelayproject',
+        },
     ],
 };
 
