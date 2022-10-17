@@ -9,6 +9,14 @@ const Button = styled.button`
     background-color: #687711;
     color: white;
     font-size: 1rem;
+
+    &:disabled,
+    &[disabled] {
+        background-color: #cccccc;
+        color: #666666;
+        pointer-events: none;
+        opacity: 0.6;
+    }
 `;
 
 export default Button;

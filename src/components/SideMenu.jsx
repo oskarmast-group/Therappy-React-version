@@ -86,7 +86,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
             <Navigation>
                 <ul>
                     <li>
-                        <Link to="/">
+                        <Link to="/perfil">
                             <img src={PersonSVG} alt={'Persona'} />
                             <p>Perfil</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />

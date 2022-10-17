@@ -6,5 +6,9 @@ export default class Dispatcher {
 
     fetchStart = () => this.dispatch({ type: Types.FETCH_START, payload: {} });
 
+    updateImageStart = (image) => this.dispatch({ type: Types.UPDATE_IMAGE_START, payload: image });
+
+    updateStart = (payload) => this.dispatch({ type: Types.UPDATE_START, payload });
+
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

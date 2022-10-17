@@ -13,6 +13,8 @@ const crudder = (domain, resource, withAuth = true) => {
             url,
         },
         profile: () => executeCall(() => Axios.get(url, { headers })),
+        updateImage: (data) => executeCall(() => Axios.patch(url + '/img', data, { headers })),
+        update: (data) => executeCall(() => Axios.patch(url, data, { headers })),
     };
 };
 

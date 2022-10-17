@@ -10,6 +10,8 @@ import ErrorManagement from 'components/ErrorManagement';
 import useCategories from 'state/categories';
 import useTherapist from 'state/therapists';
 import useUser from 'state/user';
+import Profile from 'pages/Profile';
+import AlertServiceProvider from 'alert';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -18,22 +20,25 @@ const App = () => {
 
     return (
         <RouterProvider>
-            <ErrorManagement
-                states={{
-                    categories: { state: categories.error, resetError: categoriesDispatcher.resetError },
-                    therapist: { state: therapist.error, resetError: therapistDispatcher.resetError },
-                    user: { state: user.error, resetError: userDispatcher.resetError },
-                }}
-            />
-            <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/logout" component={Logout} />
-                <Route exact path="/">
-                    <Redirect to="/home" />
-                </Route>
-                <PrivateRoute path="/home" component={Home} />
-                <PrivateRoute path="/terapeutas" component={Therapists} />
-            </Switch>
+            <AlertServiceProvider>
+                <ErrorManagement
+                    states={{
+                        categories: { state: categories.error, resetError: categoriesDispatcher.resetError },
+                        therapist: { state: therapist.error, resetError: therapistDispatcher.resetError },
+                        user: { state: user.error, resetError: userDispatcher.resetError },
+                    }}
+                />
+                <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/logout" component={Logout} />
+                    <Route exact path="/">
+                        <Redirect to="/home" />
+                    </Route>
+                    <PrivateRoute path="/home" component={Home} />
+                    <PrivateRoute path="/terapeutas" component={Therapists} />
+                    <PrivateRoute path="/perfil" component={Profile} />
+                </Switch>
+            </AlertServiceProvider>
         </RouterProvider>
     );
 };
