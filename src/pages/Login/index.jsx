@@ -87,7 +87,7 @@ const Login = () => {
             <Title>Iniciar Sesión</Title>
             <Form onSubmit={submit}>
                 <Input
-                    icon={Person}
+                    iconProps={{ icon: Person }}
                     inputProps={{
                         required: true,
                         type: 'email',
@@ -97,7 +97,7 @@ const Login = () => {
                     }}
                 />
                 <Input
-                    icon={Person}
+                    iconProps={{ icon: Person }}
                     inputProps={{
                         required: true,
                         type: 'password',

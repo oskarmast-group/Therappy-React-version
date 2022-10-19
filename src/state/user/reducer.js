@@ -10,9 +10,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case Types.FETCH_START:
-    case Types.UPDATE_START:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE, state: true } };
-
+    case Types.UPDATE_START:
+      return { ...state, fetching: { config: { key: action.payload.key }, state: true } };
     case Types.UPDATE_IMAGE_START:
       return { ...state, fetching: { config: { key: 'image' }, state: true } };
 

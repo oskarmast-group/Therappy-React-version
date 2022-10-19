@@ -59,7 +59,6 @@ const Container = styled.div`
 const ProfileUpload = () => {
     const [user, userDispatcher] = useUser();
     const [loadedPicture, setLoadedPicture] = useState(null);
-    const [croppedImage, setCroppedImage] = useState(null);
     const alert = useAlert();
 
     const handleChange = (imageList) => {
@@ -97,7 +96,6 @@ const ProfileUpload = () => {
         })
             .then((croppedImage) => {
                 console.log(typeof croppedImage);
-                setCroppedImage(croppedImage);
                 uploadImage(croppedImage);
             })
             .catch(() => {});

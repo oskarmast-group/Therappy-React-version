@@ -36,6 +36,23 @@ function* updateImageStart() {
     yield takeLatest(Types.UPDATE_IMAGE_START, updateImageStartAsync);
 }
 
+function* updateStartAsync({ payload }) {
+    try {
+        const { key, value } = payload;
+        yield profileAPI.update({[key]: value});
+        const newProfile = yield profileAPI.profile();
+        yield put({ type: Types.FETCH_SUCCESS, payload: newProfile });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.UPDATE_ERROR, payload: message });
+    }
+}
+
+function* updateStart() {
+    yield takeLatest(Types.UPDATE_START, updateStartAsync);
+}
+
 function* updateSuccess() {
     yield takeLatest(Types.UPDATE_SUCCESS, fetchStartAsync);
 }
@@ -44,6 +61,7 @@ export default function* sagas() {
     yield all([
         call(fetchStart),
         call(updateImageStart),
+        call(updateStart),
         call(updateSuccess),
     ]);
 }
