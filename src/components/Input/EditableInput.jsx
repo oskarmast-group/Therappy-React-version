@@ -1,11 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
-import Container from './Container';
+import React, { useState, useEffect, useRef  } from 'react';
+import Container from './styles';
 import EditSVG from 'resources/img/icons/edit-hollow-icon.svg';
 import CheckSVG from 'resources/img/icons/check-circle-icon.svg';
 import styled from 'styled-components';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 import { Ring } from '@uiball/loaders';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 
@@ -87,7 +84,7 @@ const EditableInput = ({
                 {loading ? (
                     <Ring color={PRIMARY_GREEN} size={22} />
                 ) : (
-                    <img src={isEditing ? CheckSVG : EditSVG} alt={isEditing ? 'Guardar' : 'Editar'} {...restIconProps} />
+                    <img src={isEditing ? CheckSVG : EditSVG} alt={isEditing ? 'Guardar' : 'Editar'} />
                 )}
             </button>
         </CustomContainer>

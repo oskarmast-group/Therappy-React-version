@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { DARKER_TEXT } from 'resources/constants/colors';
 
-const upLabel = `
+export const upLabel = `
     position: absolute;
     top: -20px;
     font-size: 0.75rem;
 `;
 
-const Container = styled.div`
+export const ContainerStyles = `
     width: 100%;
     display: flex;
     height: 40px;
@@ -14,18 +15,46 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
-    ${({ withLabel }) => withLabel ? 'margin-top: 20px;' : ''}
     border: 1px solid #687711;
     border-radius: 30px;
     position: relative;
+`;
+
+export const IconContainerStyles = `
+    width: 30px;
+    height: 100%;
+    display: flex;
+`;
+
+export const IconStyles = `
+    width: 100%;
+    height: 100%;
+    justify-self: center;
+`;
+
+export const LabelContainerStyles = `
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 5px 10px;
+    pointer-events: none;
+`;
+
+export const LabelStyles = `
+    position: absolute;
+    top: 10px;
+    transition-duration: 0.2s;
+    font-size: 0.875rem;
+    font-weight: 500;
+`;
+
+const Container = styled.div`
+    ${ContainerStyles}
+    ${({ withLabel }) => (withLabel ? 'margin-top: 20px;' : '')}
     .img-container {
-        width: 30px;
-        height: 100%;
-        display: flex;
+        ${IconContainerStyles}
         img {
-            width: 100%;
-            height: 100%;
-            justify-self: center;
+            ${IconStyles}
         }
     }
     .input-container {
@@ -35,6 +64,10 @@ const Container = styled.div`
             border: none;
             outline: none;
             width: 100%;
+            color: ${DARKER_TEXT};
+            &:disabled {
+                color: ${DARKER_TEXT};
+            }
             &::placeholder {
                 opacity: 1;
                 color: #484848;
@@ -50,18 +83,9 @@ const Container = styled.div`
         }
     }
     .label-container {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        padding: 5px 10px;
-        pointer-events: none;
+        ${LabelContainerStyles}
         label {
-            position: absolute;
-            top: 10px;
-            transition-duration: 0.2s;
-            font-size: 0.875rem;
-            font-weight: 500;
-
+            ${LabelStyles}
             &.up {
                 ${upLabel}
             }

@@ -1,5 +1,6 @@
 import { Ring } from '@uiball/loaders';
 import Input from 'components/Input';
+import CalendarInput from 'components/Input/CalendarInput';
 import EditableInput from 'components/Input/EditableInput';
 import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
@@ -15,6 +16,7 @@ const Profile = () => {
         name: '',
         lastName: '',
         email: '',
+        dob: '',
         phoneNumber: '',
         phoneCountryCode: '',
         countryOrigin: '',
@@ -31,6 +33,7 @@ const Profile = () => {
                 name: user.user.name,
                 lastName: user.user.lastName,
                 email: user.user.email,
+                dob: user.user.dob,
                 phoneNumber: user.user.phoneNumber,
                 phoneCountryCode: user.user.phoneCountryCode,
                 countryOrigin: user.user.countryOrigin,
@@ -46,6 +49,13 @@ const Profile = () => {
         const newValue = userData[key].trim();
         if(user.user[key] !== newValue) {
             userDispatcher.updateStart({key, value: newValue});
+        }
+    }
+
+    const onChangeDate = (value) => {
+        setUserData({ ...userData, dob: value });
+        if(user.user.dob !== value) {
+            userDispatcher.updateStart({key: 'dob', value });
         }
     }
 
@@ -72,11 +82,10 @@ const Profile = () => {
                         loading={user.fetching.state && user.fetching.config.key === 'lastName'}
                         onSubmit={()=>onSubmit('lastName')}
                     />
-                    <EditableInput
-                        inputProps={{ value: userData.email, onChange: (e) => onChange('email')(e.target.value) }}
-                        labelProps={{ label: 'Email' }}
-                        loading={user.fetching.state && user.fetching.config.key === 'email'}
-                        onSubmit={()=>onSubmit('lastName')}
+                    <CalendarInput
+                        inputProps={{ value: userData.dob, onChange: (value) => onChangeDate(value) }}
+                        labelProps={{ label: 'Fecha de nacimiento' }}
+                        loading={user.fetching.state && user.fetching.config.key === 'dob'}
                     />
                 </div>
             )}
