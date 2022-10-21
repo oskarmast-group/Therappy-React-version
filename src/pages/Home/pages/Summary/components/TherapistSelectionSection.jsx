@@ -6,17 +6,7 @@ import SearchSVG from 'resources/img/search.svg';
 import CategorySelector, { CategoryDescription } from 'components/CategorySelector';
 import TherapistsList from 'components/TherapistsList';
 import useTherapist from 'state/therapists';
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-`;
-
-const Intructions = styled.h3`
-    margin: 0;
-`;
+import { Container, Intructions } from './styles';
 
 const SearchButton = styled(Link)`
     margin-top: 10px;

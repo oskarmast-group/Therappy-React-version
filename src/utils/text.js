@@ -1,5 +1,6 @@
+import { daysInOrder } from "./time";
 
-const tranlated = {
+export const tranlateDay = {
     monday: 'Lunes',
     tuesday: 'Martes',
     wednesday: 'Miércoles',
@@ -13,13 +14,11 @@ export const dayOfTheWeekTranslated = ['Domingo', 'Lunes', 'Martes', 'Miércoles
 
 export const dayOfTheWeekTranslatedAbr = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
 
-export const timeAvailabilityToString = ({hours}) => {
-    const daysInOrder = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
-    
+export const timeAvailabilityToString = ({hours}) => {    
     const days = [];
     for(const day of daysInOrder) {
         const hour = hours[day];
-        if(hour!==null) days.push(tranlated[day]);
+        if(hour!==null) days.push(tranlateDay[day]);
     }
 
     const last = days.pop();

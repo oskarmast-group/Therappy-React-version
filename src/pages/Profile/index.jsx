@@ -1,5 +1,4 @@
 import { Ring } from '@uiball/loaders';
-import Input from 'components/Input';
 import CalendarInput from 'components/Input/CalendarInput';
 import EditableInput from 'components/Input/EditableInput';
 import TopBar from 'components/TopBar';

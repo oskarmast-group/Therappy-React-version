@@ -2,6 +2,9 @@ import React from 'react';
 import { DARKER_TEXT, DARK_TEXT } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
+import AppointmentsListSection from './components/AppointmentsListSection';
+import NewsSection from './components/NewsSection';
+import PacientListSection from './components/PacientListSection';
 import TherapistSelectionSection from './components/TherapistSelectionSection';
 
 const Salute = styled.h1`
@@ -32,7 +35,13 @@ const Summary = () => {
                 <Subtitle>¿Cómo te encuentras hoy?</Subtitle>
             </header>
             {user?.user && !user.fetching.state ? (
-                !!user.user.extraData?.therapist ? (
+                user.user.userType === 'therapist' ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <AppointmentsListSection />
+                        <PacientListSection />
+                        <NewsSection />
+                    </div>
+                ) : !!user.user.extraData?.therapist ? (
                     <div>{user?.user?.extraData?.therapist?.name}</div>
                 ) : (
                     <TherapistSelectionSection />
