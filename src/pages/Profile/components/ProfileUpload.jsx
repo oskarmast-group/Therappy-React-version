@@ -108,7 +108,7 @@ const ProfileUpload = () => {
         userDispatcher.updateImageStart(file);
     };
 
-    const loadingPicture = user.fetching.state && user.fetching.config.key === 'image';
+    const loadingPicture = user.fetching.update.state && user.fetching.update.config.key === 'image';
 
     return (
         <Container>

@@ -5,3 +5,4 @@ export const GOLDEN_HIGHLIGHT = "#EFF284";
 export const GREEN_HIGHLIGHT = "#C3F284";
 export const DARK_TEXT = "#484848";
 export const DARKER_TEXT = "#313131";
+export const PLACEHOLDER_TEXT = "#A5A5A5";

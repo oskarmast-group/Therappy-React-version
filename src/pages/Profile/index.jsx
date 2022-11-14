@@ -27,7 +27,7 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        if (Object.keys(user.user).length > 0 && !user.fetching.state) {
+        if (Object.keys(user.user).length > 0 && !user.fetching.fetch.state && !user.fetching.update.state) {
             setUserData({
                 name: user.user.name,
                 lastName: user.user.lastName,
@@ -38,7 +38,7 @@ const Profile = () => {
                 countryOrigin: user.user.countryOrigin,
             });
         }
-    }, [user.user, user.fetching.state]);
+    }, [user.user, user.fetching.fetch.state,  user.fetching.update.state]);
 
     const onChange = (key) => (value) => {
         setUserData({ ...userData, [key]: value });
@@ -58,10 +58,12 @@ const Profile = () => {
         }
     }
 
+    const loadingUserData = user.fetching.update.state || user.fetching.fetch.state
+
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Personalizar'} />
-            {(user.fetching.state && !!user.fetching.state.config && Object.keys(user.fetching.state.config).length === 0) ||
+            {(loadingUserData && !!user.fetching.update.state.config && Object.keys(user.fetching.update.state.config).length === 0) ||
             Object.keys(user.user).length === 0 ? (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Ring color={PRIMARY_GREEN} size={50} />
@@ -72,19 +74,19 @@ const Profile = () => {
                     <EditableInput
                         inputProps={{ value: userData.name, onChange: (e) => onChange('name')(e.target.value) }}
                         labelProps={{ label: 'Nombre(s)' }}
-                        loading={user.fetching.state && user.fetching.config.key === 'name'}
+                        loading={user.fetching.update.state && user.fetching.update.config.key === 'name'}
                         onSubmit={()=>onSubmit('name')}
                     />
                     <EditableInput
                         inputProps={{ value: userData.lastName, onChange: (e) => onChange('lastName')(e.target.value) }}
                         labelProps={{ label: 'Apellido(s)' }}
-                        loading={user.fetching.state && user.fetching.config.key === 'lastName'}
+                        loading={user.fetching.update.state && user.fetching.update.config.key === 'lastName'}
                         onSubmit={()=>onSubmit('lastName')}
                     />
                     <CalendarInput
                         inputProps={{ value: userData.dob, onChange: (value) => onChangeDate(value) }}
                         labelProps={{ label: 'Fecha de nacimiento' }}
-                        loading={user.fetching.state && user.fetching.config.key === 'dob'}
+                        loading={user.fetching.update.state && user.fetching.update.config.key === 'dob'}
                     />
                 </div>
             )}

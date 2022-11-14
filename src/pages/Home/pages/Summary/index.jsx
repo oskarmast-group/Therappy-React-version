@@ -34,7 +34,7 @@ const Summary = () => {
                 </Salute>
                 <Subtitle>¿Cómo te encuentras hoy?</Subtitle>
             </header>
-            {user?.user && !user.fetching.state ? (
+            {user?.user && !user.fetching.fetch.state ? (
                 user.user.userType === 'therapist' ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <AppointmentsListSection />

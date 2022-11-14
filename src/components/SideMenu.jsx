@@ -8,6 +8,8 @@ import PersonSVG from 'resources/img/person.svg';
 import LogOutSVG from 'resources/img/log-out.svg';
 import VideoSVG from 'resources/img/video.svg';
 import { Link } from 'react-router-dom';
+import useUser from 'state/user';
+import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
 
 const SideMenuContainer = styled.aside`
     position: absolute;
@@ -77,6 +79,7 @@ const Navigation = styled.nav`
 `;
 
 const SideMenu = ({ menuOpen, toggleMenu }) => {
+    const [user] = useUser();
     return (
         <SideMenuContainer className={menuOpen ? 'open' : ''}>
             <TopTitle>
@@ -92,6 +95,15 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
+                    {user.user?.userType === 'therapist' && (
+                        <li>
+                            <Link to="/horario">
+                                <img src={CalendarSVG} alt={'Calendario'} />
+                                <p>Horario disponible</p>
+                                <img src={ArrowSVG} alt={'Flecha derecha'} />
+                            </Link>
+                        </li>
+                    )}
                     <li>
                         <Link to="/">
                             <img src={VideoSVG} alt={'Video'} />

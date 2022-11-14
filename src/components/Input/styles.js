@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DARKER_TEXT } from 'resources/constants/colors';
+import { DARKER_TEXT, PLACEHOLDER_TEXT } from 'resources/constants/colors';
 
 export const upLabel = `
     position: absolute;
@@ -46,6 +46,22 @@ export const LabelStyles = `
     transition-duration: 0.2s;
     font-size: 0.875rem;
     font-weight: 500;
+`;
+
+export const BasicInput = styled.input`
+    border: none;
+    outline: none;
+    width: 100%;
+    color: ${DARKER_TEXT};
+    &:disabled {
+        color: ${DARKER_TEXT};
+    }
+    &::placeholder {
+        opacity: 1;
+        color: ${PLACEHOLDER_TEXT};
+    }
+    flex-grow: 1;
+    margin-right: 10px;
 `;
 
 const Container = styled.div`

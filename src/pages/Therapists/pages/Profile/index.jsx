@@ -55,6 +55,14 @@ const Phrase = styled.p`
     }
 `;
 
+const Scrollable = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: scroll;
+    padding-bottom: 50px;
+`;
+
 const Profile = () => {
     const { therapistId } = useParams();
     const [therapists, therapistsDispatcher] = useTherapist();
@@ -74,7 +82,7 @@ const Profile = () => {
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar />
             {!therapists.fetching.state && therapists.current?.id && (
-                <>
+                <Scrollable>
                     <TherapistContainer>
                         <div className="image-container">
                             <img
@@ -103,8 +111,8 @@ const Profile = () => {
                     {!!availabilityString && <SectionTitle>Horario</SectionTitle>}
                     {!!availabilityString && <Body>Disponible: {availabilityString.days}</Body>}
                     {!!therapists.current.timeAvailability && <SectionTitle>Calendario</SectionTitle>}
-                    {!!therapists.current.timeAvailability && <DateSelection timeAvailability={therapists.current.timeAvailability} />}
-                </>
+                    {!!therapists.current.timeAvailability && <DateSelection therapistId={therapistId} timeAvailability={therapists.current.timeAvailability} appointments={therapists.current.appointments} />}
+                </Scrollable>
             )}
         </MainContainer>
     );

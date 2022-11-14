@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { profileAPI } from 'resources/api';
+import { profileAPI, stripeClientsAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import { toFormData } from 'utils';
 import Types from './types';
@@ -57,11 +57,43 @@ function* updateSuccess() {
     yield takeLatest(Types.UPDATE_SUCCESS, fetchStartAsync);
 }
 
+function* setupIntentStartAsync() {
+    try {
+        const res = yield stripeClientsAPI.setupIntent();
+        yield put({ type: Types.SETUP_INTENT_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.SETUP_INTENT_ERROR, payload: message });
+    }
+}
+
+function* setupIntentStart() {
+    yield takeLatest(Types.SETUP_INTENT_START, setupIntentStartAsync)
+}
+
+function* fetchPaymentMethodsStartAsync() {
+    try {
+        const res = yield stripeClientsAPI.paymentMethods();
+        yield put({ type: Types.FETCH_PAYMENT_METHODS_SUCCESS, payload: res.methods });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_PAYMENT_METHODS_ERROR, payload: message });
+    }
+}
+
+function* fetchPaymentMethodsStart() {
+    yield takeLatest(Types.FETCH_PAYMENT_METHODS_START, fetchPaymentMethodsStartAsync)
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
         call(updateImageStart),
         call(updateStart),
         call(updateSuccess),
+        call(setupIntentStart),
+        call(fetchPaymentMethodsStart),
     ]);
 }

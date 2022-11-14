@@ -12,6 +12,8 @@ import useTherapist from 'state/therapists';
 import useUser from 'state/user';
 import Profile from 'pages/Profile';
 import AlertServiceProvider from 'alert';
+import Timetable from 'pages/Timetable';
+import Appointment from 'pages/Appointment';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -37,6 +39,8 @@ const App = () => {
                     <PrivateRoute path="/home" component={Home} />
                     <PrivateRoute path="/terapeutas" component={Therapists} />
                     <PrivateRoute path="/perfil" component={Profile} />
+                    <PrivateRoute path="/horario" component={Timetable} />
+                    <PrivateRoute path="/appointment" component={Appointment} />
                 </Switch>
             </AlertServiceProvider>
         </RouterProvider>

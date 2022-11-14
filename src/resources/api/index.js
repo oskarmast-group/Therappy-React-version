@@ -3,6 +3,8 @@ import Authorization from './auth';
 import { API } from '../constants/urls';
 import crudder from './crudder';
 import profile from './profile';
+import stripeClients from './stripeClients';
+import appointments from './appointments';
 import authCrudder from './auth-crud';
 
 export async function registerPush(data) {
@@ -23,3 +25,5 @@ export const authAPI = authCrudder(API, "auth");
 export const profileAPI = profile(API, "profile");
 export const therapistAPI = AppSinTiCrudder("therapist");
 export const categoriesAPI = AppSinTiCrudder("categories");
+export const stripeClientsAPI = stripeClients(API, "stripe-clients");
+export const appointmentsAPI = appointments(API, "appointments");
