@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   list: [],
   reservation: {},
   fetching: { state: false, config: {} },
+  confirmed: false,
   error: { ...DEFAULT_NO_ERROR },
 };
 
@@ -22,6 +23,13 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, reservation: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
     case Types.RESERVE_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
+
+    case Types.CONFIRM_START:
+      return { ...state, fetching: { config: { key: 'confirm' }, state: true } };
+    case Types.CONFIRM_SUCCESS:
+      return { ...state, confirmed: true, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+    case Types.CONFIRM_ERROR:
+      return { ...state, confirmed: false, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
     case Types.RESET_ERROR: return { ...state, error: { ...DEFAULT_NO_ERROR } }
 

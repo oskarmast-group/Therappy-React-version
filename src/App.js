@@ -14,11 +14,13 @@ import Profile from 'pages/Profile';
 import AlertServiceProvider from 'alert';
 import Timetable from 'pages/Timetable';
 import Appointment from 'pages/Appointment';
+import useAppointments from 'state/appointments';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
     const [therapist, therapistDispatcher] = useTherapist();
     const [user, userDispatcher] = useUser();
+    const [appointments, appointmentsDispatcher] = useAppointments();
 
     return (
         <RouterProvider>
@@ -28,6 +30,7 @@ const App = () => {
                         categories: { state: categories.error, resetError: categoriesDispatcher.resetError },
                         therapist: { state: therapist.error, resetError: therapistDispatcher.resetError },
                         user: { state: user.error, resetError: userDispatcher.resetError },
+                        appointments: { state: appointments.error, resetError: appointmentsDispatcher.resetError },
                     }}
                 />
                 <Switch>

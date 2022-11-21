@@ -46,7 +46,7 @@ const SelectPaymentMethod = ({ paymentMethods, selectedMethod, onChangeMethod })
             <img src={CardSVG} alt={'Tarjeta'} />
             <SelectMethod value={selectedMethod} onChange={(e) => onChangeMethod(e.target.value)}>
                 {methods.map((method) => (
-                    <option value={method.value}>{method.label}</option>
+                    <option key={method.value} value={method.value}>{method.label}</option>
                 ))}
             </SelectMethod>
         </Container>
