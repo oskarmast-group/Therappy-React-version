@@ -1,11 +1,11 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { appointmentsAPI, categoriesAPI } from 'resources/api';
+import { appointmentsAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import Types from './types';
 
 function* fetchStartAsync() {
     try {
-        const res = yield categoriesAPI.getAll();
+        const res = yield appointmentsAPI.getAll();
         yield put({ type: Types.FETCH_SUCCESS, payload: res });
     } catch (error) {
         const message = processError(error);

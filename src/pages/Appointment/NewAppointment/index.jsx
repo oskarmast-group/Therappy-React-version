@@ -148,7 +148,7 @@ const NewAppointment = () => {
             {appointments.confirmed ? (
                 <Button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => history.push(`/appointment/${appointments.reservation?.appointment?.roomId}`)}
                     style={{ marginTop: '20px' }}
                     disabled={!appointments.confirmed}
                 >

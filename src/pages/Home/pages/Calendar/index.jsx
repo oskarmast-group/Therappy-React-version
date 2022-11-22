@@ -1,7 +1,12 @@
+import { Ring } from '@uiball/loaders';
+import { sub } from 'date-fns';
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
+import useAppointments from 'state/appointments';
 import styled from 'styled-components';
+import AppointmentsList from './components/AppointmentsList';
 
 const Title = styled.h1`
     margin: 0;
@@ -38,24 +43,60 @@ const TabsContainer = styled.div`
 
 const Calendar = () => {
     const [page, setPage] = useState(0);
-    const messageList = [];
+    const [list, setList] = useState([]);
+    const [appointments, appointmentsDispatcher] = useAppointments();
+
+    useEffect(() => {
+        appointmentsDispatcher.fetchStart();
+    }, []);
+
+    useEffect(() => {
+        if (page === 0) {
+            const list = appointments.list.filter(
+                ({ date, time }) =>
+                    new Date(`${date} ${time}`) > sub(new Date(), { hours: 1 })
+            );
+            setList(list);
+            return;
+        } else {
+            const list = appointments.list.filter(
+                ({ date, time }) =>
+                    new Date(`${date} ${time}`) < sub(new Date(), { hours: 1 })
+            );
+            setList(list);
+            return;
+        }
+    }, [appointments.list, page]);
+
     return (
         <>
             <Title>Citas</Title>
             <TabsContainer>
-                <Tab className={page === 0 ? 'active' : ''} onClick={() => setPage(0)}>
+                <Tab
+                    className={page === 0 ? 'active' : ''}
+                    onClick={() => setPage(0)}
+                >
                     Próximas
                 </Tab>
-                <Tab className={page === 1 ? 'active' : ''} onClick={() => setPage(1)}>
+                <Tab
+                    className={page === 1 ? 'active' : ''}
+                    onClick={() => setPage(1)}
+                >
                     Pasadas
                 </Tab>
             </TabsContainer>
-            {messageList.length === 0 ? (
+            {appointments.fetching.state ? (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Ring color={PRIMARY_GREEN} size={50} />
+                </div>
+            ) : list.length === 0 ? (
                 <Notice>
-                    {page === 0 ? 'Cuando tengas citas pendientes apareceran aquí' : 'Tu historial de citas aparecerá aquí'}
+                    {page === 0
+                        ? 'Cuando tengas citas pendientes apareceran aquí'
+                        : 'Tu historial de citas aparecerá aquí'}
                 </Notice>
             ) : (
-                <div></div>
+                <AppointmentsList list={list} />
             )}
         </>
     );
