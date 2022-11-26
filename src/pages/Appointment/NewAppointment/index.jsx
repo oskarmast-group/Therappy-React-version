@@ -67,13 +67,11 @@ const NewAppointment = () => {
             return;
         }
         therapistsDispatcher.fetchProfileStart(therapistId);
+        const dateTime = new Date(`${dateFormat(date)} ${time}`);
+
         appointmentsDispatcher.reserveStart({
             therapistId,
-            date: dateFormat(date),
-            time: timeFormat(
-                dateObjectFromTimeString(time),
-                TIME_FORMAT_COMPLETE
-            ),
+            dateISO: dateTime.toISOString()
         });
     }, [location]);
 

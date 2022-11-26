@@ -4,6 +4,8 @@ import { DARKER_TEXT, GREEN } from 'resources/constants/colors';
 import { IMAGES_URL } from 'resources/constants/urls';
 import styled from 'styled-components';
 import NoProfileSVG from 'resources/img/no-pic-therapist.png';
+import { getStatusText } from 'utils/text';
+import { getStatusColor } from 'utils';
 
 const Container = styled.div`
     margin: 0;
@@ -44,6 +46,11 @@ const Container = styled.div`
                 font-size: 16px;
                 margin: 0;
                 user-select: none;
+                margin-bottom: 5px;
+            }
+            p {
+                font-weight: 600;
+                margin: 0;
             }
         }
     }
@@ -66,6 +73,7 @@ const AppointmentCard = ({ app }) => {
                 <div className="information">
                     <div className="texts">
                         <h4>{`${app.title ?? ''} ${app.name} ${app.lastName}`}</h4>
+                        <p style={{ color: getStatusColor(app) }}>{getStatusText(app)}</p>
                     </div>
                 </div>
             </Link>

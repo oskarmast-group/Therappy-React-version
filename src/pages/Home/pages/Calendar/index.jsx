@@ -53,15 +53,15 @@ const Calendar = () => {
     useEffect(() => {
         if (page === 0) {
             const list = appointments.list.filter(
-                ({ date, time }) =>
-                    new Date(`${date} ${time}`) > sub(new Date(), { hours: 1 })
+                ({ date }) =>
+                    new Date(date) > sub(new Date(), { hours: 1 })
             );
             setList(list);
             return;
         } else {
             const list = appointments.list.filter(
-                ({ date, time }) =>
-                    new Date(`${date} ${time}`) < sub(new Date(), { hours: 1 })
+                ({ date }) =>
+                    new Date(date) < sub(new Date(), { hours: 1 })
             );
             setList(list);
             return;

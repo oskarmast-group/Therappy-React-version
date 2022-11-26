@@ -1,5 +1,18 @@
 import { daysInOrder } from './time';
 
+export const getStatusText = ({status}) => {
+    switch(status) {
+        case 'confirmed':
+            return "Solicitada";
+        case 'accepted':
+            return "Aceptada";
+        case 'rejected':
+            return "Rechazada";
+        default:
+            return '';
+    }
+}
+
 export const tranlateDay = {
     monday: 'Lunes',
     tuesday: 'Martes',

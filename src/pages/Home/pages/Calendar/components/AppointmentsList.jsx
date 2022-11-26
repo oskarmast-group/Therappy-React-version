@@ -32,16 +32,15 @@ const AppointmentsList = ({ list }) => {
         const newDates = {};
         for(const app of list) {
             const { date } = app;
-            if(newDates[date]===undefined) {
-                newDates[date] = [app];
+            const dateStr = dateFormat(date);
+            if(newDates[dateStr]===undefined) {
+                newDates[dateStr] = [app];
             } else {
-                newDates[date] = [...newDates[date], app];
+                newDates[dateStr] = [...newDates[dateStr], app];
             }
         }
         setDates(newDates);
     }, [list]);
-
-    console.log('dates', dates);
 
     return (
         <ListContainer>

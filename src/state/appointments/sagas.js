@@ -48,10 +48,43 @@ function* confirmStart() {
   yield takeLatest(Types.CONFIRM_START, confirmStartAsync);
 }
 
+function* fetchPendingStartAsync() {
+    try {
+        const res = yield appointmentsAPI.getPending();
+        yield put({ type: Types.FETCH_PENDING_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_PENDING_ERROR, payload: message });
+    }
+}
+
+function* fetchPendingStart() {
+  yield takeLatest(Types.FETCH_PENDING_START, fetchPendingStartAsync);
+}
+
+function* acceptStartAsync({ payload }) {
+    try {
+        const res = yield appointmentsAPI.accept(payload);
+        yield put({ type: Types.ACCEPT_SUCCESS, payload: res });
+        yield put({ type: Types.FETCH_PENDING_START, payload: {} });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.ACCEPT_ERROR, payload: message });
+    }
+}
+
+function* acceptStart() {
+  yield takeLatest(Types.ACCEPT_START, acceptStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
         call(reserveStart),
         call(confirmStart),
+        call(fetchPendingStart),
+        call(acceptStart),
     ]);
 }

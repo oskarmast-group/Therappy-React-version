@@ -175,7 +175,7 @@ const DateSelection = ({ therapistId, timeAvailability, appointments }) => {
     const isAvailable = (hour) => {
         if (!appointments || appointments.length === 0) return true;
         for (const app of appointments) {
-            const appDate = new Date(`${app.date}T${app.time}`);
+            const appDate = new Date(app.date);
             const date = new Date(`${dateFormat(selectedDate)}T${hour}`);
             if (isEqual(date, appDate)) return false;
         }

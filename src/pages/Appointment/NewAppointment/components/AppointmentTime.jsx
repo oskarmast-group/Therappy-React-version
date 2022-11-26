@@ -19,15 +19,11 @@ const AppointmentTime = ({ loading, appointment }) => {
                     )}
                 </Body>
             )}
-            {!loading && appointment?.time && (
+            {!loading && appointment?.date && (
                 <Body>
-                    {getDisplayTime(dateObjectFromTimeString(appointment.time))}{' '}
-                    -{' '}
+                    {getDisplayTime(appointment?.date)} -{' '}
                     {getDisplayTime(
-                        addMinutes(
-                            dateObjectFromTimeString(appointment.time),
-                            50
-                        )
+                        addMinutes(new Date(appointment?.date), 50)
                     )}
                 </Body>
             )}

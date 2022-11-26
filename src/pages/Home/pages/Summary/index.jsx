@@ -1,5 +1,10 @@
+import { Ring } from '@uiball/loaders';
 import React from 'react';
-import { DARKER_TEXT, DARK_TEXT } from 'resources/constants/colors';
+import {
+    DARKER_TEXT,
+    DARK_TEXT,
+    PRIMARY_GREEN,
+} from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
 import AppointmentsListSection from './components/AppointmentsListSection';
@@ -36,7 +41,14 @@ const Summary = () => {
             </header>
             {user?.user && !user.fetching.fetch.state ? (
                 user.user.userType === 'therapist' ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '10px',
+                            minHeight: 0,
+                        }}
+                    >
                         <AppointmentsListSection />
                         <PacientListSection />
                         <NewsSection />
@@ -47,7 +59,9 @@ const Summary = () => {
                     <TherapistSelectionSection />
                 )
             ) : (
-                <div>Cargando...</div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Ring color={PRIMARY_GREEN} size={50} />
+                </div>
             )}
         </>
     );
