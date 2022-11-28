@@ -61,7 +61,6 @@ const ViewAppointment = () => {
         <MainContainer
             withSideMenu={false}
             withBottomNavigation={false}
-            withTopDecoration={false}
         >
             <TopBar title={'Cita'} />
             {!!appointments.fetching.state.state ? (

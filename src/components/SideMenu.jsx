@@ -105,7 +105,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         </li>
                     )}
                     <li>
-                        <Link to="/">
+                        <Link to="/videollamada">
                             <img src={VideoSVG} alt={'Video'} />
                             <p>Probar audio/video</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />

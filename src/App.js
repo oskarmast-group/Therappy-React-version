@@ -15,6 +15,7 @@ import AlertServiceProvider from 'alert';
 import Timetable from 'pages/Timetable';
 import Appointment from 'pages/Appointment';
 import useAppointments from 'state/appointments';
+import Videocall from 'pages/Videocall';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -44,6 +45,7 @@ const App = () => {
                     <PrivateRoute path="/perfil" component={Profile} />
                     <PrivateRoute path="/horario" component={Timetable} />
                     <PrivateRoute path="/appointment" component={Appointment} />
+                    <PrivateRoute path="/videollamada" component={Videocall} />
                 </Switch>
             </AlertServiceProvider>
         </RouterProvider>
