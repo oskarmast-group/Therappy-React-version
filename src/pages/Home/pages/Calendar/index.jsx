@@ -1,4 +1,4 @@
-import { Ring } from '@uiball/loaders';
+import Loading from 'components/Loading';
 import { sub } from 'date-fns';
 import React from 'react';
 import { useEffect } from 'react';
@@ -86,9 +86,7 @@ const Calendar = () => {
                 </Tab>
             </TabsContainer>
             {appointments.fetching.state ? (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Ring color={PRIMARY_GREEN} size={50} />
-                </div>
+                <Loading />
             ) : list.length === 0 ? (
                 <Notice>
                     {page === 0

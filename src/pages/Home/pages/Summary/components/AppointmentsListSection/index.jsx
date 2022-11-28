@@ -1,7 +1,6 @@
-import { Ring } from '@uiball/loaders';
+import Loading from 'components/Loading';
 import React from 'react';
 import { useEffect } from 'react';
-import { PRIMARY_GREEN } from 'resources/constants/colors';
 import useAppointments from 'state/appointments';
 import styled from 'styled-components';
 import { Container, Intructions } from '../styles';
@@ -33,9 +32,7 @@ const AppointmentsListSection = () => {
             <Intructions>Nuevas citas</Intructions>
             <NewAppointmentsContainer>
                 {appointments.fetching.state && Object.keys(appointments.fetching.config).length === 0 ? (
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Ring color={PRIMARY_GREEN} size={50} />
-                    </div>
+                    <Loading />
                 ) : appointments.pendingList.length === 0 ? (
                     <Notice>
                         Cuando tengas solicitudes a citas nuevas, aparecerán

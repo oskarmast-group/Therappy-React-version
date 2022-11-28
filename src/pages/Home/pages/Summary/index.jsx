@@ -1,9 +1,8 @@
-import { Ring } from '@uiball/loaders';
+import Loading from 'components/Loading';
 import React from 'react';
 import {
     DARKER_TEXT,
     DARK_TEXT,
-    PRIMARY_GREEN,
 } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
@@ -59,9 +58,7 @@ const Summary = () => {
                     <TherapistSelectionSection />
                 )
             ) : (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Ring color={PRIMARY_GREEN} size={50} />
-                </div>
+                <Loading />
             )}
         </>
     );

@@ -1,11 +1,10 @@
-import { Ring } from '@uiball/loaders';
 import CalendarInput from 'components/Input/CalendarInput';
 import EditableInput from 'components/Input/EditableInput';
+import Loading from 'components/Loading';
 import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { PRIMARY_GREEN } from 'resources/constants/colors';
 import useUser from 'state/user';
 import ProfileUpload from './components/ProfileUpload';
 
@@ -65,9 +64,7 @@ const Profile = () => {
             <TopBar title={'Personalizar'} />
             {(loadingUserData && !!user.fetching.update.state.config && Object.keys(user.fetching.update.state.config).length === 0) ||
             Object.keys(user.user).length === 0 ? (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Ring color={PRIMARY_GREEN} size={50} />
-                </div>
+                <Loading />
             ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <ProfileUpload />

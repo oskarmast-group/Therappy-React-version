@@ -1,9 +1,8 @@
-import { Ring } from '@uiball/loaders';
+import Loading from 'components/Loading';
 import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { PRIMARY_GREEN } from 'resources/constants/colors';
 import useUser from 'state/user';
 import HoursPicker from './components/HoursPicker';
 
@@ -39,9 +38,7 @@ const Timetable = () => {
             <TopBar title={'Horario'} />
             {(user.fetching.fetch.state && !!user.fetching.fetch.state.config && Object.keys(user.fetching.fetch.state.config).length === 0) ||
             Object.keys(user.user).length === 0 ? (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Ring color={PRIMARY_GREEN} size={50} />
-                </div>
+                <Loading />
             ) : (
                 <>
                     <HoursPicker hours={timeAvailability.hours} onChange={() => {}} />
