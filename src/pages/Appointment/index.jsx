@@ -8,7 +8,7 @@ const Appointment = () => {
     return (
       <Switch>
         <Route exact path={path} component={NewAppointment} />
-        <Route path={`${path}/:appointmentId`} component={ViewAppointment} />
+        <Route path={`${path}/:roomId`} component={ViewAppointment} />
       </Switch>
     );};
 

@@ -79,6 +79,21 @@ function* acceptStart() {
   yield takeLatest(Types.ACCEPT_START, acceptStartAsync);
 }
 
+function* fetchOneStartAsync({ payload }) {
+    try {
+        const res = yield appointmentsAPI.view(payload);
+        yield put({ type: Types.FETCH_ONE_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_ONE_ERROR, payload: message });
+    }
+}
+
+function* fetchOneStart() {
+  yield takeLatest(Types.FETCH_ONE_START, fetchOneStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -86,5 +101,6 @@ export default function* sagas() {
         call(confirmStart),
         call(fetchPendingStart),
         call(acceptStart),
+        call(fetchOneStart),
     ]);
 }

@@ -17,6 +17,7 @@ const crudder = (domain, resource, withAuth = true) => {
         reserve: (data) => executeCall(() => Axios.post(url + '/reserve', data, { headers })),
         confirm: (data) => executeCall(() => Axios.post(url + '/confirm', data, { headers })),
         accept: (data) => executeCall(() => Axios.post(url + '/accept', data, { headers })),
+        view: (id) => executeCall(() => Axios.get(url + `/${id}`, { headers })),
     };
 };
 

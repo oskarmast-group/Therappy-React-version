@@ -13,6 +13,8 @@ export default class Dispatcher {
     reserveStart = (payload) => this.dispatch({ type: Types.RESERVE_START, payload });
 
     confirmStart = (payload) => this.dispatch({ type: Types.CONFIRM_START, payload });
+
+    fetchOneStart = (payload) => this.dispatch({ type: Types.FETCH_ONE_START, payload });
     
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

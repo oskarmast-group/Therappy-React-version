@@ -46,6 +46,13 @@ export default (state = INITIAL_STATE, action) => {
     case Types.FETCH_PENDING_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
+    case Types.FETCH_ONE_START:
+      return { ...state, fetching: { config: { key: 'fetchOne' }, state: true } };
+    case Types.FETCH_ONE_SUCCESS:
+      return { ...state, pendingList: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+    case Types.FETCH_ONE_ERROR:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
+
     case Types.RESET_ERROR: return { ...state, error: { ...DEFAULT_NO_ERROR } }
 
     default:
