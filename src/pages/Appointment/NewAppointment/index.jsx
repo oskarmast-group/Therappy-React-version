@@ -16,7 +16,7 @@ import {
 import Button from 'components/Button';
 import { useState } from 'react';
 import useAppointments from 'state/appointments';
-import AppointmentTime from './components/AppointmentTime';
+import AppointmentTime from '../../../components/AppointmentTime';
 import AppointmentCost from './components/AppointmentCost';
 import PaymentMethods from './components/PaymentMethods';
 import LoadingPayment from './components/LoadingPayment';
@@ -71,7 +71,7 @@ const NewAppointment = () => {
 
         appointmentsDispatcher.reserveStart({
             therapistId,
-            dateISO: dateTime.toISOString()
+            dateISO: dateTime.toISOString(),
         });
     }, [location]);
 
@@ -125,7 +125,7 @@ const NewAppointment = () => {
                     appointments.fetching.state &&
                     appointments.fetching.config.key !== 'confirm'
                 }
-                appointment={appointments.reservation?.appointment}
+                date={appointments.reservation?.appointment?.date}
             />
             <AppointmentCost
                 loading={
@@ -146,7 +146,11 @@ const NewAppointment = () => {
             {appointments.confirmed ? (
                 <Button
                     type="button"
-                    onClick={() => history.push(`/appointment/${appointments.reservation?.appointment?.roomId}`)}
+                    onClick={() =>
+                        history.push(
+                            `/appointment/${appointments.reservation?.appointment?.roomId}`
+                        )
+                    }
                     style={{ marginTop: '20px' }}
                     disabled={!appointments.confirmed}
                 >

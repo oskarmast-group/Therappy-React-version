@@ -5,25 +5,25 @@ import React from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 import { dateFormat } from 'utils/date';
 import { capitalize } from 'utils/text';
-import { dateObjectFromTimeString, getDisplayTime } from 'utils/time';
+import { getDisplayTime } from 'utils/time';
 
-const AppointmentTime = ({ loading, appointment }) => {
+const AppointmentTime = ({ loading, date }) => {
     return (
         <>
             {<SectionTitle>Horario de la cita</SectionTitle>}
             {loading && <Ring color={PRIMARY_GREEN} size={22} />}
-            {!loading && appointment?.date && (
+            {!loading && date && (
                 <Body>
                     {capitalize(
-                        dateFormat(appointment.date, 'EEEE - LLLL d, uuuu')
+                        dateFormat(date, 'EEEE - LLLL d, uuuu')
                     )}
                 </Body>
             )}
-            {!loading && appointment?.date && (
+            {!loading && date && (
                 <Body>
-                    {getDisplayTime(appointment?.date)} -{' '}
+                    {getDisplayTime(date)} -{' '}
                     {getDisplayTime(
-                        addMinutes(new Date(appointment?.date), 50)
+                        addMinutes(new Date(date), 50)
                     )}
                 </Body>
             )}

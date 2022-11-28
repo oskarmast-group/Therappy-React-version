@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   list: [],
   pendingList: [],
   reservation: {},
+  appointment: {},
   fetching: { state: false, config: {} },
   confirmed: false,
   error: { ...DEFAULT_NO_ERROR },
@@ -49,7 +50,7 @@ export default (state = INITIAL_STATE, action) => {
     case Types.FETCH_ONE_START:
       return { ...state, fetching: { config: { key: 'fetchOne' }, state: true } };
     case Types.FETCH_ONE_SUCCESS:
-      return { ...state, pendingList: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+      return { ...state, appointment: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
     case Types.FETCH_ONE_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
