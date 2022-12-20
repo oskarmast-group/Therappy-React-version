@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { GREEN } from 'resources/constants/colors';
 import Button from 'components/Button';
 import AppointmentTime from 'components/AppointmentTime';
+import LinkButton from 'components/LinkButton';
 
 const ProfileContainer = styled.div`
     width: 100%;
@@ -36,7 +37,7 @@ const ActionsRow = styled.div`
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    button {
+    a {
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -58,10 +59,7 @@ const ViewAppointment = () => {
     }, []);
 
     return (
-        <MainContainer
-            withSideMenu={false}
-            withBottomNavigation={false}
-        >
+        <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Cita'} />
             {!!appointments.fetching.state.state ? (
                 <Loading />
@@ -86,13 +84,13 @@ const ViewAppointment = () => {
                             </h2>
                         )}
                     <ActionsRow>
-                        <Button>
+                        <LinkButton to={`#`}>
                             <img src={MessageSVG} alt={'Mensaje'} /> Chat
-                        </Button>
-                        <Button>
+                        </LinkButton>
+                        <LinkButton to={`/videollamada/${appointments.appointment?.roomId}`}>
                             <img src={VideocallSVG} alt={'Videollamada'} />{' '}
                             Llamada
-                        </Button>
+                        </LinkButton>
                     </ActionsRow>
                     <AppointmentTime
                         loading={appointments.fetching.state}

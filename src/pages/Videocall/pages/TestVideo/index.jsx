@@ -2,7 +2,7 @@ import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
 import Video from '../../components/Video';
 import VideoContainer from '../../containers/VideoContainer';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import CircleActionButton from 'pages/Home/pages/Videocalls/components/CircleActionButton';
 import MicOnSVG from 'resources/img/mic-on.svg';
 import MicOffSVG from 'resources/img/mic-off.svg';
@@ -22,6 +22,11 @@ const TestVideo = () => {
         micEnabled,
         toggleMic,
     } = useUserMedia();
+    useEffect(() => {
+        if (mediaStream && videoRef.current) {
+            videoRef.current.srcObject = mediaStream;
+        }
+    }, [mediaStream]);
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Pruebas Técnicas'} />

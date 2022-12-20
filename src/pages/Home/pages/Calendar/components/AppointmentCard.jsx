@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import NoProfileSVG from 'resources/img/no-pic-therapist.png';
 import { getStatusText } from 'utils/text';
 import { getStatusColor } from 'utils';
+import { getDisplayTime } from 'utils/time';
+import { add } from 'date-fns';
 
 const Container = styled.div`
     margin: 0;
@@ -73,6 +75,7 @@ const AppointmentCard = ({ app }) => {
                 <div className="information">
                     <div className="texts">
                         <h4>{`${app.title ?? ''} ${app.name} ${app.lastName}`}</h4>
+                        <p>{getDisplayTime(app.date)} - {getDisplayTime(add(new Date(app.date), { minutes: 50 }))}</p>
                         <p style={{ color: getStatusColor(app) }}>{getStatusText(app)}</p>
                     </div>
                 </div>
