@@ -17,8 +17,14 @@ const TopBarComponent = styled.div`
     }
 `;
 
-const MenuButton = styled.img`
-    cursor: pointer;
+const MenuButton = styled.button`
+    background: none;
+    outline: none;
+    border: none;
+    img {
+        cursor: pointer;
+    }
+    
 `;
 
 const Title = styled.h1`
@@ -33,9 +39,9 @@ const TopBar = ({ title = '' }) => {
 
     return (
         <TopBarComponent>
-            <Link to={goBack('/home')}>
-                <MenuButton src={GoBackSVG} style={{ marginTop: '10px' }} />
-            </Link>
+            <MenuButton type='button' onClick={goBack('/home')}>
+                <img src={GoBackSVG} style={{ marginTop: '10px' }} />
+            </MenuButton>
             <Title>{title}</Title>
             <div></div>
         </TopBarComponent>
