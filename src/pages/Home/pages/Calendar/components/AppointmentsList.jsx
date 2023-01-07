@@ -28,12 +28,12 @@ const ListContainer = styled.ul`
 const AppointmentsList = ({ list }) => {
     const [dates, setDates] = useState({});
 
-    useEffect(()=>{
+    useEffect(() => {
         const newDates = {};
-        for(const app of list) {
+        for (const app of list) {
             const { date } = app;
             const dateStr = dateFormat(date);
-            if(newDates[dateStr]===undefined) {
+            if (newDates[dateStr] === undefined) {
                 newDates[dateStr] = [app];
             } else {
                 newDates[dateStr] = [...newDates[dateStr], app];
@@ -46,8 +46,22 @@ const AppointmentsList = ({ list }) => {
         <ListContainer>
             {Object.keys(dates).map((key) => (
                 <li key={key}>
-                    <SectionTitle>{key === dateFormat(new Date()) ? 'Hoy' : getDisplayDate(new Date(`${key}T12:00:00`), 'EEEE')} - {getDisplayDate(new Date(`${key}T12:00:00`), 'MMMM d, yyyy')}</SectionTitle>
-                    {dates[key].map((app)=><AppointmentCard app={app} />)}
+                    <SectionTitle>
+                        {key === dateFormat(new Date())
+                            ? 'Hoy'
+                            : getDisplayDate(
+                                  new Date(`${key}T12:00:00`),
+                                  'EEEE'
+                              )}{' '}
+                        -{' '}
+                        {getDisplayDate(
+                            new Date(`${key}T12:00:00`),
+                            'MMMM d, yyyy'
+                        )}
+                    </SectionTitle>
+                    {dates[key].map((app) => (
+                        <AppointmentCard app={app} />
+                    ))}
                 </li>
             ))}
         </ListContainer>

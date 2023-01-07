@@ -56,14 +56,20 @@ const Calendar = () => {
                 ({ date }) =>
                     new Date(date) > sub(new Date(), { hours: 1 })
             );
-            setList(list);
+            const sorted = list.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+            setList(sorted);
             return;
         } else {
             const list = appointments.list.filter(
                 ({ date }) =>
                     new Date(date) < sub(new Date(), { hours: 1 })
             );
-            setList(list);
+            const sorted = list.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+            setList(sorted);
             return;
         }
     }, [appointments.list, page]);
