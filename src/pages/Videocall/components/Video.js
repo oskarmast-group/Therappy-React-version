@@ -7,6 +7,7 @@ const Video = styled.video`
     height: auto;
     display: block;
     position: relative;
+    object-fit: contain;
 `;
 
 export default Video;
