@@ -59,10 +59,11 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
     }, [localStream, localVideoRef]);
 
     useEffect(() => {
+        console.log('remoteStream', remoteStream);
         if (remoteStream && remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = remoteStream;
         }
-    }, [remoteStream, remoteVideoRef]);
+    }, [remoteStream, remoteVideoRef.current]);
 
     return (
         <Window>
