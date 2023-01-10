@@ -71,6 +71,9 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
                 <Video
                     ref={remoteVideoRef}
                     style={{ width: '100%', height: '100%' }}
+                    autoPlay
+                    playsInline
+                    muted
                 />
                 {!remoteStream && (
                     <div
