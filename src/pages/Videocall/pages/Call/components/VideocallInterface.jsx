@@ -63,19 +63,28 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
         if (remoteStream && remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = remoteStream;
         }
-    }, [remoteStream, remoteVideoRef.current]);
+    }, [remoteStream, remoteVideoRef]);
 
     return (
         <Window>
             <RemoteVideoContainer>
-                {remoteStream ? (
-                    <Video
-                        ref={remoteVideoRef}
-                        style={{ width: '100%', height: '100%' }}
-                    />
-                ) : (
-                    <Ring color="#ffffff" size={45} />
+                <Video
+                    ref={remoteVideoRef}
+                    style={{ width: '100%', height: '100%' }}
+                />
+                {!remoteStream && (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Ring color="#ffffff" size={45} />
+                    </div>
                 )}
+
                 <LocalVideo ref={localVideoRef} autoPlay playsInline muted />
                 <Watermark>
                     <Logo src={TherappyLogo} alt={'Logo Therappy'} />
@@ -88,12 +97,11 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
                                     color: 'white',
                                 }}
                             >
-                                En llamada con:<br />
-                                {`${
-                                    appointments.appointment?.title ?? ''
-                                } ${appointments.appointment?.name} ${
-                                    appointments.appointment?.lastName
-                                }`}
+                                En llamada con:
+                                <br />
+                                {`${appointments.appointment?.title ?? ''} ${
+                                    appointments.appointment?.name
+                                } ${appointments.appointment?.lastName}`}
                             </p>
                         )}
                 </Watermark>
