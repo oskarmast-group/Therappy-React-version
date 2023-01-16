@@ -1,3 +1,4 @@
+import Checkbox from 'components/Checkbox';
 import { isEqual } from 'date-fns';
 import React from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
@@ -11,12 +12,16 @@ const DayContainer = styled.div`
     gap: 10px;
     align-items: flex-start;
     padding: 5px 0;
+    min-height: 45px;
 `;
 
 const DayTitle = styled.label`
     padding: 0;
     min-width: 110px;
     user-select: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
     input {
         margin-right: 10px;
     }
@@ -54,21 +59,28 @@ const Day = ({ title, hoursSegments, setHoursSegments }) => {
     const setInterval = (i) => (newSegment) => {
         const segments = [...hoursSegments];
         const prev = i-1;
-        const next = i+1;
+        const nxt = i+1;
+        segments[i] = newSegment;
         if(prev>=0) {
             const previous = dateObjectFromTimeString(segments[prev][1]);
-            const current = dateObjectFromTimeString(segments[next][0]);
+            const current = dateObjectFromTimeString(segments[i][0]);
+            console.log(previous, current);
             if(isEqual(previous, current)) return;
+            if(isDateAfter(previous, current)) return;
         }
-
-        segments[i] = newSegment;
+        if(nxt <= hoursSegments.length-1) {
+            const current = dateObjectFromTimeString(segments[i][1]);
+            const next = dateObjectFromTimeString(segments[nxt][0]);
+            if(isEqual(current, next)) return;
+            if(isDateAfter(current, next)) return;
+        }
         setHoursSegments(segments);
     }
 
     return (
         <DayContainer>
             <DayTitle>
-                <input id={'input' + title} type={'checkbox'} checked={!!hoursSegments} onChange={toggleActive} />
+                <Checkbox id={'input' + title} type={'checkbox'} checked={!!hoursSegments} onChange={toggleActive} />
                 {title}
             </DayTitle>
             {!!hoursSegments ? (

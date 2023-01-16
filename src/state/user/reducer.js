@@ -47,6 +47,7 @@ export default (state = INITIAL_STATE, action) => {
 
         // UPDATE
         case Types.UPDATE_START:
+        case Types.UPDATE_THERAPIST_START:
             return {
                 ...state,
                 fetching: {

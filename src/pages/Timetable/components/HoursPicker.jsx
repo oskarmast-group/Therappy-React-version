@@ -1,5 +1,6 @@
+import { Ring } from '@uiball/loaders';
 import React, { useEffect, useState } from 'react';
-import { PRIMARY_GREEN } from 'resources/constants/colors';
+import { GREEN, PRIMARY_GREEN } from 'resources/constants/colors';
 import styled from 'styled-components';
 import { tranlateDay } from 'utils/text';
 import { daysInOrder } from 'utils/time';
@@ -24,29 +25,22 @@ const UpdateButton = styled.button`
     width: fit-content;
 `;
 
-const HoursPicker = ({ hours, setHours }) => {
-    const [timetable, setTimetable] = useState({});
-
-    useEffect(()=>{
-        setTimetable(hours);
-    },[hours]);
-
-    useEffect(()=>{console.log('timetable', timetable)},[timetable]);
+const HoursPicker = ({ hours, onChange, hoursChanged, loading, onSubmit }) => {
 
     const addHourSegment = (day) => (hoursSegments) => {
-        console.log(day, hoursSegments);
-        setTimetable({...timetable, [day]: hoursSegments})
+        onChange({...hours, [day]: hoursSegments})
     };
 
     return (
         <>
-            <div style={{ display: 'flex', gap: '10px' }}>
-                <h2>Horario regular</h2>
-                <UpdateButton type='button'>Actualizar</UpdateButton>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <h3>Horario regular</h3>
+                {hoursChanged && <UpdateButton type='button' onClick={onSubmit}>Actualizar</UpdateButton>}
+                {loading && <Ring color={GREEN} size={25} />}
             </div>
             <DaysContainer>
                 {daysInOrder.map((day) => (
-                    <Day key={day} title={tranlateDay[day]} hoursSegments={timetable[day]} setHoursSegments={addHourSegment(day)} />
+                    <Day key={day} title={tranlateDay[day]} hoursSegments={hours[day]} setHoursSegments={addHourSegment(day)} />
                 ))}
             </DaysContainer>
         </>

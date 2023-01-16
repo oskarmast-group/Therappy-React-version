@@ -42,7 +42,7 @@ const TimePicker = ({ hour, setHour }) => {
     return (
         <TimeButton value={hour} onChange={(e)=>{setHour(e.target.value)}}>
             {times.map((time) => (
-                <option value={time.value}>{time.label}</option>
+                <option key={time.label} value={time.value}>{time.label}</option>
             ))}
         </TimeButton>
     );

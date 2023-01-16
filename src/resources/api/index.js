@@ -20,10 +20,10 @@ export async function registerPush(data) {
     }
 }
 
-const AppSinTiCrudder = crudder(API);
+const Crudder = crudder(API);
 export const authAPI = authCrudder(API, "auth");
 export const profileAPI = profile(API, "profile");
-export const therapistAPI = AppSinTiCrudder("therapist");
-export const categoriesAPI = AppSinTiCrudder("categories");
+export const therapistAPI = Crudder("therapist");
+export const categoriesAPI = Crudder("categories");
 export const stripeClientsAPI = stripeClients(API, "stripe-clients");
 export const appointmentsAPI = appointments(API, "appointments");

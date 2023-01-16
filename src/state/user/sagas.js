@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { profileAPI, stripeClientsAPI } from 'resources/api';
+import { profileAPI, stripeClientsAPI, therapistAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import { toFormData } from 'utils';
 import Types from './types';
@@ -41,7 +41,7 @@ function* updateStartAsync({ payload }) {
         const { key, value } = payload;
         yield profileAPI.update({[key]: value});
         const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.FETCH_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -87,6 +87,23 @@ function* fetchPaymentMethodsStart() {
     yield takeLatest(Types.FETCH_PAYMENT_METHODS_START, fetchPaymentMethodsStartAsync)
 }
 
+function* updateTherapistStartAsync({ payload }) {
+    try {
+        const { key, value } = payload;
+        yield therapistAPI.update({[key]: value});
+        const newProfile = yield profileAPI.profile();
+        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.UPDATE_ERROR, payload: message });
+    }
+}
+
+function* updateTherapistStart() {
+    yield takeLatest(Types.UPDATE_THERAPIST_START, updateTherapistStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -95,5 +112,6 @@ export default function* sagas() {
         call(updateSuccess),
         call(setupIntentStart),
         call(fetchPaymentMethodsStart),
+        call(updateTherapistStart),
     ]);
 }
