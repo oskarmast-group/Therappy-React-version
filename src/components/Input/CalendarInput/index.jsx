@@ -25,6 +25,7 @@ const Container = styled.div`
             width: 100%;
             color: ${DARKER_TEXT};
             flex-grow: 1;
+            margin: 0;
             margin-right: 10px;
         }
     }

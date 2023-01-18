@@ -7,7 +7,9 @@ import { Ring } from '@uiball/loaders';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 
 const CustomContainer = styled(Container)`
-    input:disabled {
+    align-items: flex-start;
+    border-radius: 20px;
+    textarea:disabled {
         background-color: white;
     }
 
@@ -16,8 +18,8 @@ const CustomContainer = styled(Container)`
         margin: 0;
         min-height: 30px;
         display: flex;
-        background-color: transparent;
         align-items: center;
+        background-color: transparent;
         outline: none;
         border: none;
         img {
@@ -28,7 +30,7 @@ const CustomContainer = styled(Container)`
     }
 `;
 
-const EditableInput = ({
+const EditableTextArea = ({
     style = {},
     iconProps = {},
     inputProps = {},
@@ -39,7 +41,7 @@ const EditableInput = ({
     const [isEditing, setEditing] = useState(false);
     const inputRef = useRef();
 
-    const defaultInputProps = { type: 'text' };
+    const defaultInputProps = { type: 'text', rows: '5' };
     const { value, ...restInputProps } = inputProps;
     const mergedInputProps = { ...defaultInputProps, ...restInputProps };
 
@@ -73,7 +75,7 @@ const EditableInput = ({
                 </div>
             )}
             <div className="input-container">
-                <input value={value} {...mergedInputProps} disabled={!isEditing} ref={inputRef} />
+                <textarea value={value} {...mergedInputProps} disabled={!isEditing} ref={inputRef} />
             </div>
             {label && (
                 <div className="label-container">
@@ -93,4 +95,4 @@ const EditableInput = ({
     );
 };
 
-export default EditableInput;
+export default EditableTextArea;

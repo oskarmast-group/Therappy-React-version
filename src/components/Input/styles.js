@@ -10,7 +10,6 @@ export const upLabel = `
 export const ContainerStyles = `
     width: 100%;
     display: flex;
-    height: 40px;
     gap: 10px;
     justify-content: center;
     align-items: center;
@@ -21,8 +20,9 @@ export const ContainerStyles = `
 `;
 
 export const IconContainerStyles = `
-    width: 30px;
-    height: 100%;
+    width: 40px;
+    margin: 0;
+    min-height: 40px;
     display: flex;
 `;
 
@@ -33,8 +33,10 @@ export const IconStyles = `
 `;
 
 export const LabelContainerStyles = `
-    height: 100%;
-    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     position: absolute;
     padding: 5px 10px;
     pointer-events: none;
@@ -81,6 +83,22 @@ const Container = styled.div`
             outline: none;
             width: 100%;
             color: ${DARKER_TEXT};
+            &:disabled {
+                color: ${DARKER_TEXT};
+            }
+            &::placeholder {
+                opacity: 1;
+                color: #484848;
+            }
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        textarea {
+            border: none;
+            outline: none;
+            width: 100%;
+            color: ${DARKER_TEXT};
+            resize: vertical;
             &:disabled {
                 color: ${DARKER_TEXT};
             }
