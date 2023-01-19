@@ -4,7 +4,23 @@ import MainContainer from 'containers/MainContainer';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useUser from 'state/user';
+import styled from 'styled-components';
 import HoursPicker from './components/HoursPicker';
+import { GREEN, PRIMARY_GREEN } from 'resources/constants/colors';
+import { Ring } from '@uiball/loaders';
+
+const UpdateButton = styled.button`
+    padding: 3px 10px;
+    background-color: ${PRIMARY_GREEN};
+    font-size: 12px;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    height: fit-content;
+    align-self: center;
+    width: fit-content;
+`;
 
 const Timetable = () => {
     const [hoursChanged, setHoursChanged] = useState(false);
@@ -76,28 +92,41 @@ const Timetable = () => {
     }, [timeAvailability]);
 
     const onSubmitHours = () => {
-        userDispatcher.updateTherapistStart({key: 'timeAvailability', value: timeAvailability});
-    }
+        userDispatcher.updateTherapistStart({
+            key: 'timeAvailability',
+            value: timeAvailability,
+        });
+    };
 
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Horario'} />
-            {(user.fetching.fetch.state &&
-                !!user.fetching.fetch.config &&
-                Object.keys(user.fetching.fetch.config).length === 0) ||
-            Object.keys(user.user).length === 0 ? (
-                <Loading />
-            ) : (
-                <>
-                    <HoursPicker
-                        hours={timeAvailability.hours}
-                        loading={user.fetching.update?.config?.key === 'timeAvailability'}
-                        onChange={updateHours}
-                        hoursChanged={hoursChanged}
-                        onSubmit={onSubmitHours}
-                    />
-                </>
-            )}
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <h3>Horario regular</h3>
+                {hoursChanged && (
+                    <UpdateButton type="button" onClick={onSubmitHours}>
+                        Actualizar
+                    </UpdateButton>
+                )}
+                {user.fetching.update?.config?.key === 'timeAvailability' && (
+                    <Ring color={GREEN} size={25} />
+                )}
+            </div>
+            <div style={{ overflow: 'scroll', paddingBottom: '15px' }}>
+                {(user.fetching.fetch.state &&
+                    !!user.fetching.fetch.config &&
+                    Object.keys(user.fetching.fetch.config).length === 0) ||
+                Object.keys(user.user).length === 0 ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <HoursPicker
+                            hours={timeAvailability.hours}
+                            onChange={updateHours}
+                        />
+                    </>
+                )}
+            </div>
         </MainContainer>
     );
 };

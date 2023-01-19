@@ -12,7 +12,6 @@ const ListContainer = styled.ul`
     flex: 1;
     height: 100%;
     overflow: scroll;
-    overflow: scroll;
     li {
         gap: 10px;
         display: flex;
