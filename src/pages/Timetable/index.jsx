@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import HoursPicker from './components/HoursPicker';
 import { GREEN, PRIMARY_GREEN } from 'resources/constants/colors';
 import { Ring } from '@uiball/loaders';
+import Scrollable from 'containers/Scrollable';
 
 const UpdateButton = styled.button`
     padding: 3px 10px;
@@ -112,7 +113,7 @@ const Timetable = () => {
                     <Ring color={GREEN} size={25} />
                 )}
             </div>
-            <div style={{ overflow: 'scroll', paddingBottom: '15px' }}>
+            <Scrollable>
                 {(user.fetching.fetch.state &&
                     !!user.fetching.fetch.config &&
                     Object.keys(user.fetching.fetch.config).length === 0) ||
@@ -126,7 +127,7 @@ const Timetable = () => {
                         />
                     </>
                 )}
-            </div>
+            </Scrollable>
         </MainContainer>
     );
 };

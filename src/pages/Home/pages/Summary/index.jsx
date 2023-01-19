@@ -1,9 +1,7 @@
 import Loading from 'components/Loading';
+import Scrollable from 'containers/Scrollable';
 import React from 'react';
-import {
-    DARKER_TEXT,
-    DARK_TEXT,
-} from 'resources/constants/colors';
+import { DARKER_TEXT, DARK_TEXT } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
 import AppointmentsListSection from './components/AppointmentsListSection';
@@ -31,13 +29,14 @@ const Subtitle = styled.h2`
 const Summary = () => {
     const [user] = useUser();
     return (
-        <>
+        <Scrollable>
             <header style={{ marginBottom: '15px', minHeight: 0 }}>
                 <Salute>
                     Hola, <span>{user?.user?.name ?? ''}</span>
                 </Salute>
                 <Subtitle>¿Cómo te encuentras hoy?</Subtitle>
             </header>
+
             {user?.user && !user.fetching.fetch.state ? (
                 user.user.userType === 'therapist' ? (
                     <div
@@ -60,7 +59,7 @@ const Summary = () => {
             ) : (
                 <Loading />
             )}
-        </>
+        </Scrollable>
     );
 };
 

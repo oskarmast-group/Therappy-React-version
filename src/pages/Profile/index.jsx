@@ -4,6 +4,7 @@ import EditableTextArea from 'components/Input/EditableTextArea';
 import Loading from 'components/Loading';
 import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
+import Scrollable from 'containers/Scrollable';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import useUser from 'state/user';
@@ -21,9 +22,9 @@ const Profile = () => {
         countryOrigin: '',
     });
     const [therapistData, setTherapistData] = useState({
-       title: '', 
-       experience: '', 
-       phrase: '', 
+        title: '',
+        experience: '',
+        phrase: '',
     });
 
     useEffect(() => {
@@ -57,9 +58,9 @@ const Profile = () => {
             !user.fetching.update.state
         ) {
             setTherapistData({
-                title: user.user.extraData.title, 
-                experience: user.user.extraData.experience, 
-                phrase: user.user.extraData.phrase, 
+                title: user.user.extraData.title,
+                experience: user.user.extraData.experience,
+                phrase: user.user.extraData.phrase,
             });
         }
     }, [user.user, user.user.extraData]);
@@ -99,103 +100,118 @@ const Profile = () => {
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Personalizar'} />
-            {(loadingUserData &&
-                !!user.fetching.update.state.config &&
-                Object.keys(user.fetching.update.state.config).length === 0) ||
-            Object.keys(user.user).length === 0 ? (
-                <Loading />
-            ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '10px',
-                    }}
-                >
-                    <ProfileUpload />
-                    <EditableInput
-                        inputProps={{
-                            value: userData.name,
-                            onChange: (e) => onChange('name')(e.target.value),
+            <Scrollable>
+                {(loadingUserData &&
+                    !!user.fetching.update.state.config &&
+                    Object.keys(user.fetching.update.state.config).length ===
+                        0) ||
+                Object.keys(user.user).length === 0 ? (
+                    <Loading />
+                ) : (
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '10px',
                         }}
-                        labelProps={{ label: 'Nombre(s)' }}
-                        loading={
-                            user.fetching.update.state &&
-                            user.fetching.update.config.key === 'name'
-                        }
-                        onSubmit={() => onSubmit('name')}
-                    />
-                    <EditableInput
-                        inputProps={{
-                            value: userData.lastName,
-                            onChange: (e) =>
-                                onChange('lastName')(e.target.value),
-                        }}
-                        labelProps={{ label: 'Apellido(s)' }}
-                        loading={
-                            user.fetching.update.state &&
-                            user.fetching.update.config.key === 'lastName'
-                        }
-                        onSubmit={() => onSubmit('lastName')}
-                    />
-                    <CalendarInput
-                        inputProps={{
-                            value: userData.dob,
-                            onChange: (value) => onChangeDate(value),
-                        }}
-                        labelProps={{ label: 'Fecha de nacimiento' }}
-                        loading={
-                            user.fetching.update.state &&
-                            user.fetching.update.config.key === 'dob'
-                        }
-                    />
-                    {user.user?.userType === 'therapist' && (
-                        <>
-                            <EditableInput
-                                inputProps={{
-                                    value: therapistData.title,
-                                    onChange: (e) =>
-                                        onChangeTherapist('title')(e.target.value),
-                                }}
-                                labelProps={{ label: 'Título' }}
-                                loading={
-                                    user.fetching.update.state &&
-                                    user.fetching.update.config.key === 'title'
-                                }
-                                onSubmit={() => onSubmitTherapist('title')}
-                            />
-                            <EditableTextArea
-                                inputProps={{
-                                    value: therapistData.phrase,
-                                    onChange: (e) =>
-                                        onChangeTherapist('phrase')(e.target.value),
-                                    rows: 3,
-                                }}
-                                labelProps={{ label: 'Frase' }}
-                                loading={
-                                    user.fetching.update.state &&
-                                    user.fetching.update.config.key === 'name'
-                                }
-                                onSubmit={() => onSubmitTherapist('phrase')}
-                            />
-                            <EditableTextArea
-                                inputProps={{
-                                    value: therapistData.experience,
-                                    onChange: (e) =>
-                                        onChangeTherapist('experience')(e.target.value),
-                                    rows: 8,
-                                }}
-                                labelProps={{ label: 'Experiencia' }}
-                                loading={
-                                    user.fetching.update.state &&
-                                    user.fetching.update.config.key === 'name'
-                                }
-                                onSubmit={() => onSubmitTherapist('experience')}
-                            />
-                        </>
-                    )}
-                </div>
-            )}
+                    >
+                        <ProfileUpload />
+                        <EditableInput
+                            inputProps={{
+                                value: userData.name,
+                                onChange: (e) =>
+                                    onChange('name')(e.target.value),
+                            }}
+                            labelProps={{ label: 'Nombre(s)' }}
+                            loading={
+                                user.fetching.update.state &&
+                                user.fetching.update.config.key === 'name'
+                            }
+                            onSubmit={() => onSubmit('name')}
+                        />
+                        <EditableInput
+                            inputProps={{
+                                value: userData.lastName,
+                                onChange: (e) =>
+                                    onChange('lastName')(e.target.value),
+                            }}
+                            labelProps={{ label: 'Apellido(s)' }}
+                            loading={
+                                user.fetching.update.state &&
+                                user.fetching.update.config.key === 'lastName'
+                            }
+                            onSubmit={() => onSubmit('lastName')}
+                        />
+                        <CalendarInput
+                            inputProps={{
+                                value: userData.dob,
+                                onChange: (value) => onChangeDate(value),
+                            }}
+                            labelProps={{ label: 'Fecha de nacimiento' }}
+                            loading={
+                                user.fetching.update.state &&
+                                user.fetching.update.config.key === 'dob'
+                            }
+                        />
+                        {user.user?.userType === 'therapist' && (
+                            <>
+                                <EditableInput
+                                    inputProps={{
+                                        value: therapistData.title,
+                                        onChange: (e) =>
+                                            onChangeTherapist('title')(
+                                                e.target.value
+                                            ),
+                                    }}
+                                    labelProps={{ label: 'Título' }}
+                                    loading={
+                                        user.fetching.update.state &&
+                                        user.fetching.update.config.key ===
+                                            'title'
+                                    }
+                                    onSubmit={() => onSubmitTherapist('title')}
+                                />
+                                <EditableTextArea
+                                    inputProps={{
+                                        value: therapistData.phrase,
+                                        onChange: (e) =>
+                                            onChangeTherapist('phrase')(
+                                                e.target.value
+                                            ),
+                                        rows: 3,
+                                    }}
+                                    labelProps={{ label: 'Frase' }}
+                                    loading={
+                                        user.fetching.update.state &&
+                                        user.fetching.update.config.key ===
+                                            'name'
+                                    }
+                                    onSubmit={() => onSubmitTherapist('phrase')}
+                                />
+                                <EditableTextArea
+                                    inputProps={{
+                                        value: therapistData.experience,
+                                        onChange: (e) =>
+                                            onChangeTherapist('experience')(
+                                                e.target.value
+                                            ),
+                                        rows: 8,
+                                    }}
+                                    labelProps={{ label: 'Experiencia' }}
+                                    loading={
+                                        user.fetching.update.state &&
+                                        user.fetching.update.config.key ===
+                                            'name'
+                                    }
+                                    onSubmit={() =>
+                                        onSubmitTherapist('experience')
+                                    }
+                                />
+                            </>
+                        )}
+                    </div>
+                )}
+            </Scrollable>
         </MainContainer>
     );
 };
