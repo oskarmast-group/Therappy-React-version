@@ -104,6 +104,22 @@ function* updateTherapistStart() {
     yield takeLatest(Types.UPDATE_THERAPIST_START, updateTherapistStartAsync);
 }
 
+function* deletePaymentMethodStartAsync({ payload }) {
+    try {
+        const res = yield stripeClientsAPI.deletePaymentMethod({paymentId: payload});
+        yield put({ type: Types.DELETE_PAYMENT_METHOD_SUCCESS, payload: res.methods });
+        yield put({ type: Types.FETCH_PAYMENT_METHODS_START, payload: {} })
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.DELETE_PAYMENT_METHOD_ERROR, payload: message });
+    }
+}
+
+function* deletePaymentMethodStart() {
+    yield takeLatest(Types.DELETE_PAYMENT_METHOD_START, deletePaymentMethodStartAsync)
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -113,5 +129,6 @@ export default function* sagas() {
         call(setupIntentStart),
         call(fetchPaymentMethodsStart),
         call(updateTherapistStart),
+        call(deletePaymentMethodStart),
     ]);
 }

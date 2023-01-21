@@ -14,6 +14,8 @@ export default class Dispatcher {
 
     setupIntentStart = () => this.dispatch({ type: Types.SETUP_INTENT_START, payload: {} });
 
+    deletePaymentMethodStart = (payload) => this.dispatch({ type: Types.DELETE_PAYMENT_METHOD_START, payload });
+
     fetchPaymentMethodsStart = () => this.dispatch({ type: Types.FETCH_PAYMENT_METHODS_START, payload: {} });
 
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });

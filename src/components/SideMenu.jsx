@@ -112,7 +112,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/">
+                        <Link to="/pagos">
                             <img src={CardSVG} alt={'Tarjeta'} />
                             <p>Pagos</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />

@@ -1,3 +1,4 @@
+import { PRIMARY_GREEN } from 'resources/constants/colors';
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -6,7 +7,7 @@ const Button = styled.button`
     border-radius: 50px;
     border: none;
     outline: none;
-    background-color: #687711;
+    background-color: ${PRIMARY_GREEN};
     color: white;
     font-size: 1rem;
 

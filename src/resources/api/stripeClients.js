@@ -14,6 +14,7 @@ const crudder = (domain, resource, withAuth = true) => {
         },
         setupIntent: () => executeCall(() => Axios.get(url + '/setup-payment', { headers })),
         paymentMethods: () => executeCall(() => Axios.get(url + '/payment-methods', { headers })),
+        deletePaymentMethod: (data) => executeCall(() => Axios.post(url + '/delete-payment-method', data, { headers })),
     };
 };
 

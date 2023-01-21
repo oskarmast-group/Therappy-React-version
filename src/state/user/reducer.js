@@ -9,6 +9,7 @@ const INITIAL_STATE = {
         fetch: { ...DEFAULT_FETCHING_STATE },
         update: { ...DEFAULT_FETCHING_STATE },
         setup: { ...DEFAULT_FETCHING_STATE },
+        deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
         paymentMethods: { ...DEFAULT_FETCHING_STATE },
     },
     error: { ...DEFAULT_NO_ERROR },
@@ -113,6 +114,35 @@ export default (state = INITIAL_STATE, action) => {
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };
+
+        // DELETE PAYMENT METHOD
+        case Types.DELETE_PAYMENT_METHOD_START:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    deletePaymentMethod: { ...DEFAULT_FETCHING_STATE, state: true },
+                },
+            };
+        case Types.DELETE_PAYMENT_METHOD_SUCCESS:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { ...DEFAULT_NO_ERROR },
+            };
+        case Types.DELETE_PAYMENT_METHOD_ERROR:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { timestamp: Date.now(), message: action.payload },
+            };
+
 
         // PAYMENT METHODS
         case Types.FETCH_PAYMENT_METHODS_START:
