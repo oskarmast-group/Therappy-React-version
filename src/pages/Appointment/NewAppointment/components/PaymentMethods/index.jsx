@@ -55,7 +55,7 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod }) => {
     return (
         <>
             <SectionTitle>Método de pago</SectionTitle>
-            {user.paymentMethods.length === 0 ? (
+            {user.paymentMethods.length > 0 ? (
                 <SelectPaymentMethod
                     paymentMethods={user.paymentMethods}
                     selectedMethod={selectedMethod}

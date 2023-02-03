@@ -17,6 +17,7 @@ import Appointment from 'pages/Appointment';
 import useAppointments from 'state/appointments';
 import Videocall from 'pages/Videocall';
 import Payments from 'pages/Payments';
+import Conversation from 'pages/Conversation';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -44,6 +45,7 @@ const App = () => {
                     <PrivateRoute path="/home" component={Home} />
                     <PrivateRoute path="/terapeutas" component={Therapists} />
                     <PrivateRoute path="/perfil" component={Profile} />
+                    <PrivateRoute path="/conversacion/:conversationId" component={Conversation} />
                     <PrivateRoute path="/horario" component={Timetable} />
                     <PrivateRoute path="/appointment" component={Appointment} />
                     <PrivateRoute path="/videollamada" component={Videocall} />

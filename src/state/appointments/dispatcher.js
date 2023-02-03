@@ -8,6 +8,8 @@ export default class Dispatcher {
 
     fetchPendingStart = () => this.dispatch({ type: Types.FETCH_PENDING_START, payload: {} });
 
+    fetchUpcomingStart = () => this.dispatch({ type: Types.FETCH_UPCOMING_START, payload: {} });
+
     acceptStart = (payload) => this.dispatch({ type: Types.ACCEPT_START, payload });
 
     reserveStart = (payload) => this.dispatch({ type: Types.RESERVE_START, payload });

@@ -94,6 +94,21 @@ function* fetchOneStart() {
   yield takeLatest(Types.FETCH_ONE_START, fetchOneStartAsync);
 }
 
+function* fetchUpcomingStartAsync() {
+    try {
+        const res = yield appointmentsAPI.getUpcoming();
+        yield put({ type: Types.FETCH_UPCOMING_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_UPCOMING_ERROR, payload: message });
+    }
+}
+
+function* fetchUpcomingStart() {
+  yield takeLatest(Types.FETCH_UPCOMING_START, fetchUpcomingStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -102,5 +117,6 @@ export default function* sagas() {
         call(fetchPendingStart),
         call(acceptStart),
         call(fetchOneStart),
+        call(fetchUpcomingStart),
     ]);
 }

@@ -4,6 +4,7 @@ import Types from './types';
 const INITIAL_STATE = {
   list: [],
   pendingList: [],
+  upcomingList: [],
   reservation: {},
   appointment: {},
   fetching: { state: false, config: {} },
@@ -45,6 +46,13 @@ export default (state = INITIAL_STATE, action) => {
     case Types.FETCH_PENDING_SUCCESS:
       return { ...state, pendingList: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
     case Types.FETCH_PENDING_ERROR:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
+
+    case Types.FETCH_UPCOMING_START:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE, state: true } };
+    case Types.FETCH_UPCOMING_SUCCESS:
+      return { ...state, upcomingList: action.payload, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+    case Types.FETCH_UPCOMING_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
     case Types.FETCH_ONE_START:

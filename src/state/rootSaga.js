@@ -3,6 +3,7 @@ import user from './user/sagas';
 import therapists from './therapists/sagas';
 import categories from './categories/sagas';
 import appointments from './appointments/sagas';
+import conversations from './conversations/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
     call(therapists),
     call(categories),
     call(appointments),
+    call(conversations),
   ]);
 }

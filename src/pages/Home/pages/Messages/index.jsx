@@ -1,7 +1,10 @@
-import React from 'react';
+import Loading from 'components/Loading';
+import React, { useEffect } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
+import useConversations from 'state/conversations';
 import useUser from 'state/user';
 import styled from 'styled-components';
+import ConversationsList from './components/ConversationsList';
 
 const Title = styled.h1`
     margin: 0;
@@ -18,12 +21,26 @@ const Notice = styled.span`
 `;
 
 const Messages = () => {
-  const [user] = useUser();
-  const messageList = [];
+    const [user] = useUser();
+    const [conversations, conversationsDispatcher] = useConversations();
+
+    useEffect(() => {
+        conversationsDispatcher.fetchStart();
+    }, []);
     return (
         <>
             <Title>Mensajes</Title>
-            {messageList.length === 0 ? <Notice>{user.user?.userType === 'therapist' ? "Cuando te pongas en contacto con algún cliente tus mensajes aparecerán aquí" : "Cuando te pongas en contacto con algún especialista tus mensajes aparecerán aquí"}</Notice> : <div></div>}
+            {conversations.fetching.state ? (
+                <Loading />
+            ) : conversations.list.length === 0 ? (
+                <Notice>
+                    {user.user?.userType === 'therapist'
+                        ? 'Cuando te pongas en contacto con algún cliente tus mensajes aparecerán aquí'
+                        : 'Cuando te pongas en contacto con algún especialista tus mensajes aparecerán aquí'}
+                </Notice>
+            ) : (
+                <ConversationsList list={conversations.list} />
+            )}
         </>
     );
 };

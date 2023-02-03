@@ -27,3 +27,4 @@ export const therapistAPI = Crudder("therapist");
 export const categoriesAPI = Crudder("categories");
 export const stripeClientsAPI = stripeClients(API, "stripe-clients");
 export const appointmentsAPI = appointments(API, "appointments");
+export const conversationsAPI = appointments(API, "conversations");
