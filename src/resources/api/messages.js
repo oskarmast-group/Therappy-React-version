@@ -12,8 +12,8 @@ const crudder = (domain, resource, withAuth = true) => {
             headers,
             url,
         },
-        getAll: () => executeCall(() => Axios.get(url, { headers })),
-        view: (id) => executeCall(() => Axios.get(url + `/${id}`, { headers })),
+        view: (uuid) => executeCall(() => Axios.get(url + `/${uuid}`, { headers })),
+        send: (data, uuid) => executeCall(() => Axios.post(url + `/${uuid}`, data, { headers })),
     };
 };
 

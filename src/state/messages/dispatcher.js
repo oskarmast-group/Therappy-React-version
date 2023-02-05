@@ -6,7 +6,7 @@ export default class Dispatcher {
 
     fetchStart = () => this.dispatch({ type: Types.FETCH_START, payload: {} });
 
-    fetchOneStart = (payload) => this.dispatch({ type: Types.FETCH_ONE_START, payload });
+    sendMessageStart = (payload) => this.dispatch({ type: Types.SEND_MESSAGE_START, payload });
 
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

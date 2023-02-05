@@ -17,14 +17,14 @@ const Container = styled.li`
         align-items: flex-start;
         color: ${DARKER_TEXT};
         text-decoration: none;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
 
     .image-container {
-        width: 66px;
-        height: 66px;
+        width: 55px;
+        height: 55px;
         overflow: hidden;
-        border-radius: 12px;
+        border-radius: 10px;
         img {
             width: 100%;
             height: 100%;
@@ -67,7 +67,7 @@ const ConversationCard = ({conversation}) => {
 
     return (
         <Container>
-            <Link to={`/conversacion/${conversation.id}`}>
+            <Link to={`/conversacion/${conversation.uuid}`}>
                 <div className="image-container">
                     <img
                         src={

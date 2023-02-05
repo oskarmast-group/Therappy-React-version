@@ -4,6 +4,7 @@ import therapists from './therapists/reducer';
 import categories from './categories/reducer';
 import appointments from './appointments/reducer';
 import conversations from './conversations/reducer';
+import messages from './messages/reducer';
 import { connectRouter } from 'connected-react-router';
 
 const rootReducer = (history) => combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = (history) => combineReducers({
   categories,
   appointments,
   conversations,
+  messages,
   router: connectRouter(history),
 });
 

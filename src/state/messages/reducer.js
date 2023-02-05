@@ -3,7 +3,6 @@ import Types from './types';
 
 const INITIAL_STATE = {
     list: [],
-    conversation: {},
     fetching: {
         fetch: { ...DEFAULT_FETCHING_STATE },
         fetchOne: { ...DEFAULT_FETCHING_STATE },
@@ -42,26 +41,34 @@ export default (state = INITIAL_STATE, action) => {
                 error: { timestamp: Date.now(), message: action.payload },
             };
 
-        // FETCH ONE
-        case Types.FETCH_ONE_START:
+        // SEND MESSAGE
+        case Types.SEND_MESSAGE_START:
             return {
                 ...state,
+                list: [...state.list, action.payload],
                 fetching: {
                     ...state.fetching,
                     fetchOne: { ...DEFAULT_FETCHING_STATE, state: true },
                 },
             };
-        case Types.FETCH_ONE_SUCCESS:
+        case Types.SEND_MESSAGE_SUCCESS: {
+            const newList = [...state.list];
+            const message = newList.find((msg) => msg.uuid === action.payload.uuid);
+            console.log('message', message);
+            const index = newList.indexOf(message);
+            newList[index] = action.payload;
+            console.log('newList', newList);
             return {
                 ...state,
-                conversation: action.payload,
+                list: newList,
                 fetching: {
                     ...state.fetching,
                     fetchOne: { ...DEFAULT_FETCHING_STATE },
                 },
                 error: { ...DEFAULT_NO_ERROR },
             };
-        case Types.FETCH_ONE_ERROR:
+        }
+        case Types.SEND_MESSAGE_ERROR:
             return {
                 ...state,
                 fetching: {

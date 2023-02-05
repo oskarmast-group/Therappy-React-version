@@ -30,7 +30,7 @@ const Messages = () => {
     return (
         <>
             <Title>Mensajes</Title>
-            {conversations.fetching.state ? (
+            {conversations.fetching.fetch.state ? (
                 <Loading />
             ) : conversations.list.length === 0 ? (
                 <Notice>
