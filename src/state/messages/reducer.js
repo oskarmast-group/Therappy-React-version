@@ -48,7 +48,7 @@ export default (state = INITIAL_STATE, action) => {
                 list: [...state.list, action.payload],
                 fetching: {
                     ...state.fetching,
-                    fetchOne: { ...DEFAULT_FETCHING_STATE, state: true },
+                    fetchOne: { config: { id: action.payload.uuid },  state: true },
                 },
             };
         case Types.SEND_MESSAGE_SUCCESS: {

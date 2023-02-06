@@ -8,6 +8,7 @@ import useConversations from 'state/conversations';
 import styled from 'styled-components';
 import MessageInput from './components/MessageInput';
 import MessagesList from './components/MessagesList';
+import useUser from 'state/user';
 
 const Container = styled.div`
     display: flex;
@@ -20,18 +21,14 @@ const Container = styled.div`
     padding-bottom: 20px;
 `;
 
-const Name = styled.h3`
-    text-align: center;
-    margin: 0;
-    font-size: 22px;
-`;
-
 const Conversation = () => {
     const [conversations, conversationsDispatcher] = useConversations();
+    const [, userDispatcher] = useUser();
     const { conversationId } = useParams();
 
     useEffect(() => {
         conversationsDispatcher.fetchOneStart(conversationId);
+        userDispatcher.fetchStart();
     }, []);
 
     const user = useMemo(
@@ -44,17 +41,14 @@ const Conversation = () => {
 
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
-            <TopBar />
+            <TopBar title={`${user?.title ?? ''} ${user?.name ?? ''}`} />
             {!!conversations.fetching.fetchOne.state ? (
                 <Loading />
             ) : (
-                <>
-                    {user && <Name>{`${user.title ?? ''} ${user.name}`}</Name>}
-                    <Container>
-                        <MessagesList />
-                        <MessageInput />
-                    </Container>
-                </>
+                <Container>
+                    <MessagesList />
+                    <MessageInput />
+                </Container>
             )}
         </MainContainer>
     );

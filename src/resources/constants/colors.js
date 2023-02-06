@@ -1,4 +1,4 @@
-export const PRIMARY_GREEN = "#687711";
+export const PRIMARY_GREEN = "#717402";
 export const GREEN = "#B3CC1D";
 export const GOLDEN = "#E5BE0A";
 export const GOLDEN_HIGHLIGHT = "#EFF284";

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import AttachFileSVG from 'resources/img/icons/attach-file-icon.svg';
 import SendMessageSVG from 'resources/img/icons/send-message-icon.svg';
 import { GREEN } from 'resources/constants/colors';
@@ -7,6 +6,7 @@ import styled from 'styled-components';
 import useMessages from 'state/messages';
 import { v4 as uuidv4 } from 'uuid';
 import { useRef } from 'react';
+import useUser from 'state/user';
 
 const Message = styled.div`
     display: flex;
@@ -22,7 +22,7 @@ const Message = styled.div`
         max-height: 130px;
         overflow: scroll;
         min-width: 0;
-        resize: both;
+        resize: vertical;
         cursor: text;
         &:focus {
             border: none;
@@ -53,15 +53,18 @@ const Message = styled.div`
 const MessageInput = () => {
     const [, dispatcher] = useMessages();
     const messageRef = useRef();
+    const [userState] = useUser();
 
     const send = () => {
         if(!messageRef.current) return;
         const message = messageRef.current.innerText;
         if(message.trim().length === 0) return;
         dispatcher.sendMessageStart({
-            type: 'message',
+            type: 'text',
             payload: { message },
             uuid: uuidv4(),
+            from: { id:  userState.user.id },
+            createdAt: new Date().toISOString(),
         });
         messageRef.current.innerText = '';
     }
