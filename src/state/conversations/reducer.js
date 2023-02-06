@@ -70,6 +70,9 @@ export default (state = INITIAL_STATE, action) => {
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };
+        case Types.CLEAR_CONVERSATION:
+            return { ...state, conversation: {}, error: { ...DEFAULT_NO_ERROR } };
+
         case Types.RESET_ERROR:
             return { ...state, error: { ...DEFAULT_NO_ERROR } };
 

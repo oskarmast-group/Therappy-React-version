@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import MessageInput from './components/MessageInput';
 import MessagesList from './components/MessagesList';
 import useUser from 'state/user';
+import { DARKER_TEXT } from 'resources/constants/colors';
 
 const Container = styled.div`
     display: flex;
@@ -21,6 +22,13 @@ const Container = styled.div`
     padding-bottom: 20px;
 `;
 
+const CustomTopBar = styled(TopBar)`
+    h1 {
+        font-size: 20px;
+        color: ${DARKER_TEXT};
+    }
+`;
+
 const Conversation = () => {
     const [conversations, conversationsDispatcher] = useConversations();
     const [, userDispatcher] = useUser();
@@ -29,6 +37,10 @@ const Conversation = () => {
     useEffect(() => {
         conversationsDispatcher.fetchOneStart(conversationId);
         userDispatcher.fetchStart();
+
+        return () => {
+            conversationsDispatcher.clearConversation();
+        }
     }, []);
 
     const user = useMemo(
@@ -41,7 +53,7 @@ const Conversation = () => {
 
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
-            <TopBar title={`${user?.title ?? ''} ${user?.name ?? ''}`} />
+            <CustomTopBar title={`${user?.title ?? ''} ${user?.name ?? ''}`} />
             {!!conversations.fetching.fetchOne.state ? (
                 <Loading />
             ) : (

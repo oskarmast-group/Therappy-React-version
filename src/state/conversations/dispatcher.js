@@ -8,5 +8,7 @@ export default class Dispatcher {
 
     fetchOneStart = (payload) => this.dispatch({ type: Types.FETCH_ONE_START, payload });
 
+    clearConversation = () => this.dispatch({ type: Types.CLEAR_CONVERSATION, payload: {} });
+
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

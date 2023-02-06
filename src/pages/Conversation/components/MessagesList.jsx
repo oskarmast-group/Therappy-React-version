@@ -19,6 +19,12 @@ const MessagesList = () => {
     const [state, dispatcher] = useMessages();
     const [list, setList] = useState([]);
 
+    useEffect(()=>{
+        return () => {
+            dispatcher.clearChat();
+        }
+    },[]);
+
     useEffect(() => {
         setList(
             state.list.sort((a, b) => {

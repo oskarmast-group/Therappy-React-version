@@ -54,10 +54,8 @@ export default (state = INITIAL_STATE, action) => {
         case Types.SEND_MESSAGE_SUCCESS: {
             const newList = [...state.list];
             const message = newList.find((msg) => msg.uuid === action.payload.uuid);
-            console.log('message', message);
             const index = newList.indexOf(message);
             newList[index] = action.payload;
-            console.log('newList', newList);
             return {
                 ...state,
                 list: newList,
@@ -77,6 +75,9 @@ export default (state = INITIAL_STATE, action) => {
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };
+        case Types.CLEAR_CHAT:
+            return { ...state, list: [], error: { ...DEFAULT_NO_ERROR } };
+            
         case Types.RESET_ERROR:
             return { ...state, error: { ...DEFAULT_NO_ERROR } };
 

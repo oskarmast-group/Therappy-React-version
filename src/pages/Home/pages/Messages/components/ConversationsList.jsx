@@ -19,7 +19,7 @@ const ConversationsList = ({ list }) => {
     return (
         <ListContainer>
             {list.map((conversation) => (
-                <ConversationCard conversation={conversation} />
+                <ConversationCard key={conversation.uuid} conversation={conversation} />
             ))}
         </ListContainer>
     );
