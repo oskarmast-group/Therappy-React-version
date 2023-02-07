@@ -8,6 +8,8 @@ export default class Dispatcher {
 
     sendMessageStart = (payload) => this.dispatch({ type: Types.SEND_MESSAGE_START, payload });
 
+    addMessage = (payload) => this.dispatch({ type: Types.ADD_MESSAGE, payload });
+
     clearChat = () => this.dispatch({ type: Types.CLEAR_CHAT, payload: {} });
 
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });

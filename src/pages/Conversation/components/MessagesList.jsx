@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useSocket } from 'Socket.js';
 import useMessages from 'state/messages';
 import styled from 'styled-components';
 import Message from './Message.jsx';
@@ -18,12 +19,23 @@ const Container = styled.div`
 const MessagesList = () => {
     const [state, dispatcher] = useMessages();
     const [list, setList] = useState([]);
+    const socket = useSocket();
 
     useEffect(()=>{
         return () => {
             dispatcher.clearChat();
         }
     },[]);
+
+    useEffect(()=>{
+        if(!socket) return;
+        socket.off('new message').on('new message', (payload)=>{ 
+            dispatcher.addMessage(payload);
+         })
+        return () => {
+            dispatcher.clearChat();
+        }
+    },[socket]);
 
     useEffect(() => {
         setList(

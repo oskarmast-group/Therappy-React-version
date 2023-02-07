@@ -48,12 +48,17 @@ export default (state = INITIAL_STATE, action) => {
                 list: [...state.list, action.payload],
                 fetching: {
                     ...state.fetching,
-                    fetchOne: { config: { id: action.payload.uuid },  state: true },
+                    fetchOne: {
+                        config: { id: action.payload.uuid },
+                        state: true,
+                    },
                 },
             };
         case Types.SEND_MESSAGE_SUCCESS: {
             const newList = [...state.list];
-            const message = newList.find((msg) => msg.uuid === action.payload.uuid);
+            const message = newList.find(
+                (msg) => msg.uuid === action.payload.uuid
+            );
             const index = newList.indexOf(message);
             newList[index] = action.payload;
             return {
@@ -75,9 +80,17 @@ export default (state = INITIAL_STATE, action) => {
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };
+            
+        case Types.ADD_MESSAGE:
+            return {
+                ...state,
+                list: [...state.list, action.payload],
+                error: { ...DEFAULT_NO_ERROR },
+            };
+
         case Types.CLEAR_CHAT:
             return { ...state, list: [], error: { ...DEFAULT_NO_ERROR } };
-            
+
         case Types.RESET_ERROR:
             return { ...state, error: { ...DEFAULT_NO_ERROR } };
 

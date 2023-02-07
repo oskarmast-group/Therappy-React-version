@@ -6,12 +6,15 @@ import { Provider } from 'react-redux';
 import store from './state/store';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from './resources/history';
+import SocketProvider from 'Socket';
 
 ReactDOM.render(
     <React.Fragment>
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                <App />
+                <SocketProvider>
+                    <App />
+                </SocketProvider>
             </ConnectedRouter>
         </Provider>
     </React.Fragment>,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getToken } from 'resources/api/auth';
 import { API } from 'resources/constants/urls';
-import socketIOClient from 'socket.io-client';
+import socket, { useSocket } from 'Socket';
 import Webrtc from './webrtc';
 
 const pcConfig = {
@@ -33,13 +34,13 @@ const pcConfig = {
 };
 
 export const useStreamingSocket = (roomId, localStream) => {
-    const [socket, setSocket] = useState(null);
     const [remoteStream, setRemoteStream] = useState(null);
     const [webrtc, setWebrtc] = useState(null);
+    const socket = useSocket();
 
-    useEffect(() => {
-        const socket = socketIOClient(API);
-       
+    useEffect(() => {       
+        if(!socket) return;
+
         const webrtc = new Webrtc(socket, localStream, pcConfig, {
             log: true,
             warn: true,
@@ -63,14 +64,8 @@ export const useStreamingSocket = (roomId, localStream) => {
         webrtc.addEventListener('removeUser', (e) => {
             setRemoteStream(null);
         });
-
-        setSocket(socket);
         setWebrtc(webrtc);
-
-        return function cleanup() {
-            socket.disconnect();
-        }
-    }, []);
+    }, [socket]);
 
     useEffect(() => {
         if (!socket || !localStream || !webrtc) return;

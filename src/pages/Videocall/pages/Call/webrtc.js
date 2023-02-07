@@ -131,7 +131,7 @@ class Webrtc extends EventTarget {
         this.log('socket listeners initialized');
 
         // Room got created
-        this.socket.on('created', (room, socketId) => {
+        this.socket.off('created').on('created', (room, socketId) => {
             this.room = room;
             this._myId = socketId;
             this.isInitiator = true;
@@ -141,7 +141,7 @@ class Webrtc extends EventTarget {
         });
 
         // Joined the room
-        this.socket.on('joined', (room, socketId) => {
+        this.socket.off('joined').on('joined', (room, socketId) => {
             this.log('joined: ' + room);
 
             this.room = room;
@@ -152,7 +152,7 @@ class Webrtc extends EventTarget {
         });
 
         // Left the room
-        this.socket.on('left room', (room) => {
+        this.socket.off('left room').on('left room', (room) => {
             if (room === this.room) {
                 this.warn(`Left the room ${room}`);
 
@@ -165,7 +165,7 @@ class Webrtc extends EventTarget {
         });
 
         // Someone joins room
-        this.socket.on('join', (room) => {
+        this.socket.off('join').on('join', (room) => {
             this.log('Incoming request to join room: ' + room);
 
             this.isReady = true;
@@ -174,14 +174,14 @@ class Webrtc extends EventTarget {
         });
 
         // Room is ready for connection
-        this.socket.on('ready', (user) => {
+        this.socket.off('ready').on('ready', (user) => {
             this.log('User: ', user, ' joined room');
 
             if (user !== this._myId && this.inCall) this.isInitiator = true;
         });
 
         // Someone got kicked from call
-        this.socket.on('kickout', (socketId) => {
+        this.socket.off('kickout').on('kickout', (socketId) => {
             this.log('kickout user: ', socketId);
 
             if (socketId === this._myId) {
@@ -195,7 +195,7 @@ class Webrtc extends EventTarget {
         });
 
         // Logs from server
-        this.socket.on('log', (log) => {
+        this.socket.off('log').on('log', (log) => {
             this.log.apply(console, log);
         });
 
@@ -203,7 +203,7 @@ class Webrtc extends EventTarget {
          * Message from the server
          * Manage stream and sdp exchange between peers
          */
-        this.socket.on('message', (message, socketId) => {
+        this.socket.off('message').on('message', (message, socketId) => {
             this.log('From', socketId, ' received:', message.type);
 
             // Participant leaves
