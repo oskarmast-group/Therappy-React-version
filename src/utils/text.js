@@ -8,6 +8,8 @@ export const getStatusText = ({status}) => {
             return "Aceptada";
         case 'rejected':
             return "Rechazada";
+        case 'completed':
+            return "Finalizada";
         default:
             return '';
     }

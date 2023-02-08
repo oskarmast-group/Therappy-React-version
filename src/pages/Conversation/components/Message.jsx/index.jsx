@@ -2,6 +2,7 @@ import React from 'react';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import { getDisplayDate } from 'utils/date';
+import AssignmentMessage from './Assignment';
 import TextMessage from './Text';
 
 const Container = styled.div`
@@ -29,6 +30,7 @@ const Message = ({ message, previousMessage, nextMessage }) => {
         <Container>
             {shouldShowDate && <DateHeader>{getDisplayDate(message.createdAt, "MMMM d, yyyy")}</DateHeader>}
             {message.type === 'text' && <TextMessage message={message} nextMessage={nextMessage} />}
+            {message.type === 'assignment' && <AssignmentMessage message={message} nextMessage={nextMessage} />}
         </Container>
     );
 };

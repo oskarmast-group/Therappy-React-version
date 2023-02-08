@@ -154,7 +154,7 @@ const DateSelection = ({ therapistId, timeAvailability, appointments }) => {
     const dates = useMemo(() => {
         const days = [];
         const today = new Date();
-        for (let i = 1; i <= 15; i++) {
+        for (let i = 2; i <= 15; i++) {
             const day = addDays(today, i);
             days.push(day);
         }
