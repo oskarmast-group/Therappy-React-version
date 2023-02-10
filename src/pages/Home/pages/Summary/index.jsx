@@ -17,6 +17,8 @@ import TherapistSelectionSection from './components/TherapistSelectionSection';
 import InfoSVG from 'resources/img/icons/info-icon.svg';
 import { useAlert } from 'alert';
 import ALERT_TYPES from 'alert/types';
+import Therapist from 'components/Therapist';
+import { Intructions } from './components/styles';
 
 const Salute = styled.h1`
     font-size: 28px;
@@ -92,6 +94,8 @@ const Summary = () => {
                             }}
                         >
                             <NextAppointmentSection />
+                            <Intructions>Terapeuta:</Intructions>
+                            <Therapist {...user.user.extraData.therapist} />
                             {user.user.extraData.therapist.status ===
                                 ClientTherapistStatus.PENDING && (
                                 <Info
