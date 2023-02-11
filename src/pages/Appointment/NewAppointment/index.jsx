@@ -8,11 +8,6 @@ import useTherapist from 'state/therapists';
 import styled from 'styled-components';
 import NoProfileSVG from 'resources/img/no-pic-therapist.png';
 import { dateFormat } from 'utils/date';
-import {
-    dateObjectFromTimeString,
-    timeFormat,
-    TIME_FORMAT_COMPLETE,
-} from 'utils/time';
 import Button from 'components/Button';
 import { useState } from 'react';
 import useAppointments from 'state/appointments';
@@ -93,7 +88,14 @@ const NewAppointment = () => {
             !appointments.reservation?.appointment?.id
         )
             return;
-        if (!selectedMethod || selectedMethod === 'new method') return;
+
+        const total = appointments.reservation?.pricing?.total;
+        if (
+            (!selectedMethod || selectedMethod === 'new method') &&
+            typeof total === 'number' &&
+            total > 0
+        )
+            return;
         appointmentsDispatcher.confirmStart({
             appointmentId: appointments.reservation?.appointment?.id,
             paymentMethodId: selectedMethod,
@@ -102,7 +104,11 @@ const NewAppointment = () => {
 
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
-            <TopBar />
+            <TopBar
+                backRoute={
+                    appointments.confirmed ? () => history.push('/') : null
+                }
+            />
             <TherapistContainer>
                 <div className="image-container">
                     <img
@@ -141,15 +147,14 @@ const NewAppointment = () => {
                 <PaymentMethods
                     selectedMethod={selectedMethod}
                     setSelectedMethod={setSelectedMethod}
+                    pricing={appointments.reservation?.pricing}
                 />
             )}
             {appointments.confirmed ? (
                 <Button
                     type="button"
                     onClick={() =>
-                        history.push(
-                            `/appointment/${appointments.reservation?.appointment?.roomId}`
-                        )
+                        (window.location.href = `/appointment/${appointments.reservation?.appointment?.roomId}`)
                     }
                     style={{ marginTop: '20px' }}
                     disabled={!appointments.confirmed}
@@ -163,7 +168,9 @@ const NewAppointment = () => {
                     style={{ marginTop: '20px' }}
                     disabled={appointments.fetching.config.key === 'confirm'}
                 >
-                    Pagar
+                    {appointments.reservation?.pricing?.total === 0
+                        ? 'Confirmar'
+                        : 'Pagar'}
                 </Button>
             )}
         </MainContainer>

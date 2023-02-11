@@ -35,12 +35,12 @@ const Title = styled.h1`
     color: ${PRIMARY_GREEN};
 `;
 
-const TopBar = ({ className = '', title = '' }) => {
+const TopBar = ({ className = '', title = '', backRoute = null }) => {
     const { goBack } = useRouter();
 
     return (
         <TopBarComponent className={className}>
-            <MenuButton type='button' onClick={goBack('/home')}>
+            <MenuButton type='button' onClick={backRoute ? backRoute : goBack('/home')}>
                 <img src={GoBackSVG} />
             </MenuButton>
             <Title>{title}</Title>

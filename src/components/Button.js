@@ -10,6 +10,7 @@ const Button = styled.button`
     background-color: ${PRIMARY_GREEN};
     color: white;
     font-size: 1rem;
+    cursor: pointer;
 
     &:disabled,
     &[disabled] {

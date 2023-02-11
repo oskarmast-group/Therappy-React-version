@@ -12,7 +12,7 @@ const Container = styled.li`
     border: 1px solid ${GREEN};
     border-radius: 20px;
 
-    a {
+    .content {
         padding: 10px;
         display: flex;
         gap: 10px;
@@ -51,12 +51,15 @@ const Container = styled.li`
     }
 `;
 
-const Therapist = ({ id, title, name, lastName, profileImg, reviewAvg, reviewsCount }) => {
-    
+const RenderLink = ({ shouldRender, id, children }) => {
+    return shouldRender ? <Link className='content' to={`/terapeutas/${id}`}>{children}</Link> : <div className='content'>{children}</div> 
+}
 
+const Therapist = ({ id, title, name, lastName, profileImg, reviewAvg, reviewsCount, clickable=true }) => {
+    
     return (
         <Container>
-            <Link to={`/terapeutas/${id}`}>
+            <RenderLink id={id} shouldRender={clickable} >
                 <div className="image-container">
                     <img src={profileImg ? `${IMAGES_URL}${profileImg}` : NoProfileSVG} alt={`perfil de ${name} ${lastName}`} />
                 </div>
@@ -66,7 +69,7 @@ const Therapist = ({ id, title, name, lastName, profileImg, reviewAvg, reviewsCo
                     </div>
                     <RatingStars reviewsCount={reviewsCount} reviewAvg={reviewAvg}/>
                 </div>
-            </Link>
+            </RenderLink>
         </Container>
     );
 };

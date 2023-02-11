@@ -17,7 +17,7 @@ const AppointmentCost = ({ loading, pricing }) => {
                         {part.name}: {formatMoney(part.amount)}
                     </Body>
                 ))}
-            {!loading && pricing?.total && (
+            {!loading && typeof pricing?.total === 'number' && (
                 <Body style={{ fontWeight: '700' }}>
                     Total: {formatMoney(pricing.total)}
                 </Body>

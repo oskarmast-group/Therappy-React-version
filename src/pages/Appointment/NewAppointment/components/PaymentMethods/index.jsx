@@ -1,5 +1,6 @@
 import { useAlert } from 'alert';
 import ALERT_TYPES from 'alert/types';
+import InfoButton from 'components/InfoButton';
 import { SectionTitle } from 'components/Text';
 import React, { useEffect } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
@@ -18,8 +19,7 @@ const AddMethods = styled.button`
     margin: 10px 0;
 `;
 
-
-const PaymentMethods = ({ selectedMethod, setSelectedMethod }) => {
+const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
     const [user, userDispatcher] = useUser();
     const alert = useAlert();
 
@@ -52,7 +52,24 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod }) => {
             .catch(() => {});
     };
 
-    return (
+    return pricing?.total === 0 ? (
+        <InfoButton
+            body={'¿Sesión gratuita?'}
+            alertConfig={{
+                title: 'Sesión de cortesía',
+                body: (
+                    <span>
+                        La primera sesión con un terapeuta será una entrevista
+                        para determinar si es un buen emparejamiento. <br />
+                        <br />
+                        Por este motivo no se te cobrarán sesiones hasta que se
+                        te asigne oficialmente un terapeuta.
+                    </span>
+                ),
+                buttonText: 'OK',
+            }}
+        />
+    ) : (
         <>
             <SectionTitle>Método de pago</SectionTitle>
             {user.paymentMethods.length > 0 ? (
