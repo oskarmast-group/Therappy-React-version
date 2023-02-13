@@ -27,7 +27,7 @@ const Call = () => {
     } = useUserMedia();
 
     return callStarted ? (
-        <VideocallInterface appointments={appointments} localStream={mediaStream} roomId={roomId} />
+        <VideocallInterface appointments={appointments} localStream={mediaStream} roomId={roomId} toggleMic={toggleMic} toggleVideo={toggleVideo} videoEnabled={videoEnabled} micEnabled={micEnabled} />
     ) : (
         <Preview appointments={appointments} startCall={() => setCallStarted(true)} />
     );

@@ -4,6 +4,14 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useStreamingSocket } from '../useStreamingSocket';
 import TherappyLogo from 'resources/img/therappy-logo-white.png';
+import MicOnSVG from 'resources/img/mic-on.svg';
+import MicOffSVG from 'resources/img/mic-off.svg';
+import CamOnSVG from 'resources/img/cam-on.svg';
+import CamOffSVG from 'resources/img/cam-off.svg';
+import SoundOnSVG from 'resources/img/sound-on.svg';
+import SoundOffSVG from 'resources/img/sound-off.svg';
+import CircleActionButton from 'pages/Home/pages/Videocalls/components/CircleActionButton';
+import { useState } from 'react';
 
 const Window = styled.div`
     position: fixed;
@@ -46,8 +54,9 @@ const Logo = styled.img`
     opacity: 0.6;
 `;
 
-const VideocallInterface = ({ appointments, localStream, roomId }) => {
+const VideocallInterface = ({ appointments, localStream, roomId, toggleMic, toggleVideo, videoEnabled, micEnabled }) => {
     const { remoteStream } = useStreamingSocket(roomId, localStream);
+    const [soundEnabled, setSoundEnabled] = useState(false);
 
     const localVideoRef = useRef();
     const remoteVideoRef = useRef();
@@ -73,7 +82,7 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
                     style={{ width: '100%', height: '100%' }}
                     autoPlay
                     playsInline
-                    muted
+                    muted={soundEnabled}
                 />
                 {!remoteStream && (
                     <div
@@ -89,6 +98,23 @@ const VideocallInterface = ({ appointments, localStream, roomId }) => {
                 )}
 
                 <LocalVideo ref={localVideoRef} autoPlay playsInline muted />
+                <div style={{ display: 'flex', gap: '10px', position: 'absolute', bottom: '130px', left: 0, right: 0, justifyContent: 'center' }}>
+                <CircleActionButton
+                    src={micEnabled ? MicOnSVG : MicOffSVG}
+                    onClick={toggleMic}
+                    alt={'Mutear'}
+                />
+                <CircleActionButton
+                    src={videoEnabled ? CamOnSVG : CamOffSVG}
+                    onClick={toggleVideo}
+                    alt={'Apagar video'}
+                />
+                <CircleActionButton
+                    src={soundEnabled ? SoundOnSVG : SoundOffSVG}
+                    onClick={()=>setSoundEnabled(!soundEnabled)}
+                    alt={'Apagar sonido'}
+                />
+                </div>
                 <Watermark>
                     <Logo src={TherappyLogo} alt={'Logo Therappy'} />
                     {appointments.appointment?.name &&
