@@ -53,7 +53,7 @@ const Register = () => {
                 name,
                 lastName,
                 phone,
-                userType: 'user',
+                userType: 'client',
                 countryOrigin: 'MX',
             });
             localStorage.setItem('auth', JSON.stringify(res));
