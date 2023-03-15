@@ -9,6 +9,7 @@ name: Deploy to cPanel develop on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    container: node:16.19.1
     steps:
       - uses: actions/checkout@v2
       - run: npm i && CI=false npm run build-test
