@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom';
+import { PRIMARY_GREEN } from 'resources/constants/colors';
 import styled from 'styled-components';
+
+export const Title = styled.h1`
+    margin: 0;
+    font-size: 30px;
+    font-weight: 600;
+    color: ${PRIMARY_GREEN};
+`;
 
 export const Body = styled.p`
     margin: 0;

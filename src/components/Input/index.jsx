@@ -7,12 +7,21 @@ const IconPositions = {
     NONE: 'none',
 };
 
-const Input = ({ style = {}, iconProps = {}, inputProps = {}, labelProps = {} }) => {
+const Input = ({
+    style = {},
+    iconProps = {},
+    inputProps = {},
+    labelProps = {},
+}) => {
     const defaultInputProps = { type: 'text' };
     const { value, ...restInputProps } = inputProps;
     const mergedInputProps = { ...defaultInputProps, ...restInputProps };
 
-    const { icon = '', position: iconPosition = IconPositions.LEADING, ...restIconProps } = iconProps;
+    const {
+        icon = '',
+        position: iconPosition = IconPositions.LEADING,
+        ...restIconProps
+    } = iconProps;
 
     const { label = '', ...restLabelProps } = labelProps;
 
@@ -32,14 +41,19 @@ const Input = ({ style = {}, iconProps = {}, inputProps = {}, labelProps = {} })
             </div>
             {label && (
                 <div className="label-container">
-                    <label className={validValue ? 'up' : ''} {...restLabelProps}>{label}</label>
+                    <label
+                        className={validValue ? 'up' : ''}
+                        {...restLabelProps}
+                    >
+                        {label}
+                    </label>
                 </div>
             )}
-            {withIcon && iconPosition === IconPositions.TRAILING && (
-                <div className="img-container">
+            <div className="img-container">
+                {withIcon && iconPosition === IconPositions.TRAILING && (
                     <img src={icon} alt={'Icon'} {...restIconProps} />
-                </div>
-            )}
+                )}
+            </div>
         </Container>
     );
 };

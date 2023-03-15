@@ -27,10 +27,17 @@ const Info = styled.button`
     }
 `;
 
-const InfoButton = ({ alertConfig = {}, body }) => {
+const InfoButton = ({
+    className,
+    alertConfig = {},
+    body,
+    icon = InfoSVG,
+    iconAlt = 'info',
+}) => {
     const alert = useAlert();
     return (
         <Info
+            className={className}
             onClick={() => {
                 alert({
                     type: ALERT_TYPES.INFO,
@@ -40,7 +47,7 @@ const InfoButton = ({ alertConfig = {}, body }) => {
                     .catch(() => {});
             }}
         >
-            <img src={InfoSVG} alt="info" />
+            <img src={icon} alt={iconAlt} />
             <p>{body}</p>
         </Info>
     );
