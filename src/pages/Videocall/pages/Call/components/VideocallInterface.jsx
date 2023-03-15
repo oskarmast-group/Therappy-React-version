@@ -10,6 +10,7 @@ import CamOnSVG from 'resources/img/cam-on.svg';
 import CamOffSVG from 'resources/img/cam-off.svg';
 import SoundOnSVG from 'resources/img/sound-on.svg';
 import SoundOffSVG from 'resources/img/sound-off.svg';
+import HangupCall from 'resources/img/icons/videocall-hangup-icon.svg';
 import CircleActionButton from 'pages/Home/pages/Videocalls/components/CircleActionButton';
 import { useState } from 'react';
 
@@ -68,7 +69,6 @@ const VideocallInterface = ({ appointments, localStream, roomId, toggleMic, togg
     }, [localStream, localVideoRef]);
 
     useEffect(() => {
-        console.log('remoteStream', remoteStream);
         if (remoteStream && remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = remoteStream;
         }
@@ -113,6 +113,12 @@ const VideocallInterface = ({ appointments, localStream, roomId, toggleMic, togg
                     src={soundEnabled ? SoundOnSVG : SoundOffSVG}
                     onClick={()=>setSoundEnabled(!soundEnabled)}
                     alt={'Apagar sonido'}
+                />
+                <CircleActionButton
+                    src={HangupCall}
+                    onClick={()=>window.location.href = ''}
+                    alt={'Apagar sonido'}
+                    style={{ backgroundColor: 'red' }}
                 />
                 </div>
                 <Watermark>

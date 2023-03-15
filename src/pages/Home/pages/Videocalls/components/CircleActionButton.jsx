@@ -18,9 +18,9 @@ const Button = styled.button`
     }
 `;
 
-const CircleActionButton = ({ src, alt, onClick }) => {
+const CircleActionButton = ({ src, alt, onClick, style={} }) => {
     return (
-        <Button type="button" onClick={onClick}>
+        <Button type="button" onClick={onClick} style={style}>
             <img src={src} alt={alt} />
         </Button>
     );
