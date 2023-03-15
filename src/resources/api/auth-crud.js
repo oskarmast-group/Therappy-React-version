@@ -9,6 +9,7 @@ const authCrudder = (domain, resource) => {
 
     return {
         login: (data) => executeCall(() => Axios.post(`${url}/login`, data, { headers: {} })),
+        register: (data) => executeCall(() => Axios.post(`${url}/register`, data, { headers: {} })),
     };
 };
 
