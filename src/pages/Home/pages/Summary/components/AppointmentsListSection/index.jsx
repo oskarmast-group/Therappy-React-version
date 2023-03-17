@@ -1,6 +1,7 @@
 import Loading from 'components/Loading';
 import React from 'react';
 import { useEffect } from 'react';
+import { useSocket } from 'Socket';
 import useAppointments from 'state/appointments';
 import styled from 'styled-components';
 import { Container, Intructions } from '../styles';
@@ -22,10 +23,18 @@ const Notice = styled.span`
 
 const AppointmentsListSection = () => {
     const [appointments, appointmentsDispatcher] = useAppointments();
+    const socket = useSocket();
 
     useEffect(() => {
         appointmentsDispatcher.fetchPendingStart();
     }, []);
+
+    useEffect(()=>{
+        if(!socket) return;
+        socket.off('appointment created').on('appointment created', (payload)=>{ 
+            appointmentsDispatcher.fetchPendingStart();
+         });
+    },[socket]);
 
     return (
         <Container>

@@ -31,10 +31,7 @@ const MessagesList = () => {
         if(!socket) return;
         socket.off('new message').on('new message', (payload)=>{ 
             dispatcher.addMessage(payload);
-         })
-        return () => {
-            dispatcher.clearChat();
-        }
+         });
     },[socket]);
 
     useEffect(() => {

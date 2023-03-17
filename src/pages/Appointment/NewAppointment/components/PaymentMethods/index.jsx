@@ -55,18 +55,26 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
     return pricing?.total === 0 ? (
         <InfoButton
             body={'¿Sesión gratuita?'}
-            alertConfig={{
-                title: 'Sesión de cortesía',
-                body: (
-                    <span>
-                        La primera sesión con un terapeuta será una entrevista
-                        para determinar si es un buen emparejamiento. <br />
-                        <br />
-                        Por este motivo no se te cobrarán sesiones hasta que se
-                        te asigne oficialmente un terapeuta.
-                    </span>
-                ),
-                buttonText: 'OK',
+            onClick={() => {
+                alert({
+                    type: ALERT_TYPES.INFO,
+                    config: {
+                        title: 'Sesión de cortesía',
+                        body: (
+                            <span>
+                                La primera sesión con un terapeuta será una
+                                entrevista para determinar si es un buen
+                                emparejamiento. <br />
+                                <br />
+                                Por este motivo no se te cobrarán sesiones hasta
+                                que se te asigne oficialmente un terapeuta.
+                            </span>
+                        ),
+                        buttonText: 'OK',
+                    },
+                })
+                    .then(() => {})
+                    .catch(() => {});
             }}
         />
     ) : (

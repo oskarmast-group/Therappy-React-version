@@ -13,6 +13,8 @@ import TherapistSelectionSection from './components/TherapistSelectionSection';
 import Therapist from 'components/Therapist';
 import { Intructions } from './components/styles';
 import InfoButton from 'components/InfoButton';
+import ALERT_TYPES from 'alert/types';
+import { useAlert } from 'alert';
 
 const Salute = styled.h1`
     font-size: 28px;
@@ -33,6 +35,7 @@ const Subtitle = styled.h2`
 
 const Summary = () => {
     const [user] = useUser();
+    const alert = useAlert();
     return (
         <Scrollable>
             <header style={{ marginBottom: '15px', minHeight: 0 }}>
@@ -68,29 +71,41 @@ const Summary = () => {
                         >
                             <NextAppointmentSection />
                             <Intructions>Terapeuta:</Intructions>
-                            <Therapist {...user.user.extraData.therapist} clickable={false}/>
+                            <Therapist
+                                {...user.user.extraData.therapist}
+                                clickable={false}
+                            />
                             {user.user.extraData.therapist.status ===
                                 ClientTherapistStatus.PENDING && (
                                 <InfoButton
                                     body={
                                         '¿Por qué no puedo agendar más sesiones?'
                                     }
-                                    alertConfig={{
-                                        title: 'Asignación pendiente',
-                                        body: (
-                                            <span>
-                                                Después de la sesión
-                                                exploratoria con el terapeuta
-                                                podrán decidir continuar con
-                                                futuras sesiones. <br />
-                                                <br />
-                                                Si deciden no continuar tendrás
-                                                la oportunidad de agendar otra
-                                                sesión exploratoria gratuita con
-                                                otro terapeuta
-                                            </span>
-                                        ),
-                                        buttonText: 'OK',
+                                    onClick={() => {
+                                        alert({
+                                            type: ALERT_TYPES.INFO,
+                                            config: {
+                                                title: 'Asignación pendiente',
+                                                body: (
+                                                    <span>
+                                                        Después de la sesión
+                                                        exploratoria con el
+                                                        terapeuta podrán decidir
+                                                        continuar con futuras
+                                                        sesiones. <br />
+                                                        <br />
+                                                        Si deciden no continuar
+                                                        tendrás la oportunidad
+                                                        de agendar otra sesión
+                                                        exploratoria gratuita
+                                                        con otro terapeuta
+                                                    </span>
+                                                ),
+                                                buttonText: 'OK',
+                                            },
+                                        })
+                                            .then(() => {})
+                                            .catch(() => {});
                                     }}
                                 />
                             )}
