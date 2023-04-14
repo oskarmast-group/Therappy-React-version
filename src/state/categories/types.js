@@ -1,0 +1,9 @@
+const TYPE = `[CATEGORIES]`;
+
+export default {
+    FETCH_START: `${TYPE} FETCH START`,
+    FETCH_SUCCESS: `${TYPE} FETCH SUCCESS`,
+    FETCH_ERROR: `${TYPE} FETCH ERROR`,
+
+    RESET_ERROR: `${TYPE} RESET ERROR`,
+}
