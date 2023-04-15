@@ -14,10 +14,11 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           password: ${{secrets.SSH_PASSWORD}}
           script: |
-            cd terappy/frontend-test/therappy-app/
+            cd ./terappy/frontend-test/therappy-app/
             git pull origin develop
             nvm use 16
             npm i && CI=false
             npm run build-test
-            rsync -a ~/terappy/frontend-test/therappy-app/build /var/www/test.terappy.mx/html
+            cd
+            rsync -a ./terappy/frontend-test/therappy-app/build /var/www/test.terappy.mx/html
             echo 'Deployment to IONOS server finished'
