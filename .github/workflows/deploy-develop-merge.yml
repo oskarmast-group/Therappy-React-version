@@ -14,7 +14,8 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           password: ${{secrets.SSH_PASSWORD}}
           script: |
-            exec bash \-l
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd ./terappy/frontend-test/therappy-app/
             git pull origin develop
             nvm use 16
