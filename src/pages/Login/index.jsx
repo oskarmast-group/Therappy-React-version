@@ -143,7 +143,7 @@ const Login = () => {
                     </ForgotPassword>
                     <b style={{ textAlign: 'center' }}>
                         <CustomLink
-                            to="/registro-psicoterapeuta"
+                            to="/registro-terapeutas"
                             style={{ fontSize: '20px' }}
                         >
                             Registro psicoterapeutas

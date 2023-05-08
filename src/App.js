@@ -20,6 +20,7 @@ import Payments from 'pages/Payments';
 import Conversation from 'pages/Conversation';
 import Register from 'pages/Register';
 import Confirmation from 'pages/Confirmation';
+import RegisterTherapist from 'pages/RegisterTherapist';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -41,6 +42,7 @@ const App = () => {
                 <Switch>
                     <Route path="/login" component={Login} />
                     <Route path="/registro" component={Register} />
+                    <Route path="/registro-terapeutas" component={RegisterTherapist} />
                     <Route path="/logout" component={Logout} />
                     <Route exact path="/">
                         <Redirect to="/home" />

@@ -17,6 +17,15 @@ const ErrorText = styled.p`
     color: #d50000;
 `;
 
+const Subtitle = styled.h2`
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: ${DARK_TEXT};
+    margin: 0;
+    margin-top: 25px;
+`;
+
 const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -29,7 +38,7 @@ const Form = styled.form`
     }
 `;
 
-const Register = () => {
+const RegisterTherapist = () => {
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [user, setUser] = useState('');
@@ -53,7 +62,7 @@ const Register = () => {
                 name,
                 lastName,
                 phone,
-                userType: 'client',
+                userType: 'therapist',
                 countryOrigin: 'MX',
             });
             localStorage.setItem('auth', JSON.stringify(res));
@@ -69,8 +78,11 @@ const Register = () => {
             <TopBar />
             <Scrollable>
                 <Title style={{ textAlign: 'center', color: DARK_TEXT }}>
-                    Regístrate
+                    Registro para terapeutas
                 </Title>
+                <Subtitle>
+                    Después de crear una cuenta deberás completar tu registro para empezar a aceptar pacientes.
+                </Subtitle>
                 <Form onSubmit={submit} autoComplete={'new-password'}>
                     <Input
                         labelProps={{ label: 'Nombre(s)' }}
@@ -142,17 +154,9 @@ const Register = () => {
                         Registrarse
                     </Button>
                 </Form>
-                <b style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                    <CustomLink
-                        to="/registro-terapeutas"
-                        style={{ fontSize: '20px' }}
-                    >
-                        Soy psicoterapeuta
-                    </CustomLink>
-                </b>
             </Scrollable>
         </MainContainer>
     );
 };
 
-export default Register;
+export default RegisterTherapist;
