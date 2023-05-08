@@ -36,6 +36,10 @@ const Confirmation = () => {
         setText('Correo verificado con exito')
       } catch (e) {
         console.log(e);
+        const response = e.response;
+        if(response && response.status === 403) {
+          setText('Código expirado, solicita la verificación de correo de nuevo.')
+        }
         setText('No se pudo verificar el correo, intente de nuevo más tarde.')
       }
       setLoading(false);
