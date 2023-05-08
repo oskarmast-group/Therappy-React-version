@@ -142,7 +142,7 @@ const Register = () => {
                         Registrarse
                     </Button>
                 </Form>
-                <b style={{ textAlign: 'center' }}>
+                <b style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                     <CustomLink
                         to="/registro-psicoterapeuta"
                         style={{ fontSize: '20px' }}

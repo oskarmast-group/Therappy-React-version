@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import InfoButton from 'components/InfoButton';
 import ALERT_TYPES from 'alert/types';
 import { useAlert } from 'alert';
+import EmailConfirmationDialog from './components/EmailConfirmationDialog';
 
 const Home = ({ location }) => {
     const { path, url } = useRouteMatch();
@@ -29,6 +30,20 @@ const Home = ({ location }) => {
         setMenuOpen(!menuOpen);
     };
 
+    const showEmailConfirmationAlert = () => {
+        alert({
+            type: ALERT_TYPES.CUSTOM,
+            config: {
+                body: EmailConfirmationDialog,
+                props: {
+                    userId: user.user.id,
+                },
+            },
+        })
+            .then(() => {})
+            .catch(() => {});
+    }
+ 
     return (
         <>
             <MainContainer menuOpen={menuOpen} toggleMenu={toggleMenu}>
@@ -37,26 +52,7 @@ const Home = ({ location }) => {
                     <InfoButton
                         style={{ backgroundColor: 'red', fontWeight: '700' }}
                         body={'Verificación de correo pendiente'}
-                        onClick={() => {
-                            alert({
-                                type: ALERT_TYPES.CONFIRM,
-                                config: {
-                                    title: 'Verificación de correo pendiente',
-                                    body: (
-                                        <span>
-                                            Para poder usar la app necesitas verificar tu dirección de correo electrónico.{' '}
-                                            <br />
-                                            <br />
-                                            Revisa tu bandeja de entrada por un correo de Terappy. Si no te llegó te lo podemos volver a enviar.
-                                        </span>
-                                    ),
-                                    confirmButtonText: 'Enviar Correo',
-                                    cancelButtonText: 'OK',
-                                },
-                            })
-                                .then(() => {})
-                                .catch(() => {});
-                        }}
+                        onClick={showEmailConfirmationAlert}
                     />
                 )}
                 <Switch>

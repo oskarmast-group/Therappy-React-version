@@ -1,4 +1,12 @@
-* {box-sizing: border-box;}
+* {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   margin: 0;
@@ -22,11 +30,22 @@ body {
   position: relative;
 }
 
-div,span,p,h1,h2,h3,h4,input,a,button,select,span,textarea {
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+input,
+a,
+button,
+select,
+span,
+textarea {
   font-family: 'Open Sans', sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

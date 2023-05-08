@@ -19,6 +19,7 @@ import Videocall from 'pages/Videocall';
 import Payments from 'pages/Payments';
 import Conversation from 'pages/Conversation';
 import Register from 'pages/Register';
+import Confirmation from 'pages/Confirmation';
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -52,6 +53,7 @@ const App = () => {
                     <PrivateRoute path="/appointment" component={Appointment} />
                     <PrivateRoute path="/videollamada" component={Videocall} />
                     <PrivateRoute path="/pagos" component={Payments} />
+                    <PrivateRoute path="/confirmacion/:token" component={Confirmation} />
                 </Switch>
             </AlertServiceProvider>
         </RouterProvider>
