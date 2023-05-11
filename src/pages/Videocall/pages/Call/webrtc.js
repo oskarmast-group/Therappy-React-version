@@ -112,7 +112,10 @@ class Webrtc extends EventTarget {
             this.log('Create peer connection to ', socketId);
 
             this._createPeerConnection(socketId);
-            this.pcs[socketId].addStream(this._localStream);
+            console.log(this.pcs[socketId]);
+            this._localStream.getTracks().forEach(track => {
+                this.pcs[socketId].addTrack(track, this._localStream);
+            });
 
             if (this.isInitiator) {
                 this.log('Creating offer for ', socketId);
