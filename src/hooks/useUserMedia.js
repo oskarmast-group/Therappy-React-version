@@ -106,14 +106,24 @@ export function useUserMedia() {
         const videoId = selectedDevices[DEVICES_TYPES.VIDEO_INPUT];
         const audioId = selectedDevices[DEVICES_TYPES.AUDIO_INPUT];
         setOptions({
-            video: videoEnabled ? { deviceId: videoId ? { exact: videoId } : undefined } : false,
-            audio: micEnabled ? { deviceId: audioId ? { exact: audioId } : undefined } : false,
+            video: { deviceId: videoId ? { exact: videoId } : undefined },
+            audio: { deviceId: audioId ? { exact: audioId } : undefined },
         });
-    }, [selectedDevices, micEnabled, videoEnabled]);
+    }, [selectedDevices]);
 
-    const toggleMic = () => setMicEnabled(!micEnabled);
+    const toggleMic = () => {
+        mediaStream.getAudioTracks().forEach((track) => {
+            track.enabled = !micEnabled;
+        });
+        setMicEnabled(!micEnabled)
+    };
 
-    const toggleVideo = () => setVideoEnabled(!videoEnabled);
+    const toggleVideo = () => {
+        mediaStream.getVideoTracks().forEach((track) => {
+            track.enabled = !videoEnabled;
+        });
+        setVideoEnabled(!videoEnabled)
+    };
 
     return { mediaStream, devices, selectedDevices, changeSelectedDevice, videoEnabled, toggleVideo, micEnabled, toggleMic };
 }
