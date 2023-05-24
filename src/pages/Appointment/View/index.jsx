@@ -84,7 +84,7 @@ const ViewAppointment = () => {
                             </h2>
                         )}
                     <ActionsRow>
-                        <LinkButton to={`#`}>
+                        <LinkButton to={`/conversacion/${appointments.appointment?.conversationId}`}>
                             <img src={MessageSVG} alt={'Mensaje'} /> Chat
                         </LinkButton>
                         <LinkButton to={`/videollamada/${appointments.appointment?.roomId}`}>

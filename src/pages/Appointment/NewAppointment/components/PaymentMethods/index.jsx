@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
-import AddPaymentMethodDialog from './AddPaymentMethodDialog';
+import AddPaymentMethodDialog from 'components/AddPaymentMethodDialog';
 import SelectPaymentMethod from './SelectPaymentMethod';
 
 const AddMethods = styled.button`
