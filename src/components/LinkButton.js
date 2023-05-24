@@ -13,6 +13,7 @@ const LinkButton = styled(Link)`
     text-decoration: none;
     
     &:disabled,
+    &.disabled,
     &[disabled] {
         background-color: #cccccc;
         color: #666666;

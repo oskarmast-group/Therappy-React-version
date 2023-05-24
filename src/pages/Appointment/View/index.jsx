@@ -84,10 +84,10 @@ const ViewAppointment = () => {
                             </h2>
                         )}
                     <ActionsRow>
-                        <LinkButton to={`/conversacion/${appointments.appointment?.conversationId}`}>
+                        <LinkButton to={`/conversacion/${appointments.appointment?.conversationId}`} className={appointments.appointment?.conversationId ? '' : 'disabled'} >
                             <img src={MessageSVG} alt={'Mensaje'} /> Chat
                         </LinkButton>
-                        <LinkButton to={`/videollamada/${appointments.appointment?.roomId}`}>
+                        <LinkButton to={`/videollamada/${appointments.appointment?.roomId}`} className={appointments.appointment?.roomId ? '' : 'disabled'}>
                             <img src={VideocallSVG} alt={'Videollamada'} />{' '}
                             Llamada
                         </LinkButton>
