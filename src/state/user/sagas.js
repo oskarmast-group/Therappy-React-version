@@ -24,7 +24,7 @@ function* updateImageStartAsync({ payload }) {
         const form = toFormData({profile: payload});
         yield profileAPI.updateImage(form);
         const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.FETCH_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
     } catch (error) {
         const message = processError(error);
         console.error(message);
