@@ -11,11 +11,12 @@ const INITIAL_STATE = {
         setup: { ...DEFAULT_FETCHING_STATE },
         deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
         paymentMethods: { ...DEFAULT_FETCHING_STATE },
+        acceptInvitation: { ...DEFAULT_FETCHING_STATE },
     },
     error: { ...DEFAULT_NO_ERROR },
 };
 
-export default (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         // FETCH
         case Types.FETCH_START:
@@ -172,6 +173,34 @@ export default (state = INITIAL_STATE, action) => {
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };
+            
+        // ACCEPT INVITATION
+        case Types.ACCEPT_INVITATION_START:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    acceptInvitation: { ...DEFAULT_FETCHING_STATE, state: true },
+                },
+            };
+        case Types.ACCEPT_INVITATION_SUCCESS:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    acceptInvitation: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { ...DEFAULT_NO_ERROR },
+            };
+        case Types.ACCEPT_INVITATION_ERROR:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    acceptInvitation: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { timestamp: Date.now(), message: action.payload },
+            };
 
         case Types.RESET_ERROR:
             return { ...state, error: { ...DEFAULT_NO_ERROR } };
@@ -180,3 +209,5 @@ export default (state = INITIAL_STATE, action) => {
             return state;
     }
 };
+
+export default reducer;

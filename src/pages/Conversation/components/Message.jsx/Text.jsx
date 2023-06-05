@@ -17,7 +17,7 @@ const Container = styled.div`
     gap: 5px;
     max-width: 75%;
     span {
-        color: white;
+        color: #fbfbfd;
     }
     .text {
         font-size: 14px;
@@ -35,7 +35,7 @@ const Container = styled.div`
     }
     &.other {
         align-self: flex-start;
-        background-color: white;
+        background-color: #fbfbfd;
         border: 1px solid ${PRIMARY_GREEN};
         span {
             color: ${PRIMARY_GREEN};

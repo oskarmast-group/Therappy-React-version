@@ -19,7 +19,7 @@ export const IconButton = styled.button`
     p {
         margin: 0;
         font-size: 14px;
-        color: white;
+        color: #fbfbfd;
     }
 `;
 
@@ -31,7 +31,7 @@ const Button = styled.button`
     border: none;
     outline: none;
     background-color: ${PRIMARY_GREEN};
-    color: white;
+    color: #fbfbfd;
     font-size: 1rem;
     cursor: pointer;
 

@@ -120,6 +120,22 @@ function* deletePaymentMethodStart() {
     yield takeLatest(Types.DELETE_PAYMENT_METHOD_START, deletePaymentMethodStartAsync)
 }
 
+function* acceptInvitationStartAsync({ payload }) {
+    try {
+        yield profileAPI.assignmentResponse(payload);
+        yield put({ type: Types.ACCEPT_INVITATION_SUCCESS, payload: {} });
+        yield put({ type: Types.FETCH_START, payload: {} });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.ACCEPT_INVITATION_SUCCESS, payload: message });
+    }
+}
+
+function* acceptInvitationStart() {
+    yield takeLatest(Types.ACCEPT_INVITATION_START, acceptInvitationStartAsync)
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -130,5 +146,6 @@ export default function* sagas() {
         call(fetchPaymentMethodsStart),
         call(updateTherapistStart),
         call(deletePaymentMethodStart),
+        call(acceptInvitationStart),
     ]);
 }

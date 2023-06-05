@@ -35,7 +35,7 @@ const EmailConfirmationDialog = ({ open, onSubmit, onClose }) => {
             type="text"
             disabled={loading}
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#fbfbfd',
               color: PRIMARY_GREEN,
               border: `2px solid ${PRIMARY_GREEN}`,
             }}

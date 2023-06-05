@@ -17,7 +17,7 @@ const Actions = ({
             <Button
                 type="text"
                 style={{
-                    backgroundColor: 'white',
+                    backgroundColor: '#fbfbfd',
                     color: PRIMARY_GREEN,
                     border: `2px solid ${PRIMARY_GREEN}`,
                 }}

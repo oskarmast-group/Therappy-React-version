@@ -20,7 +20,7 @@ const Container = styled.ul`
         cursor: pointer;
         &.active {
             background-color: ${GOLDEN};
-            color: white;
+            color: #fbfbfd;
         }
     }
 `;

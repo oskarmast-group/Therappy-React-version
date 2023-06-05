@@ -61,6 +61,17 @@ const Container = styled.li`
     }
 `;
 
+const getLastMessageText = (lastMessage) => {
+    switch(lastMessage.type) {
+        case 'text':
+            return lastMessage.payload.message;
+        case 'assignment':
+            return 'Invitación para aceptar asignación';
+        default:
+            return '';
+    }
+}
+
 const ConversationCard = ({conversation}) => {
 
     const user = useMemo(()=> conversation.users ? conversation.users[0] : null, [conversation]);
@@ -81,7 +92,7 @@ const ConversationCard = ({conversation}) => {
                 <div className="information">
                     <div className="texts">
                         <h4>{`${user.title ?? ''} ${user.name} ${user.lastName}`}</h4>
-                        <p className={conversation.lastMessage ? '' : 'enphasis'}>{conversation.lastMessage ? conversation.lastMessage : 'Envía tu primer mensaje'}</p>
+                        <p className={conversation.lastMessage ? '' : 'enphasis'}>{conversation.lastMessage ? getLastMessageText(conversation.lastMessage) : 'Envía tu primer mensaje'}</p>
                     </div>
                 </div>
             </Link>

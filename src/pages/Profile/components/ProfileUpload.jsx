@@ -122,7 +122,7 @@ const ProfileUpload = () => {
                             />
                         </div>
                         <button className="upload" type="button" onClick={onImageUpload} disabled={loadingPicture}>
-                            {loadingPicture ? <Ring color="#ffffff" size={22} /> : <img src={CameraIconSVG} alt={'camara subir imagen'} />}
+                            {loadingPicture ? <Ring color="#fbfbfd" size={22} /> : <img src={CameraIconSVG} alt={'camara subir imagen'} />}
                         </button>
                     </>
                 )}

@@ -18,7 +18,7 @@ const BottomNavBarContainer = styled.div`
 
 const BottomNavBarComponent = styled.div`
     display: flex;
-    background-color: white;
+    background-color: #fbfbfd;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 34px;
     justify-content: space-between;

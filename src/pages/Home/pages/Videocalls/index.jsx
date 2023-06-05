@@ -14,7 +14,7 @@ const VideoContainer = styled.div`
     position: relative;
     min-height: 200px;
     max-height: 250px;
-    background-color: black;
+    background-color: #1d1d1f;
     margin-bottom: 20px;
 `;
 

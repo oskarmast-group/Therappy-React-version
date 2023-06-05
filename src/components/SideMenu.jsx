@@ -19,7 +19,7 @@ const SideMenuContainer = styled.aside`
     max-width: 300px;
     transition-duration: 0.5s;
     left: calc(0px - min(75vw, 300px));
-    background-color: white;
+    background-color: #fbfbfd;
     &.open {
         left: 0;
         box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.5);
@@ -37,7 +37,7 @@ const TopTitle = styled.div`
 
 const SidebarHeader = styled.h2`
     font-size: 30px;
-    color: white;
+    color: #fbfbfd;
     margin: 0;
 `;
 

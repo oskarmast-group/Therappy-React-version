@@ -23,7 +23,7 @@ body {
   max-width: 434px;
   height: 100vh;
   max-height: 100vh;
-  background-color: white;
+  background-color: #fbfbfd;
   display: flex;
   flex-direction: column;
   overflow: hidden;

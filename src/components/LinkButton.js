@@ -8,7 +8,7 @@ const LinkButton = styled(Link)`
     border: none;
     outline: none;
     background-color: #687711;
-    color: white;
+    color: #fbfbfd;
     font-size: 1rem;
     text-decoration: none;
     

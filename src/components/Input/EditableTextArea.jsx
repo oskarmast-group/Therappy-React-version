@@ -10,7 +10,7 @@ const CustomContainer = styled(Container)`
     align-items: flex-start;
     border-radius: 20px;
     textarea:disabled {
-        background-color: white;
+        background-color: #fbfbfd;
     }
 
     .img-edit-container {

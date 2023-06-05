@@ -31,7 +31,7 @@ const Tab = styled.button`
     border-radius: 10px;
     &.active {
         background-color: ${PRIMARY_GREEN};
-        color: white;
+        color: #fbfbfd;
     }
 `;
 

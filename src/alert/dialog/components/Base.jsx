@@ -21,7 +21,7 @@ const CustomModal = styled(Modal)`
         position: relative;
         margin: 0;
         padding: 0;
-        background: #ffffff;
+        background: #fbfbfd;
         overflow: visible;
         border-radius: 24px;
         max-width: 486px;
@@ -35,7 +35,7 @@ const CustomModal = styled(Modal)`
         position: relative;
         margin: 0;
         padding: 0;
-        background: #ffffff;
+        background: #fbfbfd;
         overflow: visible;
         border-radius: 24px;
         height: auto;

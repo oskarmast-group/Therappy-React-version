@@ -29,7 +29,7 @@ const RemoteVideoContainer = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: #1d1d1f;
 `;
 
 const LocalVideo = styled(Video)`
@@ -93,7 +93,7 @@ const VideocallInterface = ({ appointments, localStream, roomId, toggleMic, togg
                             justifyContent: 'center',
                         }}
                     >
-                        <Ring color="#ffffff" size={45} />
+                        <Ring color="#fbfbfd" size={45} />
                     </div>
                 )}
 
@@ -129,7 +129,7 @@ const VideocallInterface = ({ appointments, localStream, roomId, toggleMic, togg
                                 style={{
                                     textAlign: 'center',
                                     margin: '10px',
-                                    color: 'white',
+                                    color: '#fbfbfd',
                                 }}
                             >
                                 En llamada con:

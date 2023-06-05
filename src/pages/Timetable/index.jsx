@@ -14,7 +14,7 @@ const UpdateButton = styled.button`
     padding: 3px 10px;
     background-color: ${PRIMARY_GREEN};
     font-size: 12px;
-    color: white;
+    color: #fbfbfd;
     border: none;
     outline: none;
     border-radius: 20px;

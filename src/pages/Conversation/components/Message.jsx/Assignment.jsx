@@ -1,62 +1,106 @@
 import Button from 'components/Button';
-import React from 'react';
-import { useMemo } from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
-import useMessages from 'state/messages';
+import useConversations from 'state/conversations';
 import useUser from 'state/user';
 import styled from 'styled-components';
-import { getDisplayTime } from 'utils/time';
 
 const Container = styled.div`
-    padding: 10px;
-    border: 1px solid ${PRIMARY_GREEN};
-    width: 100%;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    margin: 10px 0;
-    .text {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
+  padding: 10px;
+  border: 1px solid ${PRIMARY_GREEN};
+  width: 100%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+  .text {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
 
-    .options {
-        display: flex;
-        width: 100%;
-        gap: 15px;
-        button {
-            flex: 1;
-        }
+  .options {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    button {
+      flex: 1;
     }
+  }
 `;
 
+const bannerText = (relationshipStatus, invitationState, userType) => {
+  if (relationshipStatus === 'dismissed') return userType === 'client' ? 'La asignación con este terapeuta no funcionó.' : 'La asignación con este cliente no funcionó, pero puedes intentarlo con otro.';
+  if (relationshipStatus === 'active') return userType === 'client' ? 'Ambos aceptaron la invitación, ahora es tu terapeuta asignado.' : 'Ambos aceptaron la invitación, ahora es tu cliente asignado.';
+
+  if(invitationState === null) return userType === 'client' ? 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Terapeuta ? (Ambos deberán estar de acuerdo)' : 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Cliente ? (Ambos deberán estar de acuerdo)';
+  if(invitationState === true) return userType === 'client' ? 'Ya respondiste a la asignación, hay que esperar la respuesta del Terapeuta' : 'Ya respondiste a la asignación, hay que esperar la respuesta del Cliente';
+};
+
+const buttonsVisible = (relationshipStatus, invitationState) => {
+  if(relationshipStatus === 'dismissed' || relationshipStatus === 'active') return false;
+
+  if(invitationState === true) return false;
+
+  return true;
+}; 
+
 const AssignmentMessage = ({ message, nextMessage }) => {
-    const [userState] = useUser();
-    const [messagesStates] = useMessages();
+  const [userState, userDispatcher] = useUser();
+  const [invitationState, setInvitationState] = useState(null);
+  const [conversationState] = useConversations();
+  const [relationshipStatus, setRelationshipStatus] = useState(null);
 
-    const otherUserText =
-        userState.user?.userType === 'client' ? 'Terapeuta' : 'Paciente';
+  useEffect(() => {
+    let relationshipStatus = null;
+    if (userState.user?.userType === 'client') {
+      relationshipStatus = userState.user.extraData.therapist ? userState.user.extraData.therapist.status : 'dismissed';
+    }
 
-    return (
-        <Container>
-            <p className="text">
-                Tu primera sesión ha concluido, ¿Deseas que te asignemos a este{' '}
-                {otherUserText} ? (Ambos deberán estar de acuerdo) 
-            </p>
-            <div className="options">
-                <Button type="button" onClick={() => {}} disabled={false}>
-                    Rechazar
-                </Button>
-                <Button type="button" onClick={() => {}} disabled={false}>
-                    Aceptar
-                </Button>
-            </div>
-        </Container>
+    if (userState.user?.userType === 'therapist') {
+      if (!conversationState.conversation.uuid) return;
+
+      const otherUser = conversationState.conversation.users[0];
+      if (!otherUser) return;
+
+      const user = userState.user?.extraData.clients.find(({ id }) => id === otherUser.id);
+      if (!user) return;
+
+      relationshipStatus = user.status;
+    }
+
+    if (!relationshipStatus) return;
+    setRelationshipStatus(relationshipStatus);
+
+    const invitation = userState.user.extraData.invitations.find(
+      ({ invitationUUID }) => invitationUUID === message.uuid
     );
+    if (invitation) setInvitationState(invitation.accepted);
+  }, [userState, conversationState, message]);
+
+  const onAccept = (accept) => {
+    userDispatcher.acceptInvitationStart({ accept, invitationUUID:  message.uuid});
+  }
+
+  return relationshipStatus === null ? null : (
+    <Container>
+      <p className="text">
+        {bannerText(relationshipStatus, invitationState, userState.user?.userType)}
+      </p>
+      {buttonsVisible(relationshipStatus, invitationState) ? <div className="options">
+        <Button type="button" onClick={() => onAccept(false)} disabled={false}>
+          Rechazar
+        </Button>
+        <Button type="button" onClick={() => onAccept(true)} disabled={false}>
+          Aceptar
+        </Button>
+      </div> : null}
+    </Container>
+  );
 };
 
 export default AssignmentMessage;

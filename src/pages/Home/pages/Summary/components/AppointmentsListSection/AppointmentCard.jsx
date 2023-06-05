@@ -99,7 +99,7 @@ const AppointmentCard = ({ app }) => {
             >
                 {appointments.fetching.state &&
                 appointments.fetching.config.key === 'accept' ? (
-                    <Ring color="#ffffff" size={22} />
+                    <Ring color="#fbfbfd" size={22} />
                 ) : (
                     'Aceptar'
                 )}
