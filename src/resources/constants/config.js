@@ -5,3 +5,5 @@ export const ClientTherapistStatus = {
     DISMISSED: 'dismissed',
     PENDING: 'pending',
 }
+
+export const PUBLIC_VAPID_KEY = process.env.REACT_APP_VAPID_PUBLIC_KEY;

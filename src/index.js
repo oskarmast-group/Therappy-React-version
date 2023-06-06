@@ -7,7 +7,7 @@ import store from './state/store';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from './resources/history';
 import SocketProvider from 'Socket';
-//import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
     <React.Fragment>
@@ -27,4 +27,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 //reportWebVitals();
 
-//serviceWorkerRegistration.register();
+serviceWorkerRegistration.register();
