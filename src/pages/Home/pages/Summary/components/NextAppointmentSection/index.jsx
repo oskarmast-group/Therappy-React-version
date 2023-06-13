@@ -19,14 +19,14 @@ const NextAppointmentSection = () => {
          });
     },[socket]);
 
-    return appointments.upcomingList.length > 0 ? (
+    return appointments.upcomingList.filter(({status}) => status !== 'rejected').length > 0 ? (
         <Container>
             <Intructions>Cita próxima</Intructions>
             <AppointmentCard
                 app={
                     appointments.upcomingList.sort((a, b) => {
                         return new Date(a.date) - new Date(b.date);
-                    })[0]
+                    }).filter(({status}) => status !== 'rejected')[0]
                 }
             />
         </Container>
