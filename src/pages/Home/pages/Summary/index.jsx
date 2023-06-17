@@ -15,6 +15,8 @@ import { Intructions } from './components/styles';
 import InfoButton from 'components/InfoButton';
 import ALERT_TYPES from 'alert/types';
 import { useAlert } from 'alert';
+import useAppointments from 'state/appointments';
+import { useEffect } from 'react';
 
 const Salute = styled.h1`
     font-size: 28px;
@@ -34,8 +36,14 @@ const Subtitle = styled.h2`
 `;
 
 const Summary = () => {
+    const [appointments, appointmentsDispatcher] = useAppointments();
     const [user] = useUser();
     const alert = useAlert();
+
+    useEffect(() => {
+        appointmentsDispatcher.fetchUpcomingStart();
+    }, []);
+
     return (
         <Scrollable>
             <header style={{ marginBottom: '15px', minHeight: 0 }}>
@@ -73,7 +81,7 @@ const Summary = () => {
                             <Intructions>Terapeuta:</Intructions>
                             <Therapist
                                 {...user.user.extraData.therapist}
-                                clickable={false}
+                                clickable={appointments.upcomingList.filter(({status}) => status !== 'rejected').length === 0}
                             />
                             {user.user.extraData.therapist.status ===
                                 ClientTherapistStatus.PENDING && (

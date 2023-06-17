@@ -8,10 +8,6 @@ const NextAppointmentSection = () => {
     const [appointments, appointmentsDispatcher] = useAppointments();
     const socket = useSocket();
 
-    useEffect(() => {
-        appointmentsDispatcher.fetchUpcomingStart();
-    }, []);
-
     useEffect(()=>{
         if(!socket) return;
         socket.off('appointment updated').on('appointment updated', (payload)=>{ 

@@ -56,30 +56,13 @@ const AssignmentMessage = ({ message, nextMessage }) => {
   const [relationshipStatus, setRelationshipStatus] = useState(null);
 
   useEffect(() => {
-    let relationshipStatus = null;
-    if (userState.user?.userType === 'client') {
-      relationshipStatus = userState.user.extraData.therapist ? userState.user.extraData.therapist.status : 'dismissed';
-    }
-
-    if (userState.user?.userType === 'therapist') {
-      if (!conversationState.conversation.uuid) return;
-
-      const otherUser = conversationState.conversation.users[0];
-      if (!otherUser) return;
-
-      const user = userState.user?.extraData.clients.find(({ id }) => id === otherUser.id);
-      if (!user) return;
-
-      relationshipStatus = user.status;
-    }
-
-    if (!relationshipStatus) return;
-    setRelationshipStatus(relationshipStatus);
-
     const invitation = userState.user.extraData.invitations.find(
       ({ invitationUUID }) => invitationUUID === message.uuid
     );
-    if (invitation) setInvitationState(invitation.accepted);
+    if (invitation){ 
+      setInvitationState(invitation.accepted);
+      setRelationshipStatus(invitation.status);
+    };
   }, [userState, conversationState, message]);
 
   const onAccept = (accept) => {
