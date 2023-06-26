@@ -6,6 +6,7 @@ const isPushNotificationSupported = () => {
 };
 
 const getNotificationsSubscription = async () => {
+  console.log('getNotificationsSubscription');
   const registration = await navigator.serviceWorker.ready;
   console.log('sw registration', registration);
   const subscription = await registration.pushManager.getSubscription();
