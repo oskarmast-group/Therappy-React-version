@@ -10,6 +10,7 @@ import VideoSVG from 'resources/img/video.svg';
 import { Link } from 'react-router-dom';
 import useUser from 'state/user';
 import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
+import { subscribeNotificationsIfNotAlready } from 'utils/notifications';
 
 const SideMenuContainer = styled.aside`
     position: absolute;
@@ -56,7 +57,14 @@ const Navigation = styled.nav`
         gap: 10px;
         padding: 0;
         li {
-            a {
+            button {
+                border: none;
+                outline: none;
+                background-color: transparent;
+                width: 100%;
+                cursor: pointer;
+            }
+            a, button {
                 text-decoration: none;
                 margin: 0;
                 display: flex;
@@ -72,6 +80,7 @@ const Navigation = styled.nav`
                     flex: 1;
                     font-size: 16px;
                     font-weight: 600;
+                    text-align: left;
                 }
             }
         }
@@ -124,6 +133,12 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <p>Cerrar Sesión</p>
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
+                    </li>
+                    <li>
+                        <button type='button' onClick={subscribeNotificationsIfNotAlready}>
+                            <p>Activar Notificaciones</p>
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                        </button>
                     </li>
                 </ul>
             </Navigation>

@@ -11,7 +11,7 @@ import CamOffSVG from 'resources/img/cam-off.svg';
 import SoundOnSVG from 'resources/img/sound-on.svg';
 import SoundOffSVG from 'resources/img/sound-off.svg';
 import HangupCall from 'resources/img/icons/videocall-hangup-icon.svg';
-import CircleActionButton from 'pages/Home/pages/Videocalls/components/CircleActionButton';
+import CircleActionButton from 'pages/Videocall/pages/Call/components/CircleActionButton';
 import { useState } from 'react';
 
 const Window = styled.div`

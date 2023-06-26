@@ -13,7 +13,7 @@ import { getDisplayTime } from 'utils/time';
 import { addMinutes } from 'date-fns';
 import { Body } from 'components/Text';
 import Button from 'components/Button';
-import CircleActionButton from 'pages/Home/pages/Videocalls/components/CircleActionButton';
+import CircleActionButton from 'pages/Videocall/pages/Call/components/CircleActionButton';
 import MicOnSVG from 'resources/img/mic-on.svg';
 import MicOffSVG from 'resources/img/mic-off.svg';
 import CamOnSVG from 'resources/img/cam-on.svg';

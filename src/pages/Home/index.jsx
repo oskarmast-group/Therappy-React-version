@@ -5,7 +5,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Summary from './pages/Summary';
 import Messages from './pages/Messages';
 import Calendar from './pages/Calendar';
-import Videocalls from './pages/Videocalls';
 import BottomNavBar from './components/BottomNavBar';
 import TopBar from './components/TopBar';
 import useUser from 'state/user';
@@ -62,7 +61,6 @@ const Home = ({ location }) => {
                     <Route path={`${path}/resumen`} component={Summary} />
                     <Route path={`${path}/mensajes`} component={Messages} />
                     <Route path={`${path}/calendario`} component={Calendar} />
-                    <Route path={`${path}/llamada`} component={Videocalls} />
                 </Switch>
                 <BottomNavBar location={location} />
             </MainContainer>
