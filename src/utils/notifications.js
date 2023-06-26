@@ -7,6 +7,7 @@ const isPushNotificationSupported = () => {
 
 const getNotificationsSubscription = async () => {
   const registration = await navigator.serviceWorker.ready;
+  console.log('sw registration', registration);
   const subscription = await registration.pushManager.getSubscription();
   return subscription;
 };
@@ -18,6 +19,7 @@ const checkSubscriptionStatus = async () => {
     if (!!subscription) return true;
     return false;
   } catch (e) {
+    console.error('Check subscription status');
     console.error(e);
     return null;
   }
