@@ -85,3 +85,11 @@ self.addEventListener('push', function(event) {
 
   event.waitUntil(self.registration.showNotification(payload.title, options));
 });
+
+self.addEventListener('install', function(event) {
+  console.log('Service Worker installing');
+});
+
+self.addEventListener('activate', function(event) {
+  console.log('Service Worker acitvating');
+});
