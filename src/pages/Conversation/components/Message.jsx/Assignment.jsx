@@ -56,7 +56,7 @@ const AssignmentMessage = ({ message, nextMessage }) => {
   const [relationshipStatus, setRelationshipStatus] = useState(null);
 
   useEffect(() => {
-    const invitation = userState.user.extraData.invitations.find(
+    const invitation = userState.current.extraData.invitations.find(
       ({ invitationUUID }) => invitationUUID === message.uuid
     );
     if (invitation){ 
@@ -72,7 +72,7 @@ const AssignmentMessage = ({ message, nextMessage }) => {
   return relationshipStatus === null ? null : (
     <Container>
       <p className="text">
-        {bannerText(relationshipStatus, invitationState, userState.user?.userType)}
+        {bannerText(relationshipStatus, invitationState, userState.current?.userType)}
       </p>
       {buttonsVisible(relationshipStatus, invitationState) ? <div className="options">
         <Button type="button" onClick={() => onAccept(false)} disabled={false}>

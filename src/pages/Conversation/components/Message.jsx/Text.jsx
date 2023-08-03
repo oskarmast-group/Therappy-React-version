@@ -50,8 +50,8 @@ const TextMessage = ({ message, nextMessage }) => {
     const [userState] = useUser();
     const [messagesStates] = useMessages();
     const isSelf = useMemo(
-        () => userState.user.id === message.from.id,
-        [userState.user, message.from]
+        () => userState.current.id === message.from.id,
+        [userState.current, message.from]
     );
     const isLoading = useMemo(
         () => messagesStates.fetching.fetchOne?.config?.id === message.uuid,

@@ -62,7 +62,7 @@ const NewAppointment = () => {
             return;
         }
         therapistsDispatcher.fetchProfileStart(therapistId);
-        const dateTime = new Date(`${dateFormat(date)} ${time}`);
+        const dateTime = new Date(time);
 
         appointmentsDispatcher.reserveStart({
             therapistId,
@@ -122,7 +122,7 @@ const NewAppointment = () => {
                 </div>
                 <div className="information">
                     <div className="texts">
-                        <h4>{`${therapists.current.title} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
+                        <h4>{`${therapists.current.title ?? ''} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
                     </div>
                 </div>
             </TherapistContainer>

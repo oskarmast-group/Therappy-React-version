@@ -35,7 +35,7 @@ const Home = ({ location }) => {
             config: {
                 body: EmailConfirmationDialog,
                 props: {
-                    userId: user.user.id,
+                    userId: user.current.id,
                 },
             },
         })
@@ -47,7 +47,7 @@ const Home = ({ location }) => {
         <>
             <MainContainer menuOpen={menuOpen} toggleMenu={toggleMenu}>
                 <TopBar toggleMenu={toggleMenu} />
-                {user.user && !user.user.emailVerified && (
+                {user.current && !user.current.emailVerified && (
                     <InfoButton
                         style={{ backgroundColor: 'red', fontWeight: '700' }}
                         body={'Verificación de correo pendiente'}

@@ -21,6 +21,21 @@ import Conversation from 'pages/Conversation';
 import Register from 'pages/Register';
 import Confirmation from 'pages/Confirmation';
 import RegisterTherapist from 'pages/RegisterTherapist';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { ThemeProvider, createTheme } from '@mui/material';
+import { GREEN_HIGHLIGHT, PRIMARY_GREEN } from 'resources/constants/colors';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: GREEN_HIGHLIGHT,
+            main: PRIMARY_GREEN,
+            dark: PRIMARY_GREEN,
+            contrastText: '#fff',
+        },
+    }
+});
 
 const App = () => {
     const [categories, categoriesDispatcher] = useCategories();
@@ -29,6 +44,9 @@ const App = () => {
     const [appointments, appointmentsDispatcher] = useAppointments();
 
     return (
+        
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <ThemeProvider theme={theme}>
         <RouterProvider>
             <AlertServiceProvider>
                 <ErrorManagement
@@ -59,6 +77,9 @@ const App = () => {
                 </Switch>
             </AlertServiceProvider>
         </RouterProvider>
+        </ThemeProvider>
+        </LocalizationProvider>
+        
     );
 };
 export default App;

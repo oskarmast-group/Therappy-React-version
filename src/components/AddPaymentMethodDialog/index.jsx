@@ -29,7 +29,7 @@ const AddPaymentMethodDialog = ({ open, onSubmit, onClose }) => {
                 ) : (
                     user.setupIntentToken && (
                         <Elements stripe={stripePromise}>
-                            <CardForm user={user.user} secret={user.setupIntentToken.secret} confirmPayment={onConfirm} />
+                            <CardForm user={user.current} secret={user.setupIntentToken.secret} confirmPayment={onConfirm} />
                         </Elements>
                     )
                 )}

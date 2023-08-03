@@ -104,7 +104,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
-                    {user.user?.userType === 'therapist' && (
+                    {user.current?.userType === 'therapist' && (
                         <li>
                             <Link to="/horario">
                                 <img src={CalendarSVG} alt={'Calendario'} />

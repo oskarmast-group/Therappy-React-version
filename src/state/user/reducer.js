@@ -2,7 +2,7 @@ import { DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR } from 'state/constants';
 import Types from './types';
 
 const INITIAL_STATE = {
-    user: {},
+    current: {},
     setupIntentToken: null,
     paymentMethods: [],
     fetching: {
@@ -30,7 +30,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         case Types.FETCH_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
+                current: action.payload,
                 fetching: {
                     ...state.fetching,
                     fetch: { ...DEFAULT_FETCHING_STATE },

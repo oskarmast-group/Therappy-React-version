@@ -34,7 +34,7 @@ const Messages = () => {
                 <Loading />
             ) : conversations.list.length === 0 ? (
                 <Notice>
-                    {user.user?.userType === 'therapist'
+                    {user.current?.userType === 'therapist'
                         ? 'Cuando te pongas en contacto con algún cliente tus mensajes aparecerán aquí'
                         : 'Cuando te pongas en contacto con algún especialista tus mensajes aparecerán aquí'}
                 </Notice>

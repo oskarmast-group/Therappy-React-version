@@ -48,13 +48,13 @@ const Summary = () => {
         <Scrollable>
             <header style={{ marginBottom: '15px', minHeight: 0 }}>
                 <Salute>
-                    Hola, <span>{user?.user?.name ?? ''}</span>
+                    Hola, <span>{user?.current?.name ?? ''}</span>
                 </Salute>
                 <Subtitle>¿Cómo te encuentras hoy?</Subtitle>
             </header>
 
-            {user?.user && !user.fetching.fetch.state ? (
-                user.user.userType === 'therapist' ? (
+            {user?.current && !user.fetching.fetch.state ? (
+                user.current.userType === 'therapist' ? (
                     <div
                         style={{
                             display: 'flex',
@@ -67,7 +67,7 @@ const Summary = () => {
                         <PacientListSection />
                         <NewsSection />
                     </div>
-                ) : !!user.user.extraData?.therapist ? (
+                ) : !!user.current.extraData?.therapist ? (
                     <>
                         <div
                             style={{
@@ -80,10 +80,10 @@ const Summary = () => {
                             <NextAppointmentSection />
                             <Intructions>Terapeuta:</Intructions>
                             <Therapist
-                                {...user.user.extraData.therapist}
+                                {...user.current.extraData.therapist}
                                 clickable={appointments.upcomingList.filter(({status}) => status !== 'rejected').length === 0}
                             />
-                            {user.user.extraData.therapist.status ===
+                            {user.current.extraData.therapist.status ===
                                 ClientTherapistStatus.PENDING && (
                                 <InfoButton
                                     body={

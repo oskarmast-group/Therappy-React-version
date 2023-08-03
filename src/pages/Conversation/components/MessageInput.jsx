@@ -63,7 +63,7 @@ const MessageInput = () => {
             type: 'text',
             payload: { message },
             uuid: uuidv4(),
-            from: { id:  userState.user.id },
+            from: { id:  userState.current.id },
             createdAt: new Date().toISOString(),
         });
         messageRef.current.innerText = '';

@@ -34,14 +34,14 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
     }, [selectedMethod]);
 
     const addPaymentMethod = () => {
-        if (!user.user.id) return;
+        if (!user.current.id) return;
 
         alert({
             type: ALERT_TYPES.CUSTOM,
             config: {
                 body: AddPaymentMethodDialog,
                 props: {
-                    userId: user.user.id,
+                    userId: user.current.id,
                 },
             },
         })

@@ -9,6 +9,8 @@ import HoursPicker from './components/HoursPicker';
 import { GREEN, PRIMARY_GREEN } from 'resources/constants/colors';
 import { Ring } from '@uiball/loaders';
 import Scrollable from 'containers/Scrollable';
+import useAppointments from 'state/appointments';
+import { add, isAfter, set } from 'date-fns';
 
 const UpdateButton = styled.button`
     padding: 3px 10px;
@@ -21,75 +23,99 @@ const UpdateButton = styled.button`
     height: fit-content;
     align-self: center;
     width: fit-content;
+    cursor: pointer;
 `;
+
+const getRelevantAvailability = (serverTime = 0, timeAvailability = {}) => {
+    const now = new Date(serverTime);
+    const tomorrow = add(set(now, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }), { days: 1 });
+
+    const relevantAvailability = {};
+
+    if (!timeAvailability) return relevantAvailability;
+
+    for (const [key, value] of Object.entries(timeAvailability).sort((a,b)=>new Date(a[1]) - new Date(b[1]))) {
+        const hour = new Date(value);
+
+        if (isAfter(hour, tomorrow)) {
+            relevantAvailability[key] = value;
+        }
+    }
+
+    return relevantAvailability;
+};
 
 const Timetable = () => {
     const [hoursChanged, setHoursChanged] = useState(false);
     const [user, userDispatcher] = useUser();
-    const [timeAvailability, setTimeAvailability] = useState({
-        hours: {},
-        specialDates: {},
-    });
+    const [appointments, appointmentsDispatcher] = useAppointments();
+
+    const [timeAvailability, setTimeAvailability] = useState({});
+    const [nextWeekDates, setNextWeekDates] = useState([]);
+    const [withError, setWithError] = useState(false);
+
     const history = useHistory();
 
     useEffect(() => {
         userDispatcher.fetchStart();
+        appointmentsDispatcher.getServerTimeStart();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (!user.user.userType) return;
-        if (user.user.userType !== 'therapist') history.push('/');
-    }, [user.user]);
+        if (!appointments.serverTime) return;
+
+        const now = new Date(appointments.serverTime);
+        const dates = [];
+
+        for (let i = 1; i <= 7; i++) {
+            const next = set(add(now, { days: i }), { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+            dates.push(next);
+        }
+
+        setNextWeekDates(dates);
+    }, [appointments.serverTime]);
 
     useEffect(() => {
-        if (Object.keys(user.user).length > 0 && !user.fetching.fetch.state) {
-            setTimeAvailability({
-                hours: user.user.extraData?.timeAvailability?.hours ?? {},
-                specialDates:
-                    user.user.extraData?.timeAvailability?.specialDates ?? {},
-            });
-        }
-    }, [user.user, user.fetching.fetch.state]);
-
-    const updateHours = (hours) => {
-        setTimeAvailability({ ...timeAvailability, hours });
-    };
+        if (!user.current.userType) return;
+        if (user.current.userType !== 'therapist') history.push('/');
+    }, [user]);
 
     useEffect(() => {
-        let changed = false;
-        const hours = timeAvailability.hours;
-        const userHours = user.user.extraData?.timeAvailability?.hours;
-        for (const day of Object.keys(hours)) {
-            if (changed === true) break;
-            const dayHours = hours[day];
-            const userDayHours = userHours[day];
-            if (dayHours === null && userDayHours === null) continue;
-            if (dayHours === null || userDayHours === null) {
-                changed = true;
-                break;
-            }
-            if (dayHours.length !== userDayHours.length) {
-                changed = true;
-                break;
-            }
-            for (let i = 0; i < dayHours.length; i++) {
-                const start = dayHours[i][0];
-                const end = dayHours[i][1];
-                const userStart = userDayHours[i][0];
-                const userEnd = userDayHours[i][1];
+        if (!!user.current?.id > 0 && !user.fetching.fetch.state && appointments.serverTime) {
+            const relevantAvailability = getRelevantAvailability(
+                appointments.serverTime,
+                user.current.extraData?.timeAvailability
+            );
+            setTimeAvailability(relevantAvailability);
+        }
+    }, [user, user.fetching.fetch.state, appointments.serverTime]);
 
-                if (start !== userStart) {
-                    changed = true;
-                    break;
-                }
-                if (end !== userEnd) {
-                    changed = true;
-                    break;
-                }
+    useEffect(() => {
+        const relevantAvailability = getRelevantAvailability(
+            appointments.serverTime,
+            user.current.extraData?.timeAvailability
+        );
+
+        const userEntries = Object.entries(relevantAvailability);
+        const entries = Object.entries(timeAvailability);
+
+        if (userEntries.length !== entries.length) {
+            console.log('not equal');
+            setHoursChanged(true);
+            return;
+        }
+
+        for (const [key, value] of entries) {
+            const userEntry = relevantAvailability[key];
+
+            if (value !== userEntry) {
+                setHoursChanged(true);
+                return;
             }
         }
-        setHoursChanged(changed);
+
+        setHoursChanged(false);
     }, [timeAvailability]);
 
     const onSubmitHours = () => {
@@ -103,29 +129,27 @@ const Timetable = () => {
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={'Horario'} />
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                <h3>Horario regular</h3>
-                {hoursChanged && (
+                <h3>Próximos 7 días</h3>
+                {hoursChanged && !withError && (
                     <UpdateButton type="button" onClick={onSubmitHours}>
                         Actualizar
                     </UpdateButton>
                 )}
-                {user.fetching.update?.config?.key === 'timeAvailability' && (
-                    <Ring color={GREEN} size={25} />
-                )}
+                {user.fetching.update?.config?.key === 'timeAvailability' && <Ring color={GREEN} size={25} />}
             </div>
             <Scrollable>
                 {(user.fetching.fetch.state &&
                     !!user.fetching.fetch.config &&
                     Object.keys(user.fetching.fetch.config).length === 0) ||
-                Object.keys(user.user).length === 0 ? (
+                Object.keys(user.current).length === 0 ? (
                     <Loading />
                 ) : (
-                    <>
-                        <HoursPicker
-                            hours={timeAvailability.hours}
-                            onChange={updateHours}
-                        />
-                    </>
+                    <HoursPicker
+                        timeAvailability={timeAvailability}
+                        dates={nextWeekDates}
+                        updateTimeAvailability={setTimeAvailability}
+                        setWithError={setWithError}
+                    />
                 )}
             </Scrollable>
         </MainContainer>

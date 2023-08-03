@@ -34,36 +34,36 @@ const Profile = () => {
 
     useEffect(() => {
         if (
-            Object.keys(user.user).length > 0 &&
+            Object.keys(user.current).length > 0 &&
             !user.fetching.fetch.state &&
             !user.fetching.update.state
         ) {
             setUserData({
-                name: user.user.name,
-                lastName: user.user.lastName,
-                email: user.user.email,
-                dob: user.user.dob,
-                phoneNumber: user.user.phoneNumber,
-                phoneCountryCode: user.user.phoneCountryCode,
-                countryOrigin: user.user.countryOrigin,
+                name: user.current.name,
+                lastName: user.current.lastName,
+                email: user.current.email,
+                dob: user.current.dob,
+                phoneNumber: user.current.phoneNumber,
+                phoneCountryCode: user.current.phoneCountryCode,
+                countryOrigin: user.current.countryOrigin,
             });
         }
-    }, [user.user]);
+    }, [user.current]);
 
     useEffect(() => {
         if (
-            typeof user.user.extraData === 'object' &&
-            Object.keys(user.user.extraData).length > 0 &&
+            typeof user.current.extraData === 'object' &&
+            Object.keys(user.current.extraData).length > 0 &&
             !user.fetching.fetch.state &&
             !user.fetching.update.state
         ) {
             setTherapistData({
-                title: user.user.extraData.title,
-                experience: user.user.extraData.experience,
-                phrase: user.user.extraData.phrase,
+                title: user.current.extraData.title,
+                experience: user.current.extraData.experience,
+                phrase: user.current.extraData.phrase,
             });
         }
-    }, [user.user, user.user.extraData]);
+    }, [user.current, user.current.extraData]);
 
     const onChange = (key) => (value) => {
         setUserData({ ...userData, [key]: value });
@@ -75,21 +75,21 @@ const Profile = () => {
 
     const onSubmit = (key) => {
         const newValue = userData[key].trim();
-        if (user.user[key] !== newValue) {
+        if (user.current[key] !== newValue) {
             userDispatcher.updateStart({ key, value: newValue });
         }
     };
 
     const onSubmitTherapist = (key) => {
         const newValue = therapistData[key].trim();
-        if (user.user.extraData && user.user.extraData[key] !== newValue) {
+        if (user.current.extraData && user.current.extraData[key] !== newValue) {
             userDispatcher.updateTherapistStart({ key, value: newValue });
         }
     };
 
     const onChangeDate = (value) => {
         setUserData({ ...userData, dob: value });
-        if (user.user.dob !== value) {
+        if (user.current.dob !== value) {
             userDispatcher.updateStart({ key: 'dob', value });
         }
     };
@@ -105,7 +105,7 @@ const Profile = () => {
                     !!user.fetching.update.state.config &&
                     Object.keys(user.fetching.update.state.config).length ===
                         0) ||
-                Object.keys(user.user).length === 0 ? (
+                Object.keys(user.current).length === 0 ? (
                     <Loading />
                 ) : (
                     <div
@@ -153,7 +153,7 @@ const Profile = () => {
                                 user.fetching.update.config.key === 'dob'
                             }
                         />
-                        {user.user?.userType === 'therapist' && (
+                        {user.current?.userType === 'therapist' && (
                             <>
                                 <EditableInput
                                     inputProps={{

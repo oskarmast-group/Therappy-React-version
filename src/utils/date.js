@@ -14,7 +14,6 @@ export const dateFormat = (date, FORMAT = DATE_FORMAT) => {
 };
 
 export const getDisplayDate = (date, format = DISPLAY_DATE_FORMAT) => {
-    console.log('date', date);
     const dateFormatted = dateFormat(new Date(date), format);
 
     return capitalize(dateFormatted);

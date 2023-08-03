@@ -1,10 +1,11 @@
 import Button from 'components/Button';
-import { isEqual } from 'date-fns';
+import { isAfter, isBefore, isEqual, set } from 'date-fns';
 import React, { useMemo } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { DARK_TEXT, GOLDEN, GOLDEN_HIGHLIGHT, PRIMARY_GREEN } from 'resources/constants/colors';
+import useAppointments from 'state/appointments';
 import styled from 'styled-components';
 import { dateFormat, isDateAfter } from 'utils/date';
 import { dayOfTheWeekTranslatedAbr } from 'utils/text';
@@ -65,46 +66,23 @@ const DateContainer = styled.div`
 `;
 
 const checkDay = (timeAvailability, date) => {
-    const day = new Date(date);
-    const dateString = day.toISOString().substring(0, 10);
-    const dayString = dayOfTheWeek[day.getDay()];
-    if (timeAvailability.specialDates[dateString] === null) {
-        return false;
-    }
-    if (timeAvailability.hours[dayString] === null) {
-        return false;
-    }
-    return true;
-};
-
-const getTimesFromRange = (hours) => {
-    const times = [];
-    for (const range of hours) {
-        const [start, end] = range;
-        let startTime = dateObjectFromTimeString(start);
-        const endTime = dateObjectFromTimeString(end);
-        while (isDateAfter(endTime, startTime)) {
-            const timeString = timeFormat(startTime);
-            times.push(timeString);
-            startTime = addHours(timeString, 1);
-        }
-    }
-    return times;
+    const hours = getHours(timeAvailability, date);
+    return hours.length !== 0;
 };
 
 const getHours = (timeAvailability, date) => {
     const day = new Date(date);
-    const dateString = day.toISOString().substring(0, 10);
-    const dayString = dayOfTheWeek[day.getDay()];
-    const specialHours = timeAvailability.specialDates[dateString];
-    const hours = timeAvailability.hours[dayString];
-    if (!!specialHours && !!specialHours.hours) {
-        return getTimesFromRange(specialHours.hours);
+    const nextDay = addDays(day, 1);
+
+    const hours = [];
+
+    for(const value of Object.values(timeAvailability).sort((a,b)=>new Date(a) - new Date(b))) {
+        const time = new Date(value);
+        if(isAfter(time, day) && isBefore(time, nextDay)) {
+            hours.push(time);
+        }
     }
-    if (!!hours) {
-        return getTimesFromRange(hours);
-    }
-    return [];
+    return hours;
 };
 
 const HourContainer = styled.button`
@@ -151,32 +129,46 @@ const DateSelection = ({ therapistId, timeAvailability, appointments }) => {
     const history = useHistory();
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedHour, setSelectedHour] = useState(null);
+    const [appointmentsState, appointmentsDispatcher] = useAppointments();
+
+    useEffect(()=>{
+        appointmentsDispatcher.getServerTimeStart();
+    },[])
+
     const dates = useMemo(() => {
+        if(!appointmentsState.serverTime || !timeAvailability) return [];
         const days = [];
-        const today = new Date();
-        for (let i = 2; i <= 15; i++) {
+        const today = set(new Date(appointmentsState.serverTime), { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+        let daySelected = null;
+        for (let i = 1; i <= 15; i++) {
             const day = addDays(today, i);
             days.push(day);
+            if(!daySelected && checkDay(timeAvailability, day)) {
+                daySelected = day;  
+            }
         }
-        setSelectedDate(days[0]);
+        setSelectedDate(daySelected);
         return days;
-    }, []);
+    }, [appointmentsState.serverTime, timeAvailability]);
 
     const hours = useMemo(() => getHours(timeAvailability, selectedDate), [timeAvailability, selectedDate]);
 
     useEffect(() => {
-        if (hours.length === 0) {
-            setSelectedHour(null);
-            return;
+        for(const hour of hours) {
+            if(isAvailable(hour)){
+                setSelectedHour(hour);
+                return;
+            }
         }
-        setSelectedHour(hours[0]);
+        setSelectedHour(null);
+        
     }, [hours]);
 
     const isAvailable = (hour) => {
         if (!appointments || appointments.length === 0) return true;
         for (const app of appointments) {
             const appDate = new Date(app.date);
-            const date = new Date(`${dateFormat(selectedDate)}T${hour}`);
+            const date = new Date(hour);
             if (isEqual(date, appDate)) return false;
         }
         return true;
@@ -205,7 +197,7 @@ const DateSelection = ({ therapistId, timeAvailability, appointments }) => {
                         className={`${selectedHour === h ? 'selected' : ''}`}
                         onClick={() => setSelectedHour(h)}
                     >
-                        <p>{getDisplayTime(dateObjectFromTimeString(h))}</p>
+                        <p>{getDisplayTime(h)}</p>
                     </HourContainer>
                 ))}
             </Container>

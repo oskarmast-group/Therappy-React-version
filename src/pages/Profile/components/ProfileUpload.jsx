@@ -117,7 +117,7 @@ const ProfileUpload = () => {
                     <>
                         <div className="profile-container">
                             <img
-                                src={user?.user?.profileImg ? `${IMAGES_URL}${user.user.profileImg}` : NoProfileSVG}
+                                src={user?.current?.profileImg ? `${IMAGES_URL}${user.current.profileImg}` : NoProfileSVG}
                                 alt={'Imagen de perfil'}
                             />
                         </div>

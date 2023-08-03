@@ -109,6 +109,21 @@ function* fetchUpcomingStart() {
   yield takeLatest(Types.FETCH_UPCOMING_START, fetchUpcomingStartAsync);
 }
 
+function* getServerTimeStartAsync() {
+    try {
+        const res = yield appointmentsAPI.serverTime();
+        yield put({ type: Types.GET_SERVER_TIME_SUCCESS, payload: res.now });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.GET_SERVER_TIME_ERROR, payload: message });
+    }
+}
+
+function* getServerTimeStart() {
+    yield takeLatest(Types.GET_SERVER_TIME_START, getServerTimeStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -118,5 +133,6 @@ export default function* sagas() {
         call(acceptStart),
         call(fetchOneStart),
         call(fetchUpcomingStart),
+        call(getServerTimeStart),
     ]);
 }

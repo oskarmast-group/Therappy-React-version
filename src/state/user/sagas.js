@@ -40,8 +40,7 @@ function* updateStartAsync({ payload }) {
     try {
         const { key, value } = payload;
         yield profileAPI.update({[key]: value});
-        const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: {} });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -91,8 +90,7 @@ function* updateTherapistStartAsync({ payload }) {
     try {
         const { key, value } = payload;
         yield therapistAPI.update({[key]: value});
-        const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: {} });
     } catch (error) {
         const message = processError(error);
         console.error(message);
