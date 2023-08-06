@@ -50,12 +50,6 @@ const Container = styled.label`
             width: calc(var(--height) - 2px);
         }
     }
-
-    @media (min-width: 650px) {
-        height: 20px;
-        width: 40px;
-        margin-top: 0px;
-    }
 `;
 
 const Switch = ({ label, checked, disabled = false, className, ...rest }) => {

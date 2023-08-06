@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DARK_TEXT, PRIMARY_GREEN } from 'resources/constants/colors';
 import CloseSVG from 'resources/img/close.svg';
@@ -10,7 +10,8 @@ import VideoSVG from 'resources/img/video.svg';
 import { Link } from 'react-router-dom';
 import useUser from 'state/user';
 import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
-import { subscribeNotificationsIfNotAlready } from 'utils/notifications';
+import { canActivateNotifications, subscribeNotificationsIfNotAlready } from 'utils/notifications';
+import { Ring } from '@uiball/loaders';
 
 const SideMenuContainer = styled.aside`
     position: absolute;
@@ -64,7 +65,8 @@ const Navigation = styled.nav`
                 width: 100%;
                 cursor: pointer;
             }
-            a, button {
+            a,
+            button {
                 text-decoration: none;
                 margin: 0;
                 display: flex;
@@ -89,6 +91,25 @@ const Navigation = styled.nav`
 
 const SideMenu = ({ menuOpen, toggleMenu }) => {
     const [user] = useUser();
+    const [showNotificationSub, setShowNotificationSub] = useState(false);
+    const [notificationLoading, setNotificationLoading] = useState(false);
+
+    const checkStatus = async () => {
+        const canShow = await canActivateNotifications();
+        setShowNotificationSub(canShow);
+    };
+
+    useEffect(() => {
+        checkStatus();
+    }, []);
+
+    const onSubscribeNotification = async () => {
+        setNotificationLoading(true);
+        await subscribeNotificationsIfNotAlready();
+        await checkStatus();
+        setNotificationLoading(false);
+    }
+
     return (
         <SideMenuContainer className={menuOpen ? 'open' : ''}>
             <TopTitle>
@@ -134,12 +155,17 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
-                    <li>
-                        <button type='button' onClick={subscribeNotificationsIfNotAlready}>
-                            <p>Activar Notificaciones</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
-                        </button>
-                    </li>
+                    {showNotificationSub &&
+                        (notificationLoading ? (
+                            <Ring color={PRIMARY_GREEN} size={22} />
+                        ) : (
+                            <li>
+                                <button type="button" onClick={onSubscribeNotification}>
+                                    <p>Activar Notificaciones</p>
+                                    <img src={ArrowSVG} alt={'Flecha derecha'} />
+                                </button>
+                            </li>
+                        ))}
                 </ul>
             </Navigation>
         </SideMenuContainer>

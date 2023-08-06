@@ -8,6 +8,7 @@ import { Body, CustomLink } from 'components/Text';
 import Button from 'components/Button';
 import { authAPI } from 'resources/api';
 import Scrollable from 'containers/Scrollable';
+import { unsubscribeNotifications } from 'utils/notifications';
 
 const Logo = styled.img`
     width: 60%;
@@ -73,6 +74,13 @@ const Login = () => {
         try {
             const res = await authAPI.login({ email: user, password });
             localStorage.setItem('auth', JSON.stringify(res));
+
+            const previousUser = localStorage.getItem('userIdentity');
+            if(previousUser !== res.identity && process.env.NODE_ENV !== 'development') {
+                await unsubscribeNotifications();
+            }
+            localStorage.setItem('userIdentity', res.identity);
+
             window.location.href = '/';
         } catch (e) {
             console.error(e);
@@ -81,7 +89,7 @@ const Login = () => {
     };
 
     return (
-        <MainContainer withBottomDecoration={true} withBottomNavigation={false}>
+        <MainContainer withBottomDecoration={true} withBottomNavigation={false} withSideMenu={false} >
             <Scrollable>
                 <div
                     style={{
