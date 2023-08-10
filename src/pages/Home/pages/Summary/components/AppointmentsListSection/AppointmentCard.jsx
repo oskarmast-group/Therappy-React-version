@@ -98,6 +98,8 @@ const AppointmentCard = ({ app }) => {
             <Button
                 style={{ width: '50%', padding: '5px' }}
                 onClick={() => onAccept(app.id)}
+                disabled={appointments.fetching.state &&
+                    appointments.fetching.config.key === 'accept'}
             >
                 {appointments.fetching.state &&
                 appointments.fetching.config.key === 'accept' ? (

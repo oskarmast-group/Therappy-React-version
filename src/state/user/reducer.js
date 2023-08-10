@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     current: {},
     setupIntentToken: null,
     paymentMethods: [],
+    accountInformation: {},
     fetching: {
         fetch: { ...DEFAULT_FETCHING_STATE },
         update: { ...DEFAULT_FETCHING_STATE },
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
         deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
         paymentMethods: { ...DEFAULT_FETCHING_STATE },
         acceptInvitation: { ...DEFAULT_FETCHING_STATE },
+        accountInformation: { ...DEFAULT_FETCHING_STATE },
     },
     error: { ...DEFAULT_NO_ERROR },
 };
@@ -198,6 +200,35 @@ const reducer = (state = INITIAL_STATE, action) => {
                 fetching: {
                     ...state.fetching,
                     acceptInvitation: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { timestamp: Date.now(), message: action.payload },
+            };
+
+        // ACCOUNT INFORMATION
+        case Types.FETCH_ACCOUNT_INFORMATION_START:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    accountInformation: { ...DEFAULT_FETCHING_STATE, state: true },
+                },
+            };
+        case Types.FETCH_ACCOUNT_INFORMATION_SUCCESS:
+            return {
+                ...state,
+                accountInformation: action.payload,
+                fetching: {
+                    ...state.fetching,
+                    accountInformation: { ...DEFAULT_FETCHING_STATE },
+                },
+                error: { ...DEFAULT_NO_ERROR },
+            };
+        case Types.FETCH_ACCOUNT_INFORMATION_ERROR:
+            return {
+                ...state,
+                fetching: {
+                    ...state.fetching,
+                    accountInformation: { ...DEFAULT_FETCHING_STATE },
                 },
                 error: { timestamp: Date.now(), message: action.payload },
             };

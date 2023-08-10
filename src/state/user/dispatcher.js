@@ -18,6 +18,8 @@ export default class Dispatcher {
 
     fetchPaymentMethodsStart = () => this.dispatch({ type: Types.FETCH_PAYMENT_METHODS_START, payload: {} });
 
+    fetchAccountInformationStart = () => this.dispatch({ type: Types.FETCH_ACCOUNT_INFORMATION_START, payload: {} });
+
     acceptInvitationStart = (payload) => this.dispatch({ type: Types.ACCEPT_INVITATION_START, payload });
 
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });

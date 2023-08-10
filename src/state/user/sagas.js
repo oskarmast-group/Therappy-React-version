@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { profileAPI, stripeClientsAPI, therapistAPI } from 'resources/api';
+import { profileAPI, stripeClientsAPI, stripeTherapistAPI, therapistAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import { toFormData } from 'utils';
 import Types from './types';
@@ -134,6 +134,21 @@ function* acceptInvitationStart() {
     yield takeLatest(Types.ACCEPT_INVITATION_START, acceptInvitationStartAsync)
 }
 
+function* fetchAccountInformationStartAsync() {
+    try {
+        const res = yield stripeTherapistAPI.accountInformation();
+        yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_ERROR, payload: message });
+    }
+}
+
+function* fetchAccountInformationStart() {
+    yield takeLatest(Types.FETCH_ACCOUNT_INFORMATION_START, fetchAccountInformationStartAsync)
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -145,5 +160,6 @@ export default function* sagas() {
         call(updateTherapistStart),
         call(deletePaymentMethodStart),
         call(acceptInvitationStart),
+        call(fetchAccountInformationStart),
     ]);
 }

@@ -1,80 +1,35 @@
-import Loading from 'components/Loading';
-import TopBar from 'components/TopBar';
 import MainContainer from 'containers/MainContainer';
-import Scrollable from 'containers/Scrollable';
 import React, { useEffect } from 'react';
 import useUser from 'state/user';
-import styled from 'styled-components';
-import PaymentMethod from './components/PaymentMethod';
-import { Body } from 'components/Text';
-import AddPaymentMethodDialog from 'components/AddPaymentMethodDialog';
-import Button from 'components/Button';
-import ALERT_TYPES from 'alert/types';
-import { useAlert } from 'alert';
-
-const MethodsContainer = styled.ul`
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  gap: 10px;
-  padding: 0;
-  flex: 1;
-  min-height: 0;
-  margin-bottom: 0;
-`;
+import { Ring } from '@uiball/loaders';
+import Clients from './Clients';
+import { PRIMARY_GREEN } from 'resources/constants/colors';
+import Therapists from './Therapist';
 
 const Payments = () => {
-  const [user, userDispatcher] = useUser();
-  const alert = useAlert();
+    const [user, userDispatcher] = useUser();
 
-  useEffect(() => {
-    userDispatcher.fetchStart();
-    userDispatcher.fetchPaymentMethodsStart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    useEffect(() => {
+        if (!user.current.id) {
+            userDispatcher.fetchStart();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  const addPaymentMethod = () => {
-    if (!user.current.id) return;
-
-    alert({
-      type: ALERT_TYPES.CUSTOM,
-      config: {
-        body: AddPaymentMethodDialog,
-        props: {
-          userId: user.current.id,
-        },
-      },
-    })
-      .then(() => {
-        userDispatcher.fetchPaymentMethodsStart();
-        //uploadImage(croppedImage);
-      })
-      .catch(() => {});
-  };
-
-  return (
-    <MainContainer withSideMenu={false} withBottomNavigation={false}>
-      <TopBar title={'Métodos de pago'} />
-      <Scrollable style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignContent: 'center' }}>
-        {user.fetching.paymentMethods.state === true || user.fetching.fetch.state === true ? (
-          <Loading />
-        ) : (
-          <>
-            <MethodsContainer>
-              {user.paymentMethods.length > 0 ? (
-                user.paymentMethods.map((method) => <PaymentMethod method={method} />)
-              ) : (
-                <Body style={{ textAlign: 'center' }}>No tienes métodos de pago registrados aún</Body>
-              )}
-            </MethodsContainer>
-            <Button type="button" onClick={addPaymentMethod} style={{ marginTop: '30px', maxWidth: '200px', alignSelf: 'center' }}>
-              Agregar Método
-            </Button>
-          </>
-        )}
-      </Scrollable>
-    </MainContainer>
-  );
+    return (
+        <MainContainer withSideMenu={false} withBottomNavigation={false}>
+            {user.fetching.fetch.state ? (
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0', alignItems: 'center' }}>
+                    <Ring color={PRIMARY_GREEN} size={22} />
+                </div>
+            ) : (
+                <>
+                    {user.current.userType === 'client' && <Clients />}
+                    {user.current.userType === 'therapist' && <Therapists />}
+                </>
+            )}
+        </MainContainer>
+    );
 };
 
 export default Payments;
