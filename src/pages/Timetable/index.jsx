@@ -11,6 +11,7 @@ import { Ring } from '@uiball/loaders';
 import Scrollable from 'containers/Scrollable';
 import useAppointments from 'state/appointments';
 import { add, isAfter, set } from 'date-fns';
+import { UserTypes } from 'resources/constants/config';
 
 const UpdateButton = styled.button`
     padding: 3px 10px;
@@ -78,7 +79,7 @@ const Timetable = () => {
 
     useEffect(() => {
         if (!user.current.userType) return;
-        if (user.current.userType !== 'therapist') history.push('/');
+        if (user.current.userType !== UserTypes.THERAPIST) history.push('/');
     }, [user]);
 
     useEffect(() => {

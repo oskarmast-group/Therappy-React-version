@@ -12,6 +12,7 @@ import useUser from 'state/user';
 import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
 import { canActivateNotifications, subscribeNotificationsIfNotAlready } from 'utils/notifications';
 import { Ring } from '@uiball/loaders';
+import { UserTypes } from 'resources/constants/config';
 
 const SideMenuContainer = styled.aside`
     position: absolute;
@@ -125,7 +126,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
-                    {user.current?.userType === 'therapist' && (
+                    {user.current?.userType === UserTypes.THERAPIST && (
                         <li>
                             <Link to="/horario">
                                 <img src={CalendarSVG} alt={'Calendario'} />

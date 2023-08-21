@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import useUser from 'state/user';
 import ProfileUpload from './components/ProfileUpload';
+import { UserTypes } from 'resources/constants/config';
 
 const Profile = () => {
     const [user, userDispatcher] = useUser();
@@ -153,7 +154,7 @@ const Profile = () => {
                                 user.fetching.update.config.key === 'dob'
                             }
                         />
-                        {user.current?.userType === 'therapist' && (
+                        {user.current?.userType === UserTypes.THERAPIST && (
                             <>
                                 <EditableInput
                                     inputProps={{
@@ -184,7 +185,7 @@ const Profile = () => {
                                     loading={
                                         user.fetching.update.state &&
                                         user.fetching.update.config.key ===
-                                            'name'
+                                            'phrase'
                                     }
                                     onSubmit={() => onSubmitTherapist('phrase')}
                                 />
@@ -201,7 +202,7 @@ const Profile = () => {
                                     loading={
                                         user.fetching.update.state &&
                                         user.fetching.update.config.key ===
-                                            'name'
+                                            'experience'
                                     }
                                     onSubmit={() =>
                                         onSubmitTherapist('experience')
