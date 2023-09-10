@@ -4,6 +4,8 @@ import PacientListSection from "./components/PacientListSection";
 import NewsSection from "./components/NewsSection";
 import styled from "styled-components";
 import useUser from "state/user";
+import { TherapistStatus } from "resources/constants/config";
+import RequiredDocumentation from "./components/RequiredDocumentation";
 
 const Container = styled.div`
   display: flex;
@@ -17,13 +19,15 @@ const Therapist = () => {
 
   return (
     <Container>
-      {user.current.extraData?.status === "active" && (
+      {user.current.extraData?.status === TherapistStatus.ACTIVE && (
         <>
           <AppointmentsListSection />
           <PacientListSection />
           <NewsSection />
         </>
       )}
+      {(user.current.extraData?.status === TherapistStatus.PENDING ||
+        TherapistStatus.REGISTERED) && <RequiredDocumentation />}
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import Dispatcher from './dispatcher';
 import selector from './selector';
 import { useMemo } from 'react';
 
-const useTherapist = () => {
+const useRequiredDocumentation = () => {
     const dispatch = useDispatch();
     const dispatcher = useMemo(()=>new Dispatcher(dispatch), [dispatch]);
     const data = useSelector(selector, shallowEqual)
@@ -12,4 +12,4 @@ const useTherapist = () => {
 }
 
 
-export default useTherapist;
+export default useRequiredDocumentation;
