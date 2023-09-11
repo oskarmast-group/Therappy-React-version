@@ -18,6 +18,8 @@ const checkSubscriptionStatus = async () => {
     try {
         const subscription = await getNotificationsSubscription();
 
+        console.log({ subscription });
+
         if (!!subscription) {
             const userSubscriptions = await notificationsAPI.list();
             console.log({ userSubscriptions });
