@@ -22,8 +22,13 @@ const checkSubscriptionStatus = async () => {
 
         if (!!subscription) {
             const userSubscriptions = await notificationsAPI.list();
-            console.log({ userSubscriptions });
-            return true;
+            const check = userSubscriptions.find(({endpoint})=>subscription.endpoint === endpoint);
+            if(!!check) {
+                console.log({ check });
+                return true;
+            }
+            console.log('Subscrition not on server, unsubscribe');
+            return false;
         }
         return false;
     } catch (e) {
