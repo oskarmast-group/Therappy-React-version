@@ -25,6 +25,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ThemeProvider, createTheme } from '@mui/material';
 import { GREEN_HIGHLIGHT, PRIMARY_GREEN } from 'resources/constants/colors';
+import useRequiredDocumentation from 'state/requiredDocumentation';
+import useConversations from 'state/conversations';
+import useMessages from 'state/messages';
 
 const theme = createTheme({
     palette: {
@@ -38,11 +41,14 @@ const theme = createTheme({
 });
 
 const App = () => {
+    const [appointments, appointmentsDispatcher] = useAppointments();
     const [categories, categoriesDispatcher] = useCategories();
+    const [conversations, conversationsDispatcher] = useConversations();
+    const [messages, messagesDispatcher] = useMessages();
+    const [requiredDocumentation, requiredDocumentationDispatcher] = useRequiredDocumentation();
     const [therapist, therapistDispatcher] = useTherapist();
     const [user, userDispatcher] = useUser();
-    const [appointments, appointmentsDispatcher] = useAppointments();
-
+    
     return (
         
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -51,10 +57,13 @@ const App = () => {
             <AlertServiceProvider>
                 <ErrorManagement
                     states={{
+                        appointments: { state: appointments.error, resetError: appointmentsDispatcher.resetError },
                         categories: { state: categories.error, resetError: categoriesDispatcher.resetError },
+                        conversations: { state: conversations.error, resetError: conversationsDispatcher.resetError },
+                        messages: { state: messages.error, resetError: messagesDispatcher.resetError },
+                        requiredDocumentation: { state: requiredDocumentation.error, resetError: requiredDocumentationDispatcher.resetError },
                         therapist: { state: therapist.error, resetError: therapistDispatcher.resetError },
                         user: { state: user.error, resetError: userDispatcher.resetError },
-                        appointments: { state: appointments.error, resetError: appointmentsDispatcher.resetError },
                     }}
                 />
                 <Switch>

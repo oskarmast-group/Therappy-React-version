@@ -6,7 +6,7 @@ export default class Dispatcher {
 
     fetchStart = () => this.dispatch({ type: Types.FETCH_START, payload: {} });
 
-    uploadStart = (file) => this.dispatch({ type: Types.UPLOAD_START, payload: file });
+    uploadStart = (data) => this.dispatch({ type: Types.UPLOAD_START, payload: data });
 
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

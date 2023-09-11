@@ -10,6 +10,7 @@ import notifications from './notifications';
 import authCrudder from './auth-crud';
 import stripeTherapist from './stripeTherapist';
 import requiredDocumentation from './requiredDocumentation';
+import documentation from './documentation';
 
 export async function registerPush(data) {
     try {
@@ -36,3 +37,4 @@ export const conversationsAPI = appointments(API, "conversations");
 export const messagesAPI = messages(API, "messages");
 export const notificationsAPI = notifications(API, "notifications");
 export const requiredDocumentationAPI = requiredDocumentation(API, "required-documentation");
+export const documentationAPI = documentation(API, "documentation");

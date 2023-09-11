@@ -14,7 +14,7 @@ const RequiredDocumentation = () => {
     requiredDocumentationDispatcher.fetchStart();
   }, []);
 
-  return requiredDocumentation.fetching.state ? (
+  return requiredDocumentation.fetching.fetch.state ? (
     <Loading />
   ) : (
     <>

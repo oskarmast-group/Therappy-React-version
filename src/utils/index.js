@@ -4,7 +4,7 @@ export const toFormData = (object) => {
     const formdata = new FormData();
 
     Object.entries(object).forEach(([key, value]) => {
-        if (value !== null) {
+        if (!!value) {
             value =
                 typeof value === 'object' && !(value instanceof File)
                     ? JSON.stringify(value)
