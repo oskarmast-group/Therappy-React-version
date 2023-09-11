@@ -18,7 +18,11 @@ const checkSubscriptionStatus = async () => {
     try {
         const subscription = await getNotificationsSubscription();
 
-        if (!!subscription) return true;
+        if (!!subscription) {
+            const userSubscriptions = await notificationsAPI.list();
+            console.log({ userSubscriptions });
+            return true;
+        }
         return false;
     } catch (e) {
         console.error('Check subscription status');

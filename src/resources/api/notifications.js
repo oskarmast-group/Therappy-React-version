@@ -12,6 +12,7 @@ const crudder = (domain, resource, withAuth = true) => {
             headers,
             url,
         },
+        list: () => executeCall(() => Axios.get(url, { headers })),
         register: (data) => executeCall(() => Axios.post(url + `/register`, data, { headers })),
         unregister: (data) => executeCall(() => Axios.post(url + `/unregister`, data )),
     };
