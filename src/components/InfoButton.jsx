@@ -17,7 +17,7 @@ const InfoButton = ({
             onClick={onClick}
         >
             <img src={icon} alt={iconAlt} />
-            <p>{body}</p>
+            {body && <p>{body}</p>}
         </IconButton>
     );
 };

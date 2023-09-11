@@ -9,6 +9,7 @@ import Scrollable from 'containers/Scrollable';
 import TopBar from 'components/TopBar';
 import { isValidNumber } from 'utils/phone';
 import { DARK_TEXT } from 'resources/constants/colors';
+import { UserTypes } from 'resources/constants/config';
 
 const ErrorText = styled.p`
     text-align: center;
@@ -53,7 +54,7 @@ const Register = () => {
                 name,
                 lastName,
                 phone,
-                userType: 'client',
+                userType: UserTypes.CLIENT,
                 countryOrigin: 'MX',
             });
             localStorage.setItem('auth', JSON.stringify(res));

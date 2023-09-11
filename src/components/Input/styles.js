@@ -55,6 +55,7 @@ export const BasicInput = styled.input`
     outline: none;
     width: 100%;
     color: ${DARKER_TEXT};
+    background-color: transparent;
     &:disabled {
         color: ${DARKER_TEXT};
     }
@@ -83,6 +84,7 @@ const Container = styled.div`
             outline: none;
             width: 100%;
             color: ${DARKER_TEXT};
+            background-color: transparent;
             &:disabled {
                 color: ${DARKER_TEXT};
             }
@@ -98,6 +100,7 @@ const Container = styled.div`
             outline: none;
             width: 100%;
             color: ${DARKER_TEXT};
+            background-color: transparent;
             resize: vertical;
             &:disabled {
                 color: ${DARKER_TEXT};

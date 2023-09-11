@@ -5,6 +5,7 @@ import { Ring } from '@uiball/loaders';
 import Clients from './Clients';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 import Therapists from './Therapist';
+import { UserTypes } from 'resources/constants/config';
 
 const Payments = () => {
     const [user, userDispatcher] = useUser();
@@ -24,8 +25,8 @@ const Payments = () => {
                 </div>
             ) : (
                 <>
-                    {user.current.userType === 'client' && <Clients />}
-                    {user.current.userType === 'therapist' && <Therapists />}
+                    {user.current.userType === UserTypes.CLIENT && <Clients />}
+                    {user.current.userType === UserTypes.THERAPIST && <Therapists />}
                 </>
             )}
         </MainContainer>
