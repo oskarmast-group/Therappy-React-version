@@ -26,7 +26,7 @@ const Therapist = () => {
           <NewsSection />
         </>
       )}
-      {(user.current.extraData?.status === TherapistStatus.PENDING ||
+      {(user.current.extraData?.status === TherapistStatus.PENDING || user.current.extraData?.status ===
         TherapistStatus.REGISTERED) && <RequiredDocumentation />}
     </Container>
   );

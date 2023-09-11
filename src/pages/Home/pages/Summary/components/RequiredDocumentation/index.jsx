@@ -21,7 +21,7 @@ const RequiredDocumentation = () => {
       <Intructions>Completa tu registro</Intructions>
       <Body>Envía la documentación que se solicita para comenzar a utilizar Terappy.</Body>
       {requiredDocumentation.list.map((doc, i) => (
-        <DocumentationList key={doc.id} requiredDocument={doc} isInitiallyExpanded={i===0} />
+        <DocumentationList key={doc.documentType} requiredDocument={doc} isInitiallyExpanded={i===0} />
       ))}
     </>
   );

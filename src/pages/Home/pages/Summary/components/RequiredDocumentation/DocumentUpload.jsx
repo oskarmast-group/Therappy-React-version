@@ -65,7 +65,7 @@ const DocumentUpload = ({ documentType }) => {
                         title: "Formato incorrecto",
                         body: (
                             <span>
-                                Verifica que el documento que intentas subir sea válido y de tipo
+                                Verifica que el documento que intentas subir sea válido, menor a 200kB y de tipo
                                 doc, docx, txt o pdf.
                             </span>
                         ),
@@ -94,6 +94,7 @@ const DocumentUpload = ({ documentType }) => {
             "text/plain": [".txt"],
             "application/pdf": [".pdf"],
         },
+        maxSize: 200000,
         multiple: false,
     });
 

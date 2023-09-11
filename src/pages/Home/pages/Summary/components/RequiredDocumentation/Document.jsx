@@ -103,7 +103,7 @@ const Document = ({ uuid, name, status, comment }) => {
             <Menu onClick={()=>console.log('open')}>
                 <img src={DotsMenuSVG} alt="Opciones de archivo" />
             </Menu>
-            <a href={docURL} target="_blank" download={true} style={{ paddingBottom: '5px' }}>
+            <a href={docURL} target="_blank" download={true} style={{ paddingBottom: '5px' }} rel="noreferrer">
                 <img src={FileSVG} alt="Ícono soltar archivos" />
             </a>
             <Name>{name}</Name>

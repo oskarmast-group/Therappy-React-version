@@ -68,8 +68,6 @@ const DocumentationList = ({ requiredDocument, isInitiallyExpanded = true }) => 
         );
     }, [user.current.extraData, requiredDocument]);
 
-    console.log(documents);
-
     return (
         <Container>
             <Header onClick={() => setExpanded(!isExpanded)}>
