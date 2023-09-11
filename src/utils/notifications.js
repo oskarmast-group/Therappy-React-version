@@ -28,6 +28,7 @@ const checkSubscriptionStatus = async () => {
                 return true;
             }
             console.log('Subscrition not on server, unsubscribe');
+            subscription.unsubscribe();
             return false;
         }
         return false;
