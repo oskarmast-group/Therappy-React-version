@@ -23,6 +23,8 @@ export default class Dispatcher {
     cancelStart = (payload) => this.dispatch({ type: Types.CANCEL_START, payload });
 
     rejectStart = (payload) => this.dispatch({ type: Types.REJECT_START, payload });
+
+    clearCurrent = () => this.dispatch({ type: Types.CLEAR_CURRENT, payload: {} });
     
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

@@ -15,9 +15,12 @@ const RouterProvider = ({ children }) => {
     setRoute((prev) => ({ to: location.pathname, from: prev.to }));
   }, [location]);
 
-  const canGoBack = () => !!route.from && route.from!==route.to;
+  const canGoBack = () => !!route.from && route.from !== route.to;
 
   const goBack = (defaultRoute) => () => canGoBack() ? history.goBack() : history.push(defaultRoute); 
+
+  useEffect(()=>{console.log('history', route)},[route]);
+  
 
   return <RouterContext.Provider value={{route, canGoBack, goBack}}>{children}</RouterContext.Provider>;
 };

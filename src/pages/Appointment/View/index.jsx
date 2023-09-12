@@ -23,6 +23,8 @@ import { useRouter } from "providers/router";
 import { isAfter, isBefore, sub } from "date-fns";
 import useUser from "state/user";
 import { subscribeNotificationsIfNotAlready } from "utils/notifications";
+import ALERT_TYPES from "alert/types";
+import { useAlert } from "alert";
 
 const ProfileContainer = styled.div`
     width: 100%;
@@ -63,10 +65,18 @@ const ViewAppointment = () => {
     const [user, userDispatcher] = useUser();
     const [appointments, appointmentsDispatcher] = useAppointments();
     const { roomId } = useParams();
-    const { goBack } = useRouter();
+    const { goBack: previousRoute } = useRouter();
+    const alert = useAlert();
+
+    const goBack = useMemo(()=>previousRoute('/home'), [previousRoute]);
+
     useEffect(() => {
         appointmentsDispatcher.fetchOneStart(roomId);
         userDispatcher.fetchStart();
+
+        return () => {
+            appointmentsDispatcher.clearCurrent();
+        }
     }, []);
 
     const appointment = useMemo(() => appointments.appointment, [appointments]);
@@ -75,21 +85,41 @@ const ViewAppointment = () => {
         appointment?.status === AppointmentStatusValues.CANCELLED ||
         appointment?.status === AppointmentStatusValues.REJECTED
     ) {
-        goBack("/home");
+        if(goBack) {
+            console.log(goBack);
+            goBack();
+        }
     }
 
     const onCancel = () => {
-        if (
-            isBefore(
-                new Date(),
-                sub(new Date(appointment.date), { hours: MAX_APPOINTMENT_CANCELLATION_TIME })
-            )
-        ) {
-            console.log("valid cancel");
-            appointmentsDispatcher.cancelStart({ roomId });
-            return;
+        let body = null;
+        if ( isBefore( new Date(), sub(new Date(appointment.date), { hours: MAX_APPOINTMENT_CANCELLATION_TIME }) )) {
+            if(user.current.userType === UserTypes.CLIENT) {
+                body = 'Puedes cancelar la cita, y se reembolsará el costo completo en un periodo no mayor a 14 días hábiles.';
+            }
+        } else {
+            if(user.current.userType === UserTypes.THERAPIST) {
+                body = 'Puedes cancelar la cita, pero se le cobrará la sesión a usted para reponerla al cliente.';
+            }
+            if(user.current.userType === UserTypes.CLIENT) {
+                body = 'Puedes cancelar la cita, pero no se le efectuará ningún reembolso, las cancelaciones tiene que ocurrir más de 24 horas antes para ser candidato a reembolso.';
+            }
         }
-        console.log("alert cancel");
+
+        alert({
+            type: ALERT_TYPES.CONFIRM,
+            config: {
+                title: '¿Cancelar cita?',
+                body: <span>Esta acción no se puede revertir<br/><br/>{body ?? ''}</span>,
+                cancelButtonText: 'Mantener',
+                confirmButtonText: 'Cancelar',
+            },
+        })
+            .then(() => {
+                appointmentsDispatcher.cancelStart({ roomId });
+            })
+            .catch(() => {});
+
     };
 
     const callButtonEnabled = useMemo(() => {
@@ -133,7 +163,7 @@ const ViewAppointment = () => {
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
             <TopBar title={"Cita"} />
-            {!!appointments.fetching.state.state ? (
+            {!!appointments.fetching.state ? (
                 <Loading />
             ) : (
                 <>
@@ -177,7 +207,7 @@ const ViewAppointment = () => {
                             type="button"
                             onClick={onCancel}
                             style={{ marginTop: "40px" }}
-                            disabled={false}
+                            disabled={!!appointments.fetching.state}
                         >
                             Cancelar
                         </Button>
@@ -190,7 +220,7 @@ const ViewAppointment = () => {
                                 subscribeNotificationsIfNotAlready();
                             }}
                             style={{ marginTop: "40px" }}
-                            disabled={false}
+                            disabled={!!appointments.fetching.state}
                         >
                             Aceptar
                         </Button>
@@ -199,11 +229,11 @@ const ViewAppointment = () => {
                         <Button
                             type="button"
                             onClick={()=>{
-                                appointmentsDispatcher.acceptStart({ appointmentId: appointment.id, roomId: appointment.roomId });
+                                appointmentsDispatcher.rejectStart({ appointmentId: appointment.id, roomId: appointment.roomId });
                                 subscribeNotificationsIfNotAlready();
                             }}
                             style={{ marginTop: "20px", backgroundColor: RED }}
-                            disabled={false}
+                            disabled={!!appointments.fetching.state}
                         >
                             Rechazar
                         </Button>

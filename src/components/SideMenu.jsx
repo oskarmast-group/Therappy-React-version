@@ -149,13 +149,6 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <img src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/logout">
-                            <img src={LogOutSVG} alt={'Cerrar sesión'} />
-                            <p>Cerrar Sesión</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
-                        </Link>
-                    </li>
                     {showNotificationSub &&
                         (notificationLoading ? (
                             <Ring color={PRIMARY_GREEN} size={22} />
@@ -167,6 +160,13 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                                 </button>
                             </li>
                         ))}
+                    <li>
+                        <Link to="/logout">
+                            <img src={LogOutSVG} alt={'Cerrar sesión'} />
+                            <p>Cerrar Sesión</p>
+                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                        </Link>
+                    </li>
                 </ul>
             </Navigation>
         </SideMenuContainer>

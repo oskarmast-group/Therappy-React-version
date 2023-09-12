@@ -84,6 +84,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     case Types.REJECT_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
+    case Types.CLEAR_CURRENT: return { ...state, appointment: {}, };
+
     case Types.RESET_ERROR: return { ...state, error: { ...DEFAULT_NO_ERROR } };
 
     default:
