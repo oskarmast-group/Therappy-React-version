@@ -1,5 +1,7 @@
 export const STRIPE_PUBLIC_KEY =  process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
+export const MAX_APPOINTMENT_CANCELLATION_TIME = +process.env.REACT_APP_MAX_APPOINTMENT_CANCELLATION_TIME;
+
 export const ClientTherapistStatus = {
     ACTIVE: 'active',
     DISMISSED: 'dismissed',

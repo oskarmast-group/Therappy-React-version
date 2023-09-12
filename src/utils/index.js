@@ -26,6 +26,7 @@ export const getStatusColor = ({ status }) => {
         case 'accepted':
             return PRIMARY_GREEN;
         case 'rejected':
+        case 'cancelled':
             return RED;
         default:
             return '';

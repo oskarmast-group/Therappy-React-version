@@ -61,7 +61,7 @@ const Register = () => {
             window.location.href = '/';
         } catch (e) {
             console.error(e);
-            setError('Error');
+            setError(e?.response?.data?.message ?? 'Error desconocido, intente de nuevo más tarde');
         }
     };
 
@@ -136,7 +136,7 @@ const Register = () => {
                     />
                     {error && (
                         <ErrorText>
-                            "Error al crear cuenta, verifique sus datos"
+                            {error}
                         </ErrorText>
                     )}
                     <Button style={{ marginTop: '30px', maxWidth: '200px' }}>

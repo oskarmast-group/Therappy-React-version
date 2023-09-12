@@ -70,6 +70,20 @@ const reducer = (state = INITIAL_STATE, action) => {
     case Types.GET_SERVER_TIME_ERROR:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
 
+    case Types.CANCEL_START:
+      return { ...state, fetching: { config: { key: 'cancel' }, state: true } };
+    case Types.CANCEL_SUCCESS:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+    case Types.CANCEL_ERROR:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
+
+    case Types.REJECT_START:
+      return { ...state, fetching: { config: { key: 'reject' }, state: true } };
+    case Types.REJECT_SUCCESS:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { ...DEFAULT_NO_ERROR } };
+    case Types.REJECT_ERROR:
+      return { ...state, fetching: { ...DEFAULT_FETCHING_STATE }, error: { timestamp: Date.now(), message: action.payload } };
+
     case Types.RESET_ERROR: return { ...state, error: { ...DEFAULT_NO_ERROR } };
 
     default:

@@ -3,6 +3,7 @@ import { useSocket } from 'Socket';
 import useAppointments from 'state/appointments';
 import { Container, Intructions } from '../styles';
 import AppointmentCard from './AppointmentCard';
+import { AppointmentStatusValues } from 'resources/constants/config';
 
 const NextAppointmentSection = () => {
     const [appointments, appointmentsDispatcher] = useAppointments();
@@ -15,14 +16,14 @@ const NextAppointmentSection = () => {
          });
     },[socket]);
 
-    return appointments.upcomingList.filter(({status}) => status !== 'rejected').length > 0 ? (
+    return appointments.upcomingList.filter(({status}) => status !== AppointmentStatusValues.REJECTED && status !== AppointmentStatusValues.CANCELLED).length > 0 ? (
         <Container>
             <Intructions>Cita próxima</Intructions>
             <AppointmentCard
                 app={
                     appointments.upcomingList.sort((a, b) => {
                         return new Date(a.date) - new Date(b.date);
-                    }).filter(({status}) => status !== 'rejected')[0]
+                    }).filter(({status}) => status !== AppointmentStatusValues.REJECTED)[0]
                 }
             />
         </Container>

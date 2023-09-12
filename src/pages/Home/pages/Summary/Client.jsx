@@ -4,7 +4,7 @@ import useUser from "state/user";
 import NextAppointmentSection from "./components/NextAppointmentSection";
 import { Intructions } from "./components/styles";
 import Therapist from "components/Therapist";
-import { ClientTherapistStatus } from "resources/constants/config";
+import { AppointmentStatusValues, ClientTherapistStatus } from "resources/constants/config";
 import InfoButton from "components/InfoButton";
 import ALERT_TYPES from "alert/types";
 import TherapistSelectionSection from "./components/TherapistSelectionSection";
@@ -34,7 +34,7 @@ const Client = () => {
         {...user.current.extraData.therapist}
         clickable={
           appointments.upcomingList.filter(
-            ({ status }) => status !== "rejected"
+            ({ status }) => status !== AppointmentStatusValues.REJECTED && status !== AppointmentStatusValues.CANCELLED
           ).length === 0
         }
       />

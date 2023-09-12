@@ -65,9 +65,15 @@ function* fetchPendingStart() {
 
 function* acceptStartAsync({ payload }) {
     try {
-        const res = yield appointmentsAPI.accept(payload);
+        const { appointmentId, roomId } = payload;
+        const res = yield appointmentsAPI.accept({ appointmentId });
         yield put({ type: Types.ACCEPT_SUCCESS, payload: res });
-        yield put({ type: Types.FETCH_PENDING_START, payload: {} });
+
+        if(roomId) {
+            yield put({ type: Types.FETCH_ONE_START, payload: roomId });
+        } else {
+            yield put({ type: Types.FETCH_PENDING_START, payload: {} });
+        }
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -124,6 +130,44 @@ function* getServerTimeStart() {
     yield takeLatest(Types.GET_SERVER_TIME_START, getServerTimeStartAsync);
 }
 
+function* cancelStartAsync({ payload }) {
+    try {
+        yield appointmentsAPI.cancel(payload);
+        yield put({ type: Types.CANCEL_SUCCESS, payload: {} });
+        yield put({ type: Types.FETCH_ONE_START, payload: payload.roomId });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.CANCEL_ERROR, payload: message });
+    }
+}
+
+function* cancelStart() {
+  yield takeLatest(Types.CANCEL_START, cancelStartAsync);
+}
+
+function* rejectStartAsync({ payload }) {
+    try {
+        const { appointmentId, roomId } = payload;
+        const res = yield appointmentsAPI.reject({ appointmentId });
+        yield put({ type: Types.REJECT_SUCCESS, payload: res });
+
+        if(roomId) {
+            yield put({ type: Types.FETCH_ONE_START, payload: roomId });
+        } else {
+            yield put({ type: Types.FETCH_PENDING_START, payload: {} });
+        }
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.REJECT_ERROR, payload: message });
+    }
+}
+
+function* rejectStart() {
+  yield takeLatest(Types.REJECT_START, rejectStartAsync);
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -134,5 +178,7 @@ export default function* sagas() {
         call(fetchOneStart),
         call(fetchUpcomingStart),
         call(getServerTimeStart),
+        call(cancelStart),
+        call(rejectStart),
     ]);
 }
