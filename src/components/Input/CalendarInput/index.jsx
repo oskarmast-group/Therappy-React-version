@@ -1,5 +1,5 @@
 import React from 'react';
-import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
+import CalendarSVG from 'resources/img/icons/calendar.svg';
 import { ContainerStyles, IconContainerStyles, IconStyles, LabelContainerStyles, LabelStyles, upLabel } from '../styles';
 import styled from 'styled-components';
 import { Ring } from '@uiball/loaders';

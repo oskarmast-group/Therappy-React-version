@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="message" transform="translate(-486 236)">
+    <rect id="Rectangle_80" data-name="Rectangle 80" class="cls-1" width="200" height="200" transform="translate(486 -236)"/>
+    <path id="Icon_feather-message-circle" data-name="Icon feather-message-circle" class="cls-2" d="M121.4,16.5h5.345a94.655,94.655,0,0,1,89.746,89.327l.012,5.552A94.84,94.84,0,0,1,82.163,197.642L26.8,216.1A7.823,7.823,0,0,1,16.9,206.2l18.456-55.367A94.915,94.915,0,0,1,121.4,16.5Zm0,174.113A79.323,79.323,0,0,0,200.854,111.4v-5.141a78.857,78.857,0,0,0-74.544-74.125l-4.69.012H121.4A79.18,79.18,0,0,0,50.764,146.771a7.822,7.822,0,0,1,.439,6L36.691,196.308,80.228,181.8a7.822,7.822,0,0,1,6,.439A78.383,78.383,0,0,0,121.4,190.613Z" transform="translate(469.5 -252.5)"/>
+  </g>
+</svg>

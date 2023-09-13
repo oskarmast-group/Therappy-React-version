@@ -13,12 +13,32 @@ import InfoButton from 'components/InfoButton';
 import ALERT_TYPES from 'alert/types';
 import { useAlert } from 'alert';
 import EmailConfirmationDialog from './components/EmailConfirmationDialog';
+import { useSocket } from 'Socket';
+import useConversations from 'state/conversations';
 
 const Home = ({ location }) => {
     const { path, url } = useRouteMatch();
     const [menuOpen, setMenuOpen] = useState(false);
     const [user, userDispatcher] = useUser();
+    const [, conversationsDispatcher] = useConversations();
     const alert = useAlert();
+    const socket = useSocket();
+
+    useEffect(() => {
+        conversationsDispatcher.fetchStart();
+    }, [conversationsDispatcher]);
+
+    useEffect(()=>{
+        if(!socket) return;
+        socket.on('new message', (payload)=>{ 
+            console.log(payload);
+            conversationsDispatcher.addLastMessage(payload);
+         });
+
+         return () => {
+            socket.off('new message')
+         }
+    },[socket, conversationsDispatcher]);
 
     useEffect(() => {
         userDispatcher.fetchStart();

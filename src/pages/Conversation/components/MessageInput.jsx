@@ -1,12 +1,13 @@
 import React from 'react';
 import AttachFileSVG from 'resources/img/icons/attach-file-icon.svg';
-import SendMessageSVG from 'resources/img/icons/send-message-icon.svg';
+import SendMessageSVG from 'resources/img/icons/send-message.svg';
 import { GREEN } from 'resources/constants/colors';
 import styled from 'styled-components';
 import useMessages from 'state/messages';
 import { v4 as uuidv4 } from 'uuid';
 import { useRef } from 'react';
 import useUser from 'state/user';
+import { useMessageScroll } from '../MessageScrollProvider';
 
 const Message = styled.div`
     display: flex;
@@ -15,6 +16,7 @@ const Message = styled.div`
     border: 1px solid ${GREEN};
     border-radius: 25px;
     padding: 3px;
+    margin-bottom: 20px;
     span {
         flex: 1;
         padding: 10px;
@@ -31,6 +33,7 @@ const Message = styled.div`
         &[contenteditable]:empty::before {
             content: 'Escribe tu mensaje...';
             color: gray;
+            line-height: 19px;
         }
     }
 
@@ -54,6 +57,7 @@ const MessageInput = () => {
     const [, dispatcher] = useMessages();
     const messageRef = useRef();
     const [userState] = useUser();
+    const { scrollToBottom } = useMessageScroll();
 
     const send = () => {
         if(!messageRef.current) return;
@@ -67,13 +71,15 @@ const MessageInput = () => {
             createdAt: new Date().toISOString(),
         });
         messageRef.current.innerText = '';
+        scrollToBottom();
+        dispatcher.markAsReadStart();
     }
 
     return (
         <Message>
-            <button type="button">
+            {/* <button type="button">
                 <img src={AttachFileSVG} alt="agregar archivo" />
-            </button>
+            </button> */}
             <span
                 role="textbox"
                 contentEditable={true}

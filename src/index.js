@@ -8,13 +8,17 @@ import { ConnectedRouter } from 'connected-react-router';
 import { history } from './resources/history';
 import SocketProvider from 'Socket';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { WindowSizeProvider } from 'providers/WindowSizeProvider';
 
 ReactDOM.render(
     <React.Fragment>
+        
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <SocketProvider>
-                    <App />
+                    <WindowSizeProvider>
+                        <App />
+                    </WindowSizeProvider>
                 </SocketProvider>
             </ConnectedRouter>
         </Provider>

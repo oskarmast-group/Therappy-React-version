@@ -1,5 +1,5 @@
-import { DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR } from 'state/constants';
-import Types from './types';
+import { DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR } from "state/constants";
+import Types from "./types";
 
 const INITIAL_STATE = {
     list: [],
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     error: { ...DEFAULT_NO_ERROR },
 };
 
-export default (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         // FETCH
         case Types.FETCH_START:
@@ -73,6 +73,21 @@ export default (state = INITIAL_STATE, action) => {
         case Types.CLEAR_CONVERSATION:
             return { ...state, conversation: {}, error: { ...DEFAULT_NO_ERROR } };
 
+        case Types.ADD_LAST_MESSAGE: {
+            const list = state.list;
+            
+            const conversation = list.find(({ uuid }) => uuid === action.payload.conversationUUID);
+            console.log({ conversation })
+            if(!conversation) return state;
+
+            const index = list.indexOf(conversation);
+            if(index < 0) return state;
+
+            list[index] = { ...conversation, lastMessage: action.payload,  unreadMessagesCount: (conversation.unreadMessagesCount ?? 0) + 1}
+
+            return { ...state, list: [...list], error: { ...DEFAULT_NO_ERROR } };
+        }
+
         case Types.RESET_ERROR:
             return { ...state, error: { ...DEFAULT_NO_ERROR } };
 
@@ -80,3 +95,5 @@ export default (state = INITIAL_STATE, action) => {
             return state;
     }
 };
+
+export default reducer;

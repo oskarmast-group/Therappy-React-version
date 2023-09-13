@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #313131;
+      }
+    </style>
+  </defs>
+  <g id="home-black" transform="translate(-826 359)">
+    <rect id="Rectangle_78" data-name="Rectangle 78" class="cls-1" width="200" height="200" transform="translate(826 -359)"/>
+    <g id="Icon_feather-home" data-name="Icon feather-home" transform="translate(818.717 -367.167)">
+      <path id="Path_117" data-name="Path 117" class="cls-2" d="M107.283,8.167a7.822,7.822,0,0,1,4.81,1.65l82.949,64.516a7.834,7.834,0,0,1,3.024,6.184V181.9A26.3,26.3,0,0,1,171.8,208.167H42.767A26.3,26.3,0,0,1,16.5,181.9V80.517a7.834,7.834,0,0,1,3.024-6.184L102.474,9.817A7.822,7.822,0,0,1,107.283,8.167ZM182.4,84.348,107.283,25.925,32.168,84.348V181.9a10.611,10.611,0,0,0,10.6,10.6H171.8a10.611,10.611,0,0,0,10.6-10.6Z" transform="translate(0 0)"/>
+      <path id="Path_118" data-name="Path 118" class="cls-2" d="M129.634,199.334A7.834,7.834,0,0,1,121.8,191.5V107.168H82.168V191.5a7.834,7.834,0,1,1-15.668,0V99.334A7.834,7.834,0,0,1,74.334,91.5h55.3a7.834,7.834,0,0,1,7.834,7.834V191.5A7.834,7.834,0,0,1,129.634,199.334Z" transform="translate(5.3 8.833)"/>
+    </g>
+  </g>
+</svg>

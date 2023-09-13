@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DARK_TEXT, PRIMARY_GREEN } from 'resources/constants/colors';
-import CloseSVG from 'resources/img/close.svg';
-import CardSVG from 'resources/img/card.svg';
-import ArrowSVG from 'resources/img/arrow-right-black.svg';
-import PersonSVG from 'resources/img/person.svg';
-import LogOutSVG from 'resources/img/log-out.svg';
-import VideoSVG from 'resources/img/video.svg';
+import CloseSVG from 'resources/img/icons/close-white.svg';
+import CardSVG from 'resources/img/icons/card.svg';
+import ArrowSVG from 'resources/img/icons/chevron-right.svg';
+import PersonSVG from 'resources/img/icons/person.svg';
+import LogOutSVG from 'resources/img/icons/logout.svg';
+import VideoSVG from 'resources/img/icons/video.svg';
 import { Link } from 'react-router-dom';
 import useUser from 'state/user';
-import CalendarSVG from 'resources/img/icons/calendar-icon.svg';
+import CalendarSVG from 'resources/img/icons/calendar.svg';
+import BellSVG from 'resources/img/icons/bell.svg';
 import { canActivateNotifications, subscribeNotificationsIfNotAlready } from 'utils/notifications';
 import { Ring } from '@uiball/loaders';
 import { UserTypes } from 'resources/constants/config';
+import { IconButton } from '@mui/material';
 
 const SideMenuContainer = styled.aside`
     position: absolute;
@@ -44,9 +46,13 @@ const SidebarHeader = styled.h2`
     margin: 0;
 `;
 
-const CloseButton = styled.img`
-    cursor: pointer;
+const CloseButton = styled(IconButton)`
     align-self: flex-end;
+    background-color: none;
+
+    img {
+        width: 25px;
+    }
 `;
 
 const Navigation = styled.nav`
@@ -75,7 +81,10 @@ const Navigation = styled.nav`
                 align-items: center;
                 padding: 10px 0;
                 img {
-                    height: 100%;
+                    height: 25px;
+                    &.arrow {
+                        height: 18px;
+                    }
                 }
                 p {
                     color: ${DARK_TEXT};
@@ -114,7 +123,9 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
     return (
         <SideMenuContainer className={menuOpen ? 'open' : ''}>
             <TopTitle>
-                <CloseButton src={CloseSVG} onClick={toggleMenu} style={{ marginTop: '10px' }} />
+                <CloseButton onClick={toggleMenu} style={{ marginTop: '10px' }}>
+                    <img src={CloseSVG} alt='cerrar menu lateral'/>
+                </CloseButton>
                 <SidebarHeader>Ajustes</SidebarHeader>
             </TopTitle>
             <Navigation>
@@ -123,7 +134,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         <Link to="/perfil">
                             <img src={PersonSVG} alt={'Persona'} />
                             <p>Perfil</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                            <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     {user.current?.userType === UserTypes.THERAPIST && (
@@ -131,7 +142,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                             <Link to="/horario">
                                 <img src={CalendarSVG} alt={'Calendario'} />
                                 <p>Horario disponible</p>
-                                <img src={ArrowSVG} alt={'Flecha derecha'} />
+                                <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                             </Link>
                         </li>
                     )}
@@ -139,14 +150,15 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         <Link to="/videollamada">
                             <img src={VideoSVG} alt={'Video'} />
                             <p>Probar audio/video</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                            <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     <li>
                         <Link to="/pagos">
                             <img src={CardSVG} alt={'Tarjeta'} />
+                            
                             <p>Pagos</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                            <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                     {showNotificationSub &&
@@ -155,8 +167,9 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         ) : (
                             <li>
                                 <button type="button" onClick={onSubscribeNotification}>
+                                    <img src={BellSVG} alt={'Campana'} />
                                     <p>Activar Notificaciones</p>
-                                    <img src={ArrowSVG} alt={'Flecha derecha'} />
+                                    <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                                 </button>
                             </li>
                         ))}
@@ -164,7 +177,7 @@ const SideMenu = ({ menuOpen, toggleMenu }) => {
                         <Link to="/logout">
                             <img src={LogOutSVG} alt={'Cerrar sesión'} />
                             <p>Cerrar Sesión</p>
-                            <img src={ArrowSVG} alt={'Flecha derecha'} />
+                            <img className='arrow' src={ArrowSVG} alt={'Flecha derecha'} />
                         </Link>
                     </li>
                 </ul>

@@ -28,6 +28,7 @@ const Messages = () => {
     useEffect(() => {
         conversationsDispatcher.fetchStart();
     }, []);
+    
     return (
         <>
             <Title>Mensajes</Title>

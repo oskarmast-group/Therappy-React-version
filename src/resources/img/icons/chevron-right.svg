@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="chevron-right" transform="translate(-974 694)">
+    <rect id="Rectangle_74" data-name="Rectangle 74" class="cls-1" width="200" height="200" transform="translate(974 -694)"/>
+    <path id="Icon_feather-chevron-right" data-name="Icon feather-chevron-right" class="cls-2" d="M14.659,200.5a9.659,9.659,0,0,1-6.83-16.489L91.34,100.5,7.829,16.989a9.659,9.659,0,0,1,13.66-13.66L111.83,93.67a9.659,9.659,0,0,1,0,13.66L21.489,197.671A9.629,9.629,0,0,1,14.659,200.5Z" transform="translate(1023.42 -694.5)"/>
+  </g>
+</svg>

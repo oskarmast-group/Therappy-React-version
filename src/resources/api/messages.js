@@ -12,8 +12,9 @@ const crudder = (domain, resource, withAuth = true) => {
             headers,
             url,
         },
-        view: (uuid) => executeCall(() => Axios.get(url + `/${uuid}`, { headers })),
+        view: (uuid, extraMessages) => executeCall(() => Axios.get(url + `/${uuid}?extraMessages=${extraMessages ?? 4}`, { headers })),
         send: (data, uuid) => executeCall(() => Axios.post(url + `/${uuid}`, data, { headers })),
+        markAsRead: (data) => executeCall(() => Axios.post(url + `/markRead`, data, { headers })),
     };
 };
 

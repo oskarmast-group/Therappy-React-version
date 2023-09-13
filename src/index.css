@@ -8,6 +8,11 @@
   display: none;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -16,13 +21,14 @@ body {
   display: flex;
   justify-content: center;
   background-color: #ebebeb;
+  height: 100%;
+  width: 100%;
 }
 
 #root {
-  width: 100vw;
   max-width: 434px;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: #fbfbfd;
   display: flex;
   flex-direction: column;
@@ -44,6 +50,7 @@ select,
 span,
 textarea {
   font-family: 'Open Sans', sans-serif;
+  font-size: 14.2px;
 }
 
 code {

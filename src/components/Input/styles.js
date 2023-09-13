@@ -20,9 +20,9 @@ export const ContainerStyles = `
 `;
 
 export const IconContainerStyles = `
-    width: 30px;
+    width: 25px;
     margin: 0;
-    min-height: 30px;
+    min-height: 25px;
     display: flex;
 `;
 

@@ -18,6 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 10px;
   margin: 10px 0;
+  text-rendering: optimizeLegibility;
   .text {
     margin: 0;
     padding: 0;

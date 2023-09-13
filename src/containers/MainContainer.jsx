@@ -5,14 +5,13 @@ import BottomShape from 'resources/img/bottom-wave.svg';
 import SideMenu from 'components/SideMenu';
 
 const Main = styled.main`
-    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
     padding-top: 0;
     padding-bottom: 0;
     margin-bottom: 58px;
-    min-height: 0;
+    flex-grow: 1;
 
     &.fullscreen {
         margin-bottom: 0;
@@ -25,8 +24,9 @@ const Main = styled.main`
 `;
 
 const TopDecoration = styled.div`
-    height: 38px;
+    max-height: 38px;
     width: 100%;
+    flex: 0 1 38px;
     img {
         width: 100%;
         height: 100%;

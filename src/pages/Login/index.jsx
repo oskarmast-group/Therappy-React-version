@@ -3,7 +3,7 @@ import MainContainer from 'containers/MainContainer';
 import React, { useState } from 'react';
 import TherappyLogo from 'resources/img/therappy-logo.svg';
 import styled from 'styled-components';
-import Person from 'resources/img/person.svg';
+import Person from 'resources/img/icons/person.svg';
 import { Body, CustomLink } from 'components/Text';
 import Button from 'components/Button';
 import { authAPI } from 'resources/api';

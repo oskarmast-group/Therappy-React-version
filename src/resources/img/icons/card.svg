@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200.182" height="200" viewBox="0 0 200.182 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="card" transform="translate(-245 1011)">
+    <rect id="Rectangle_68" data-name="Rectangle 68" class="cls-1" width="200" height="200" transform="translate(245 -1011)"/>
+    <g id="Icon_feather-credit-card" data-name="Icon feather-credit-card" transform="translate(252 -983.432)">
+      <path id="Path_115" data-name="Path 115" class="cls-2" d="M17.614-2.5H168.568a24.642,24.642,0,0,1,24.614,24.614V122.75a24.642,24.642,0,0,1-24.614,24.614H17.614A24.642,24.642,0,0,1-7,122.75V22.114A24.642,24.642,0,0,1,17.614-2.5ZM168.568,131.681a8.942,8.942,0,0,0,8.931-8.931V22.114a8.942,8.942,0,0,0-8.931-8.931H17.614a8.942,8.942,0,0,0-8.931,8.931V122.75a8.942,8.942,0,0,0,8.931,8.931Z" transform="translate(0)"/>
+      <path id="Path_116" data-name="Path 116" class="cls-2" d="M185.341,22.182H.841A7.841,7.841,0,0,1,.841,6.5h184.5a7.841,7.841,0,1,1,0,15.682Z" transform="translate(0 41.318)"/>
+    </g>
+  </g>
+</svg>

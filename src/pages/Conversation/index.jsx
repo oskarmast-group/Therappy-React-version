@@ -10,16 +10,13 @@ import MessageInput from './components/MessageInput';
 import MessagesList from './components/MessagesList';
 import useUser from 'state/user';
 import { DARKER_TEXT } from 'resources/constants/colors';
+import useMessages from 'state/messages';
+import { MessageScrollProvider } from './MessageScrollProvider';
 
 const Container = styled.div`
     display: flex;
-    flex: 1;
-    min-height: 0;
-    flex-direction: column;
-    justify-items: flex-end;
-    padding-top: 10px;
-    gap: 5px;
-    padding-bottom: 20px;
+    flex: 1 1 0px;
+    position: relative;
 `;
 
 const CustomTopBar = styled(TopBar)`
@@ -31,6 +28,7 @@ const CustomTopBar = styled(TopBar)`
 
 const Conversation = () => {
     const [conversations, conversationsDispatcher] = useConversations();
+    const [, messagesDispatcher] = useMessages();
     const [, userDispatcher] = useUser();
     const { conversationId } = useParams();
 
@@ -40,6 +38,7 @@ const Conversation = () => {
 
         return () => {
             conversationsDispatcher.clearConversation();
+            messagesDispatcher.clearReadList();
         }
     }, []);
 
@@ -56,11 +55,13 @@ const Conversation = () => {
             <CustomTopBar title={`${user?.title ?? ''} ${user?.name ?? ''}`} />
             {!!conversations.fetching.fetchOne.state ? (
                 <Loading />
-            ) : (
-                <Container>
-                    <MessagesList />
+            ) : conversations.conversation?.uuid && (
+                <MessageScrollProvider>
+                    <Container>
+                        <MessagesList />
+                    </Container>
                     <MessageInput />
-                </Container>
+                </MessageScrollProvider>
             )}
         </MainContainer>
     );
