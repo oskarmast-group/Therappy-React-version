@@ -88,13 +88,13 @@ const Profile = () => {
                             <div className="texts">
                                 <h4>{`${therapists.current.title ?? ''} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
                             </div>
-                            <RatingStars
+                            {/* <RatingStars
                                 reviewsCount={therapists.current.reviews.length}
                                 reviewAvg={
                                     therapists.current.reviews?.reduce((acc, curr) => acc + curr.rating, 0) /
                                     therapists.current.reviews.length
                                 }
-                            />
+                            /> */}
                         </div>
                     </TherapistContainer>
                     {!!therapists.current.phrase && <Phrase>{therapists.current.phrase}</Phrase>}
