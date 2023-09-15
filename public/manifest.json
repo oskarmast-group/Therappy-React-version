@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Terappy",
+  "name": "Terappy - Ayuda psicológica profesional por videollamada",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1d1d1f",
+  "theme_color": "#717402",
   "background_color": "#fbfbfd"
 }
