@@ -28,7 +28,9 @@ import { GREEN_HIGHLIGHT, PRIMARY_GREEN } from 'resources/constants/colors';
 import useRequiredDocumentation from 'state/requiredDocumentation';
 import useConversations from 'state/conversations';
 import useMessages from 'state/messages';
-import { WindowSizeProvider, useWindowSize } from 'providers/WindowSizeProvider';
+import { useWindowSize } from 'providers/WindowSizeProvider';
+import PasswordRecovery from 'pages/PasswordRecovery';
+import NewPassword from 'pages/NewPassword';
 
 const theme = createTheme({
     palette: {
@@ -87,6 +89,11 @@ const App = () => {
                             <Route path="/registro" component={Register} />
                             <Route path="/registro-terapeutas" component={RegisterTherapist} />
                             <Route path="/logout" component={Logout} />
+                            <Route path="/recuperar" component={PasswordRecovery} />
+                            <Route path="/nueva-contraseña/:token" component={NewPassword} />
+                            <Route exact path="/nueva-contraseña">
+                                <Redirect to="/home" />
+                            </Route>
                             <Route exact path="/">
                                 <Redirect to="/home" />
                             </Route>

@@ -128,7 +128,7 @@ const Login = () => {
                     <ForgotPassword>
                         ¿Olvidaste tu contraseña?{' '}
                         <b>
-                            <CustomLink to="/recovery">Recupérala</CustomLink>
+                            <CustomLink to="/recuperar">Recupérala</CustomLink>
                         </b>
                     </ForgotPassword>
                     {error && (

@@ -21,16 +21,18 @@ const MenuButton = styled.button`
     border: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    align-items: center;
     img {
         cursor: pointer;
-        width: 30px;
+        width: 25px;
     }
     
 `;
 
 const Title = styled.h1`
     margin: 0;
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 600;
     color: ${PRIMARY_GREEN};
 `;
@@ -41,10 +43,10 @@ const TopBar = ({ className = '', title = '', backRoute = null }) => {
     return (
         <TopBarComponent className={className}>
             <MenuButton type='button' onClick={backRoute ? backRoute : goBack('/home')}>
-                <img src={GoBackSVG} />
+                <img src={GoBackSVG} alt='regresar' />
             </MenuButton>
             <Title>{title}</Title>
-            <div style={{ width: '30px' }}></div>
+            <div style={{ width: '25px' }}></div>
         </TopBarComponent>
     );
 };
