@@ -71,7 +71,7 @@ const DocumentationList = ({ requiredDocument, isInitiallyExpanded = true }) => 
     return (
         <Container>
             <Header onClick={() => setExpanded(!isExpanded)}>
-                <h4>{requiredDocument.title}</h4>
+                <h4>{`${requiredDocument.title} ${requiredDocument.isRequired ? '' : '(opcional)'}`}</h4>
                 <img
                     src={ArrowSVG}
                     alt={"Indicador de contenido expansible"}

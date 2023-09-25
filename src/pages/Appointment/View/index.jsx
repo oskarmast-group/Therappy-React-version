@@ -20,7 +20,7 @@ import {
     UserTypes,
 } from "resources/constants/config";
 import { useRouter } from "providers/router";
-import { isAfter, isBefore, sub } from "date-fns";
+import { add, isAfter, isBefore, sub } from "date-fns";
 import useUser from "state/user";
 import { subscribeNotificationsIfNotAlready } from "utils/notifications";
 import ALERT_TYPES from "alert/types";
@@ -126,7 +126,7 @@ const ViewAppointment = () => {
         if (!appointment) return false;
         if (!appointment.status) return false;
 
-        const validTime = isAfter(new Date(), sub(new Date(appointment.date), { minutes: 10 }));
+        const validTime = isAfter(new Date(), sub(new Date(appointment.date), { minutes: 10 })) && isBefore(new Date(), add(new Date(appointment.date), { minutes: 50 }));
         const validStatus =
             appointment.status !== AppointmentStatusValues.CANCELLED &&
             appointment.status !== AppointmentStatusValues.REJECTED;
