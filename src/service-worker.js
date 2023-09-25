@@ -93,3 +93,28 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event) {
   console.log('Service Worker acitvating');
 });
+
+self.addEventListener('notificationclick', function(event) {
+  // Close the notification when it's clicked.
+  event.notification.close();
+
+  // This can be a relative URL or a full URL.
+  // For simplicity, let's say we want to navigate to the root of our app.
+  const targetUrl = (!!event.notification.data && !!event.notification.data.url) ? event.notification.data.url : '/';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+      // If there's at least one client, focus on it.
+      for (let client of clientList) {
+        if (client.url === targetUrl && 'focus' in client) {
+          return client.focus();
+        }
+      }
+
+      // If no clients are opened, open a new window.
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(targetUrl);
+      }
+    })
+  );
+});
