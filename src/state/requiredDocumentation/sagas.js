@@ -40,7 +40,7 @@ function* uploadStart() {
 function* updateStartAsync({ payload }) {
     try {
         const form = toFormData(payload);
-        const res = yield documentationAPI.uploadDocument(form);
+        const res = yield documentationAPI.updateDocument(form);
         yield put({ type: Types.UPDATE_SUCCESS, payload: res });
         yield put({ type: UserTypes.UPDATE_DOCUMENTATION, payload: { uuid: payload.uuid, newDocument: res.data} });
     } catch (error) {

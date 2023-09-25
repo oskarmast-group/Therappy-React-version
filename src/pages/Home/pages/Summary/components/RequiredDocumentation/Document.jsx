@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import FileSVG from "resources/img/icons/file.svg";
 import DocumentPendingSVG from "resources/img/icons/document_pending.svg";
@@ -10,6 +10,8 @@ import { IconButton } from "components/Button";
 import { useAlert } from "alert";
 import ALERT_TYPES from "alert/types";
 import { DOCUMENTS_URL } from "resources/constants/urls";
+import useRequiredDocumentation from "state/requiredDocumentation";
+import { useDropzone } from "react-dropzone";
 
 const StatusIcon = {
     [DocumentationStatus.VERIFIED]: DocumentVerifiedSVG,
@@ -71,12 +73,99 @@ const Menu = styled(IconButton)`
     }
 `;
 
+const DocumentOptionsContainer = styled.div`
+    position: absolute;
+    top: 24px;
+    left: 3px;
+    border-radius: 8px;
+    background-color: white;
+    -webkit-box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.5); 
+    box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    padding: 5px 10px;
+`;
+
+const Option = styled.button`
+    cursor: pointer;
+    background-color: none;
+    background: none;
+    outline: none;
+    border: none;
+    text-align: start;
+`;
+
 const Document = ({ uuid, name, status, comment }) => {
     const alert = useAlert();
+    const [showOptions, setShowOptions] = useState(false);
+    const [, requiredDocumentationDispatcher] = useRequiredDocumentation();
+
+    const onDrop = useCallback(
+        (acceptedFiles, fileRejections) => {
+            if (acceptedFiles.length === 0 && fileRejections.length > 0) {
+                alert({
+                    type: ALERT_TYPES.INFO,
+                    config: {
+                        title: "Formato incorrecto",
+                        body: (
+                            <span>
+                                Verifica que el documento que intentas subir sea válido, menor a 200kB y de tipo
+                                doc, docx, txt o pdf.
+                            </span>
+                        ),
+                        buttonText: "OK",
+                    },
+                })
+                    .then(() => {})
+                    .catch(() => {});
+                return;
+            }
+            const file = acceptedFiles[0];
+            requiredDocumentationDispatcher.updateStart({
+                doc: file,
+                uuid,
+            });
+
+            setShowOptions(false);
+        },
+        [requiredDocumentationDispatcher]
+    );
+
+    const { open, getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            "application/msword": [".doc"],
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+            "text/plain": [".txt"],
+            "application/pdf": [".pdf"],
+        },
+        maxSize: 200000,
+        multiple: false,
+    });
 
     const docURL = useMemo(()=> {
         return `${DOCUMENTS_URL}/therapist-documentation/${localStorage.getItem('userIdentity')}/${uuid}-${name}`;
     }, [uuid, name])
+
+    const deleteStart = () => {
+        alert({
+            type: ALERT_TYPES.CONFIRM,
+            config: {
+                title: 'Eliminar documento?',
+                body: <span>Esta acción no se puede revertir</span>,
+                cancelButtonText: 'Mantener',
+                confirmButtonText: 'Eliminar',
+            },
+        })
+            .then(() => {
+                requiredDocumentationDispatcher.deleteStart(uuid);
+            })
+            .catch(() => {});
+
+        setShowOptions(false);
+    }
 
     return (
         <Container>
@@ -100,13 +189,24 @@ const Document = ({ uuid, name, status, comment }) => {
           }}>
                 <img src={StatusIcon[status]} alt="Ícono soltar archivos" />
             </Status>
-            <Menu onClick={()=>console.log('open')}>
+            <Menu onClick={()=>setShowOptions(!showOptions)}>
                 <img src={DotsMenuSVG} alt="Opciones de archivo" />
             </Menu>
             <a href={docURL} target="_blank" download={true} style={{ paddingBottom: '5px' }} rel="noreferrer">
                 <img src={FileSVG} alt="Ícono soltar archivos" />
             </a>
             <Name>{name}</Name>
+            {showOptions && <DocumentOptionsContainer>
+                <div {...getRootProps()}>
+                <input {...getInputProps()}/>
+                <Option onClick={open}>
+                    Editar
+                </Option>
+                </div>
+                <Option onClick={deleteStart}>
+                    Eliminar
+                </Option>
+            </DocumentOptionsContainer>}
         </Container>
     );
 };

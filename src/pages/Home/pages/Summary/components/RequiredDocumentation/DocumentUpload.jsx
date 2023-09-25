@@ -74,13 +74,13 @@ const DocumentUpload = ({ documentType }) => {
                 })
                     .then(() => {})
                     .catch(() => {});
+                return;
             }
             const file = acceptedFiles[0];
             requiredDocumentationDispatcher.uploadStart({
                 doc: file,
                 uuid: "newdoc",
                 documentType,
-                name: file.name,
             });
         },
         [requiredDocumentationDispatcher]
