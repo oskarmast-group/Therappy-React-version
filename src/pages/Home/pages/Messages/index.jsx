@@ -37,7 +37,7 @@ const Messages = () => {
             ) : conversations.list.length === 0 ? (
                 <Notice>
                     {user.current?.userType === UserTypes.THERAPIST
-                        ? 'Cuando te pongas en contacto con algún cliente tus mensajes aparecerán aquí'
+                        ? 'Cuando te pongas en contacto con algún paciente tus mensajes aparecerán aquí'
                         : 'Cuando te pongas en contacto con algún especialista tus mensajes aparecerán aquí'}
                 </Notice>
             ) : (

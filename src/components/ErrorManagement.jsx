@@ -39,7 +39,7 @@ const ErrorManagement = ({ states = DEFAULT_STATES }) => {
         window.location.reload();
         break;
       }
-      toast.error(`${key.toUpperCase()}: ${error.message.message}`, {
+      toast.error(`${error.message.message}`, {
         toastId: `${key}:${error.timestamp}`,
         onClose: resetError,
         ...CONFIG,

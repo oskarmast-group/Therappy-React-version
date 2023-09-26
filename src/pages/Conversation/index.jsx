@@ -12,6 +12,7 @@ import useUser from 'state/user';
 import { DARKER_TEXT } from 'resources/constants/colors';
 import useMessages from 'state/messages';
 import { MessageScrollProvider } from './MessageScrollProvider';
+import { useRouter } from 'providers/router';
 
 const Container = styled.div`
     display: flex;
@@ -31,6 +32,9 @@ const Conversation = () => {
     const [, messagesDispatcher] = useMessages();
     const [, userDispatcher] = useUser();
     const { conversationId } = useParams();
+    const { goBack: previousRoute } = useRouter();
+
+    const goBack = useMemo(()=>previousRoute('/home'), [previousRoute]);
 
     useEffect(() => {
         conversationsDispatcher.fetchOneStart(conversationId);
@@ -41,6 +45,10 @@ const Conversation = () => {
             messagesDispatcher.clearReadList();
         }
     }, []);
+
+    if(conversations?.error?.message?.status === 404 || conversations?.error?.message?.status === 400) {
+        if(goBack) goBack();
+    }
 
     const user = useMemo(
         () =>

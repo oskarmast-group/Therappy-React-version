@@ -99,7 +99,7 @@ const ViewAppointment = () => {
             }
         } else {
             if(user.current.userType === UserTypes.THERAPIST) {
-                body = 'Puedes cancelar la cita, pero se le cobrará la sesión a usted para reponerla al cliente.';
+                body = 'Puedes cancelar la cita, pero de preferencia cancelar al menos 24 horas antes.';
             }
             if(user.current.userType === UserTypes.CLIENT) {
                 body = 'Puedes cancelar la cita, pero no se le efectuará ningún reembolso, las cancelaciones tiene que ocurrir más de 24 horas antes para ser candidato a reembolso.';
@@ -126,7 +126,7 @@ const ViewAppointment = () => {
         if (!appointment) return false;
         if (!appointment.status) return false;
 
-        const validTime = isAfter(new Date(), sub(new Date(appointment.date), { minutes: 10 })) && isBefore(new Date(), add(new Date(appointment.date), { minutes: 50 }));
+        const validTime = isAfter(new Date(), sub(new Date(appointment.date), { minutes: 10 })) && isBefore(new Date(), sub(new Date(appointment.date), { minutes: 10 }));
         const validStatus =
             appointment.status !== AppointmentStatusValues.CANCELLED &&
             appointment.status !== AppointmentStatusValues.REJECTED;
@@ -136,6 +136,9 @@ const ViewAppointment = () => {
     const cancelButtonVisible = useMemo(() => {
         if (!appointment) return false;
         if (!appointment.status) return false;
+
+        const validTime = isBefore(new Date(), add(new Date(appointment.date), { minutes: 10 }));
+        if(!validTime) return false;
 
         if (user.current.userType === UserTypes.THERAPIST) {
             return appointment.status === AppointmentStatusValues.ACCEPTED;

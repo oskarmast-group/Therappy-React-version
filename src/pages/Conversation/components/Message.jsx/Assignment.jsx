@@ -36,11 +36,11 @@ const Container = styled.div`
 `;
 
 const bannerText = (relationshipStatus, invitationState, userType) => {
-  if (relationshipStatus === 'dismissed') return userType === UserTypes.CLIENT ? 'La asignación con este terapeuta no funcionó.' : 'La asignación con este cliente no funcionó, pero puedes intentarlo con otro.';
-  if (relationshipStatus === 'active') return userType === UserTypes.CLIENT ? 'Ambos aceptaron la invitación, ahora es tu terapeuta asignado.' : 'Ambos aceptaron la invitación, ahora es tu cliente asignado.';
+  if (relationshipStatus === 'dismissed') return userType === UserTypes.CLIENT ? 'La asignación con este terapeuta no funcionó.' : 'La asignación con este paciente no funcionó, pero puedes intentarlo con otro.';
+  if (relationshipStatus === 'active') return userType === UserTypes.CLIENT ? 'Ambos aceptaron la invitación, ahora es tu terapeuta asignado.' : 'Ambos aceptaron la invitación, ahora es tu paciente asignado.';
 
-  if(invitationState === null) return userType === UserTypes.CLIENT ? 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Terapeuta ? (Ambos deberán estar de acuerdo)' : 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Cliente ? (Ambos deberán estar de acuerdo)';
-  if(invitationState === true) return userType === UserTypes.CLIENT ? 'Ya respondiste a la asignación, hay que esperar la respuesta del Terapeuta' : 'Ya respondiste a la asignación, hay que esperar la respuesta del Cliente';
+  if(invitationState === null) return userType === UserTypes.CLIENT ? 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Terapeuta ? (Ambos deberán estar de acuerdo)' : 'Tu primera sesión ha concluido, ¿Deseas que te asignemos a este Paciente ? (Ambos deberán estar de acuerdo)';
+  if(invitationState === true) return userType === UserTypes.CLIENT ? 'Ya respondiste a la asignación, hay que esperar la respuesta del Terapeuta' : 'Ya respondiste a la asignación, hay que esperar la respuesta del Paciente';
 };
 
 const buttonsVisible = (relationshipStatus, invitationState) => {
