@@ -25,5 +25,5 @@ jobs:
             npm i && CI=false
             npm run build
             cd
-            rsync -a ./terappy/frontend/therappy-app/build /var/www/terappy.mx/html
+            rsync -a ./terappy/frontend/therappy-app/build /var/www/app.terappy.mx/html
             echo 'Deployment to IONOS server finished'
