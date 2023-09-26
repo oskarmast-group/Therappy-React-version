@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSocket } from 'Socket';
 import useAppointments from 'state/appointments';
 import { Container, Intructions } from '../styles';
 import AppointmentCard from './AppointmentCard';
+import { AppointmentStatusValues } from 'resources/constants/config';
 
 const NextAppointmentSection = () => {
     const [appointments, appointmentsDispatcher] = useAppointments();
     const socket = useSocket();
-
-    useEffect(() => {
-        appointmentsDispatcher.fetchUpcomingStart();
-    }, []);
 
     useEffect(()=>{
         if(!socket) return;
@@ -19,14 +16,16 @@ const NextAppointmentSection = () => {
          });
     },[socket]);
 
-    return appointments.upcomingList.length > 0 ? (
+    const upcomingAppointments =  useMemo(()=>appointments.upcomingList.filter(({status}) => status !== AppointmentStatusValues.REJECTED && status !== AppointmentStatusValues.CANCELLED),[appointments]);
+
+    return upcomingAppointments.length > 0 ? (
         <Container>
             <Intructions>Cita próxima</Intructions>
             <AppointmentCard
                 app={
-                    appointments.upcomingList.sort((a, b) => {
+                    upcomingAppointments.sort((a, b) => {
                         return new Date(a.date) - new Date(b.date);
-                    })[0]
+                    }).filter(({status}) => status !== AppointmentStatusValues.REJECTED)[0]
                 }
             />
         </Container>

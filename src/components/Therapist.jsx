@@ -65,7 +65,7 @@ const Therapist = ({ id, title, name, lastName, profileImg, reviewAvg, reviewsCo
                 </div>
                 <div className="information">
                     <div className="texts">
-                        <h4>{`${title} ${name} ${lastName}`}</h4>
+                        <h4>{`${title ?? ''} ${name} ${lastName}`}</h4>
                     </div>
                     <RatingStars reviewsCount={reviewsCount} reviewAvg={reviewAvg}/>
                 </div>

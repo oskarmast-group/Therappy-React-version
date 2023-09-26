@@ -15,6 +15,7 @@ const crudder = (domain, resource, withAuth = true) => {
         profile: () => executeCall(() => Axios.get(url, { headers })),
         updateImage: (data) => executeCall(() => Axios.patch(url + '/img', data, { headers })),
         update: (data) => executeCall(() => Axios.patch(url, data, { headers })),
+        assignmentResponse: (data) => executeCall(() => Axios.post(url + '/assignment-response', data, { headers })),
     };
 };
 

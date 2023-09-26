@@ -3,11 +3,12 @@ import MainContainer from 'containers/MainContainer';
 import React, { useState } from 'react';
 import TherappyLogo from 'resources/img/therappy-logo.svg';
 import styled from 'styled-components';
-import Person from 'resources/img/person.svg';
+import Person from 'resources/img/icons/person.svg';
 import { Body, CustomLink } from 'components/Text';
 import Button from 'components/Button';
 import { authAPI } from 'resources/api';
 import Scrollable from 'containers/Scrollable';
+import { unsubscribeNotifications } from 'utils/notifications';
 
 const Logo = styled.img`
     width: 60%;
@@ -73,6 +74,13 @@ const Login = () => {
         try {
             const res = await authAPI.login({ email: user, password });
             localStorage.setItem('auth', JSON.stringify(res));
+
+            const previousUser = localStorage.getItem('userIdentity');
+            if(previousUser !== res.identity && process.env.NODE_ENV !== 'development') {
+                await unsubscribeNotifications();
+            }
+            localStorage.setItem('userIdentity', res.identity);
+
             window.location.href = '/';
         } catch (e) {
             console.error(e);
@@ -81,7 +89,7 @@ const Login = () => {
     };
 
     return (
-        <MainContainer withBottomDecoration={true} withBottomNavigation={false}>
+        <MainContainer withBottomDecoration={true} withBottomNavigation={false} withSideMenu={false} >
             <Scrollable>
                 <div
                     style={{
@@ -120,7 +128,7 @@ const Login = () => {
                     <ForgotPassword>
                         ¿Olvidaste tu contraseña?{' '}
                         <b>
-                            <CustomLink to="/recovery">Recupérala</CustomLink>
+                            <CustomLink to="/recuperar">Recupérala</CustomLink>
                         </b>
                     </ForgotPassword>
                     {error && (
@@ -143,7 +151,7 @@ const Login = () => {
                     </ForgotPassword>
                     <b style={{ textAlign: 'center' }}>
                         <CustomLink
-                            to="/registro-psicoterapeuta"
+                            to="/registro-terapeutas"
                             style={{ fontSize: '20px' }}
                         >
                             Registro psicoterapeutas

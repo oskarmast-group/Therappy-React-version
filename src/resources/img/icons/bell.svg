@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="bell" transform="translate(-1535 1274)">
+    <rect id="Rectangle_76" data-name="Rectangle 76" class="cls-1" width="200" height="200" transform="translate(1535 -1274)"/>
+    <g id="Icon_feather-bell" data-name="Icon feather-bell" transform="translate(1548.592 -1267.697)">
+      <path id="Path_115" data-name="Path 115" class="cls-2" d="M169.064,147.823H3.8A7.8,7.8,0,0,1-.526,133.528c.156-.112,24.069-17.689,24.069-76.139a62.89,62.89,0,1,1,125.78,0c0,58.45,23.914,76.026,24.155,76.2a7.869,7.869,0,0,1,2.978,8.765A7.776,7.776,0,0,1,169.064,147.823ZM20.981,132.218h130.9c-8.536-13.061-18.167-36.328-18.167-74.828a47.285,47.285,0,0,0-94.569,0C39.149,95.89,29.517,119.157,20.981,132.218Z"/>
+      <path id="Path_116" data-name="Path 116" class="cls-2" d="M30.591,47.754A26.245,26.245,0,0,1,7.958,34.718a7.8,7.8,0,0,1,13.5-7.83,10.56,10.56,0,0,0,18.268,0,7.8,7.8,0,1,1,13.5,7.83A26.245,26.245,0,0,1,30.591,47.754Z" transform="translate(55.842 145.943)"/>
+    </g>
+  </g>
+</svg>

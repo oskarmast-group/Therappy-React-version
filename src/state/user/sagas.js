@@ -1,5 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { profileAPI, stripeClientsAPI, therapistAPI } from 'resources/api';
+import { profileAPI, stripeClientsAPI, stripeTherapistAPI, therapistAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import { toFormData } from 'utils';
 import Types from './types';
@@ -24,7 +24,7 @@ function* updateImageStartAsync({ payload }) {
         const form = toFormData({profile: payload});
         yield profileAPI.updateImage(form);
         const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.FETCH_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -40,8 +40,7 @@ function* updateStartAsync({ payload }) {
     try {
         const { key, value } = payload;
         yield profileAPI.update({[key]: value});
-        const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: {} });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -91,8 +90,7 @@ function* updateTherapistStartAsync({ payload }) {
     try {
         const { key, value } = payload;
         yield therapistAPI.update({[key]: value});
-        const newProfile = yield profileAPI.profile();
-        yield put({ type: Types.UPDATE_SUCCESS, payload: newProfile });
+        yield put({ type: Types.UPDATE_SUCCESS, payload: {} });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -120,6 +118,37 @@ function* deletePaymentMethodStart() {
     yield takeLatest(Types.DELETE_PAYMENT_METHOD_START, deletePaymentMethodStartAsync)
 }
 
+function* acceptInvitationStartAsync({ payload }) {
+    try {
+        yield profileAPI.assignmentResponse(payload);
+        yield put({ type: Types.ACCEPT_INVITATION_SUCCESS, payload: {} });
+        yield put({ type: Types.FETCH_START, payload: {} });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.ACCEPT_INVITATION_SUCCESS, payload: message });
+    }
+}
+
+function* acceptInvitationStart() {
+    yield takeLatest(Types.ACCEPT_INVITATION_START, acceptInvitationStartAsync)
+}
+
+function* fetchAccountInformationStartAsync() {
+    try {
+        const res = yield stripeTherapistAPI.accountInformation();
+        yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_SUCCESS, payload: res });
+    } catch (error) {
+        const message = processError(error);
+        console.error(message);
+        yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_ERROR, payload: message });
+    }
+}
+
+function* fetchAccountInformationStart() {
+    yield takeLatest(Types.FETCH_ACCOUNT_INFORMATION_START, fetchAccountInformationStartAsync)
+}
+
 export default function* sagas() {
     yield all([
         call(fetchStart),
@@ -130,5 +159,7 @@ export default function* sagas() {
         call(fetchPaymentMethodsStart),
         call(updateTherapistStart),
         call(deletePaymentMethodStart),
+        call(acceptInvitationStart),
+        call(fetchAccountInformationStart),
     ]);
 }

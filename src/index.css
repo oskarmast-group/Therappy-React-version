@@ -1,4 +1,17 @@
-* {box-sizing: border-box;}
+* {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   margin: 0;
@@ -8,25 +21,37 @@ body {
   display: flex;
   justify-content: center;
   background-color: #ebebeb;
+  height: 100%;
+  width: 100%;
 }
 
 #root {
-  width: 100vw;
   max-width: 434px;
-  height: 100vh;
-  max-height: 100vh;
-  background-color: white;
+  height: 100%;
+  width: 100%;
+  background-color: #fbfbfd;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
 }
 
-div,span,p,h1,h2,h3,h4,input,a,button,select,span,textarea {
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+input,
+a,
+button,
+select,
+span,
+textarea {
   font-family: 'Open Sans', sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

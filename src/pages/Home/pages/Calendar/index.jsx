@@ -1,6 +1,6 @@
 import Loading from 'components/Loading';
 import { sub } from 'date-fns';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
@@ -31,7 +31,7 @@ const Tab = styled.button`
     border-radius: 10px;
     &.active {
         background-color: ${PRIMARY_GREEN};
-        color: white;
+        color: #fbfbfd;
     }
 `;
 
@@ -43,14 +43,15 @@ const TabsContainer = styled.div`
 
 const Calendar = () => {
     const [page, setPage] = useState(0);
-    const [list, setList] = useState([]);
     const [appointments, appointmentsDispatcher] = useAppointments();
 
     useEffect(() => {
         appointmentsDispatcher.fetchStart();
     }, []);
 
-    useEffect(() => {
+    const list = useMemo(() => {
+        if(!appointments.list) return [];
+
         if (page === 0) {
             const list = appointments.list.filter(
                 ({ date }) =>
@@ -59,8 +60,7 @@ const Calendar = () => {
             const sorted = list.sort((a, b) => {
                 return new Date(a.date) - new Date(b.date);
             });
-            setList(sorted);
-            return;
+           return sorted;
         } else {
             const list = appointments.list.filter(
                 ({ date }) =>
@@ -69,8 +69,7 @@ const Calendar = () => {
             const sorted = list.sort((a, b) => {
                 return new Date(b.date) - new Date(a.date);
             });
-            setList(sorted);
-            return;
+            return sorted;
         }
     }, [appointments.list, page]);
 
@@ -93,7 +92,7 @@ const Calendar = () => {
             </TabsContainer>
             {appointments.fetching.state ? (
                 <Loading />
-            ) : list.length === 0 ? (
+            ) : list?.length === 0 ? (
                 <Notice>
                     {page === 0
                         ? 'Cuando tengas citas pendientes apareceran aquí'

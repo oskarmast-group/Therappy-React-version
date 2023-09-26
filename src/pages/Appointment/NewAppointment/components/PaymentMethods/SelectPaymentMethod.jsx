@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 import styled from 'styled-components';
-import CardSVG from 'resources/img/card.svg';
+import CardSVG from 'resources/img/icons/card.svg';
 
 const transformMethods = (paymentMethods) => {
     const methods = paymentMethods.map((pm) => ({ value: pm.id, label: `**** **** ${pm.card.last4}` }));
@@ -18,6 +18,9 @@ const Container = styled.div`
     gap: 10px;
     border: solid 1px ${PRIMARY_GREEN};
     border-radius: 30px;
+    img {
+        width: 25px;
+    }
 `;
 
 const SelectMethod = styled.select`

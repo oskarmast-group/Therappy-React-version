@@ -10,16 +10,14 @@ import MessageInput from './components/MessageInput';
 import MessagesList from './components/MessagesList';
 import useUser from 'state/user';
 import { DARKER_TEXT } from 'resources/constants/colors';
+import useMessages from 'state/messages';
+import { MessageScrollProvider } from './MessageScrollProvider';
+import { useRouter } from 'providers/router';
 
 const Container = styled.div`
     display: flex;
-    flex: 1;
-    min-height: 0;
-    flex-direction: column;
-    justify-items: flex-end;
-    padding-top: 10px;
-    gap: 5px;
-    padding-bottom: 20px;
+    flex: 1 1 0px;
+    position: relative;
 `;
 
 const CustomTopBar = styled(TopBar)`
@@ -31,8 +29,12 @@ const CustomTopBar = styled(TopBar)`
 
 const Conversation = () => {
     const [conversations, conversationsDispatcher] = useConversations();
+    const [, messagesDispatcher] = useMessages();
     const [, userDispatcher] = useUser();
     const { conversationId } = useParams();
+    const { goBack: previousRoute } = useRouter();
+
+    const goBack = useMemo(()=>previousRoute('/home'), [previousRoute]);
 
     useEffect(() => {
         conversationsDispatcher.fetchOneStart(conversationId);
@@ -40,8 +42,13 @@ const Conversation = () => {
 
         return () => {
             conversationsDispatcher.clearConversation();
+            messagesDispatcher.clearReadList();
         }
     }, []);
+
+    if(conversations?.error?.message?.status === 404 || conversations?.error?.message?.status === 400) {
+        if(goBack) goBack();
+    }
 
     const user = useMemo(
         () =>
@@ -56,11 +63,13 @@ const Conversation = () => {
             <CustomTopBar title={`${user?.title ?? ''} ${user?.name ?? ''}`} />
             {!!conversations.fetching.fetchOne.state ? (
                 <Loading />
-            ) : (
-                <Container>
-                    <MessagesList />
+            ) : conversations.conversation?.uuid && (
+                <MessageScrollProvider>
+                    <Container>
+                        <MessagesList />
+                    </Container>
                     <MessageInput />
-                </Container>
+                </MessageScrollProvider>
             )}
         </MainContainer>
     );

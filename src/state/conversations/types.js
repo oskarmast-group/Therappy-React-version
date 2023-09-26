@@ -1,6 +1,6 @@
 const TYPE = `[CONVERSATIONS]`;
 
-export default {
+const types = {
     FETCH_START: `${TYPE} FETCH START`,
     FETCH_SUCCESS: `${TYPE} FETCH SUCCESS`,
     FETCH_ERROR: `${TYPE} FETCH ERROR`,
@@ -11,5 +11,9 @@ export default {
 
     CLEAR_CONVERSATION: `${TYPE} CLEAR CONVERSATION`,
 
+    ADD_LAST_MESSAGE: `${TYPE} ADD LAST MESSAGE`,
+
     RESET_ERROR: `${TYPE} RESET ERROR`,
 }
+
+export default types;

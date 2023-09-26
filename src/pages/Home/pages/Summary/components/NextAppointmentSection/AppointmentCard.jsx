@@ -67,14 +67,7 @@ const Container = styled.div`
     }
 `;
 
-const AppointmentCard = ({ app }) => {
-    const [appointments, appointmentsDispatcher] = useAppointments();
-
-    const onAccept = (id) => {
-        console.log('accept');
-        appointmentsDispatcher.acceptStart({ appointmentId: id });
-    };
-
+const AppointmentCard = ({ app }) => {    
     return (
         <Container>
             <Link to={`/appointment/${app.roomId}`}>

@@ -2,7 +2,6 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { conversationsAPI } from 'resources/api';
 import { processError } from 'state/utils';
 import Types from './types';
-import MessagesTypes from '../messages/types';
 
 function* fetchStartAsync() {
     try {
@@ -23,7 +22,6 @@ function* fetchOneStartAsync({ payload }) {
     try {
         const res = yield conversationsAPI.view(payload);
         yield put({ type: Types.FETCH_ONE_SUCCESS, payload: res });
-        yield put({ type: MessagesTypes.FETCH_START, payload: {} });
     } catch (error) {
         const message = processError(error);
         console.error(message);
@@ -34,7 +32,6 @@ function* fetchOneStartAsync({ payload }) {
 function* fetchOneStart() {
   yield takeLatest(Types.FETCH_ONE_START, fetchOneStartAsync);
 }
-
 
 export default function* sagas() {
     yield all([

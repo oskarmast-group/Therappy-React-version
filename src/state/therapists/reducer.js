@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   error: { ...DEFAULT_NO_ERROR },
 };
 
-export default (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case Types.FETCH_START:
       return { ...state, fetching: { ...DEFAULT_FETCHING_STATE, state: true } };
@@ -30,3 +30,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default reducer;

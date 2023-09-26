@@ -9,6 +9,7 @@ import Scrollable from 'containers/Scrollable';
 import TopBar from 'components/TopBar';
 import { isValidNumber } from 'utils/phone';
 import { DARK_TEXT } from 'resources/constants/colors';
+import { UserTypes } from 'resources/constants/config';
 
 const ErrorText = styled.p`
     text-align: center;
@@ -53,14 +54,14 @@ const Register = () => {
                 name,
                 lastName,
                 phone,
-                userType: 'client',
+                userType: UserTypes.CLIENT,
                 countryOrigin: 'MX',
             });
             localStorage.setItem('auth', JSON.stringify(res));
             window.location.href = '/';
         } catch (e) {
             console.error(e);
-            setError('Error');
+            setError(e?.response?.data?.message ?? 'Error desconocido, intente de nuevo más tarde');
         }
     };
 
@@ -135,16 +136,16 @@ const Register = () => {
                     />
                     {error && (
                         <ErrorText>
-                            "Error al crear cuenta, verifique sus datos"
+                            {error}
                         </ErrorText>
                     )}
                     <Button style={{ marginTop: '30px', maxWidth: '200px' }}>
                         Registrarse
                     </Button>
                 </Form>
-                <b style={{ textAlign: 'center' }}>
+                <b style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                     <CustomLink
-                        to="/registro-psicoterapeuta"
+                        to="/registro-terapeutas"
                         style={{ fontSize: '20px' }}
                     >
                         Soy psicoterapeuta

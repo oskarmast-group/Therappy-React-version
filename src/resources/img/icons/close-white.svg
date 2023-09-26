@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="close-white" transform="translate(-1234 733)">
+    <rect id="Rectangle_73" data-name="Rectangle 73" class="cls-1" width="200" height="200" transform="translate(1234 -733)"/>
+    <g id="x" transform="translate(1236.5 -730.5)">
+      <path id="Line_19" data-name="Line 19" class="cls-2" d="M-.666,191.5a7.81,7.81,0,0,1-5.54-2.295,7.834,7.834,0,0,1,0-11.079L178.126-6.205a7.834,7.834,0,0,1,11.079,0,7.834,7.834,0,0,1,0,11.079L4.874,189.205A7.81,7.81,0,0,1-.666,191.5Z" transform="translate(6 6)"/>
+      <path id="Line_20" data-name="Line 20" class="cls-2" d="M183.666,191.5a7.81,7.81,0,0,1-5.54-2.295L-6.205,4.874a7.834,7.834,0,0,1,0-11.079,7.834,7.834,0,0,1,11.079,0L189.205,178.126a7.834,7.834,0,0,1-5.54,13.374Z" transform="translate(6 6)"/>
+    </g>
+  </g>
+</svg>

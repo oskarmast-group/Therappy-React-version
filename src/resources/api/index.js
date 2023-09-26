@@ -6,7 +6,11 @@ import profile from './profile';
 import stripeClients from './stripeClients';
 import appointments from './appointments';
 import messages from './messages';
+import notifications from './notifications';
 import authCrudder from './auth-crud';
+import stripeTherapist from './stripeTherapist';
+import requiredDocumentation from './requiredDocumentation';
+import documentation from './documentation';
 
 export async function registerPush(data) {
     try {
@@ -27,6 +31,10 @@ export const profileAPI = profile(API, "profile");
 export const therapistAPI = Crudder("therapist");
 export const categoriesAPI = Crudder("categories");
 export const stripeClientsAPI = stripeClients(API, "stripe-clients");
+export const stripeTherapistAPI = stripeTherapist(API, "stripe-therapist");
 export const appointmentsAPI = appointments(API, "appointments");
 export const conversationsAPI = appointments(API, "conversations");
 export const messagesAPI = messages(API, "messages");
+export const notificationsAPI = notifications(API, "notifications");
+export const requiredDocumentationAPI = requiredDocumentation(API, "required-documentation");
+export const documentationAPI = documentation(API, "documentation");

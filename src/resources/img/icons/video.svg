@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="video" transform="translate(-266 733)">
+    <rect id="Rectangle_77" data-name="Rectangle 77" class="cls-1" width="200" height="200" transform="translate(266 -733)"/>
+    <g id="Icon_feather-video" data-name="Icon feather-video" transform="translate(274.5 -690.985)">
+      <path id="Path_109" data-name="Path 109" class="cls-2" d="M81.986,2a7.834,7.834,0,0,1,7.833,7.834V93.621A7.834,7.834,0,0,1,77.432,100L18.781,58.1a7.834,7.834,0,0,1,0-12.75L77.432,3.459A7.83,7.83,0,0,1,81.986,2ZM74.151,78.4V25.057L36.812,51.728Z" transform="translate(101.681 6.257)"/>
+      <path id="Path_110" data-name="Path 110" class="cls-2" d="M17.592-1h92.166a24.619,24.619,0,0,1,24.592,24.592v83.787a24.619,24.619,0,0,1-24.592,24.592H17.592A24.619,24.619,0,0,1-7,107.379V23.592A24.619,24.619,0,0,1,17.592-1Zm92.166,117.3a8.933,8.933,0,0,0,8.923-8.923V23.592a8.933,8.933,0,0,0-8.923-8.923H17.592a8.933,8.933,0,0,0-8.923,8.923v83.787a8.933,8.933,0,0,0,8.923,8.923Z" transform="translate(-1.5 -7.5)"/>
+    </g>
+  </g>
+</svg>

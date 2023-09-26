@@ -10,5 +10,7 @@ export default class Dispatcher {
 
     clearConversation = () => this.dispatch({ type: Types.CLEAR_CONVERSATION, payload: {} });
 
+    addLastMessage = (payload) => this.dispatch({ type: Types.ADD_LAST_MESSAGE, payload });
+
     resetError = () => this.dispatch({ type: Types.RESET_ERROR, payload: {} });
 }

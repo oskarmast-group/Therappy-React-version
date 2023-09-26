@@ -6,8 +6,9 @@ import React, { useEffect } from 'react';
 import { PRIMARY_GREEN } from 'resources/constants/colors';
 import useUser from 'state/user';
 import styled from 'styled-components';
-import AddPaymentMethodDialog from './AddPaymentMethodDialog';
+import AddPaymentMethodDialog from 'components/AddPaymentMethodDialog';
 import SelectPaymentMethod from './SelectPaymentMethod';
+import { Ring } from '@uiball/loaders';
 
 const AddMethods = styled.button`
     background-color: transparent;
@@ -34,14 +35,14 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
     }, [selectedMethod]);
 
     const addPaymentMethod = () => {
-        if (!user.user.id) return;
+        if (!user.current.id) return;
 
         alert({
             type: ALERT_TYPES.CUSTOM,
             config: {
                 body: AddPaymentMethodDialog,
                 props: {
-                    userId: user.user.id,
+                    userId: user.current.id,
                 },
             },
         })
@@ -62,12 +63,11 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
                         title: 'Sesión de cortesía',
                         body: (
                             <span>
-                                La primera sesión con un terapeuta será una
-                                entrevista para determinar si es un buen
+                                La primera sesión con un terapeuta será una entrevista para determinar si es un buen
                                 emparejamiento. <br />
                                 <br />
-                                Por este motivo no se te cobrarán sesiones hasta
-                                que se te asigne oficialmente un terapeuta.
+                                Por este motivo no se te cobrarán sesiones hasta que se te asigne oficialmente un
+                                terapeuta.
                             </span>
                         ),
                         buttonText: 'OK',
@@ -80,7 +80,9 @@ const PaymentMethods = ({ selectedMethod, setSelectedMethod, pricing }) => {
     ) : (
         <>
             <SectionTitle>Método de pago</SectionTitle>
-            {user.paymentMethods.length > 0 ? (
+            {user.fetching.paymentMethods.state ? (
+                <Ring color={PRIMARY_GREEN} size={22} />
+            ) : user.paymentMethods.length > 0 ? (
                 <SelectPaymentMethod
                     paymentMethods={user.paymentMethods}
                     selectedMethod={selectedMethod}

@@ -8,7 +8,7 @@ import { PRIMARY_GREEN } from 'resources/constants/colors';
 
 const CustomContainer = styled(Container)`
     input:disabled {
-        background-color: white;
+        background-color: #fbfbfd;
     }
 
     .img-edit-container {

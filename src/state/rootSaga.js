@@ -5,6 +5,7 @@ import categories from './categories/sagas';
 import appointments from './appointments/sagas';
 import conversations from './conversations/sagas';
 import messages from './messages/sagas';
+import requiredDocumentation from './requiredDocumentation/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga() {
     call(appointments),
     call(conversations),
     call(messages),
+    call(requiredDocumentation),
   ]);
 }

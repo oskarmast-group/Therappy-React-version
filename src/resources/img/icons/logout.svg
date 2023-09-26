@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #717402;
+      }
+    </style>
+  </defs>
+  <g id="logout" transform="translate(-694 1011)">
+    <rect id="Rectangle_70" data-name="Rectangle 70" class="cls-1" width="200" height="200" transform="translate(694 -1011)"/>
+    <g id="Icon_feather-log-out" data-name="Icon feather-log-out" transform="translate(698 -1007)">
+      <path id="Path_115" data-name="Path 115" class="cls-2" d="M65.278,196H24.315A28.347,28.347,0,0,1-4,167.685V24.315A28.315,28.315,0,0,1,24.315-4H65.278a7.834,7.834,0,0,1,0,15.668H24.315A12.647,12.647,0,0,0,11.668,24.315V167.685a12.662,12.662,0,0,0,12.647,12.647H65.278a7.834,7.834,0,0,1,0,15.668Z" transform="translate(0 0)"/>
+      <path id="Path_116" data-name="Path 116" class="cls-2" d="M23.334,120.075a7.834,7.834,0,0,1-5.54-13.374L63.458,61.037,17.795,15.374A7.834,7.834,0,0,1,28.874,4.295l51.2,51.2a7.834,7.834,0,0,1,0,11.079l-51.2,51.2A7.81,7.81,0,0,1,23.334,120.075Z" transform="translate(113.629 34.963)"/>
+      <path id="Path_117" data-name="Path 117" class="cls-2" d="M135.722,25.168H12.834a7.834,7.834,0,1,1,0-15.668H135.722a7.834,7.834,0,1,1,0,15.668Z" transform="translate(52.444 78.666)"/>
+    </g>
+  </g>
+</svg>

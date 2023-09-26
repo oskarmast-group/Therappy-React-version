@@ -117,12 +117,12 @@ const ProfileUpload = () => {
                     <>
                         <div className="profile-container">
                             <img
-                                src={user?.user?.profileImg ? `${IMAGES_URL}${user.user.profileImg}` : NoProfileSVG}
+                                src={user?.current?.profileImg ? `${IMAGES_URL}${user.current.profileImg}` : NoProfileSVG}
                                 alt={'Imagen de perfil'}
                             />
                         </div>
                         <button className="upload" type="button" onClick={onImageUpload} disabled={loadingPicture}>
-                            {loadingPicture ? <Ring color="#ffffff" size={22} /> : <img src={CameraIconSVG} alt={'camara subir imagen'} />}
+                            {loadingPicture ? <Ring color="#fbfbfd" size={22} /> : <img src={CameraIconSVG} alt={'camara subir imagen'} />}
                         </button>
                     </>
                 )}

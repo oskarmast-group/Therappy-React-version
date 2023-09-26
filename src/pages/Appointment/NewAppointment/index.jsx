@@ -15,6 +15,7 @@ import AppointmentTime from '../../../components/AppointmentTime';
 import AppointmentCost from './components/AppointmentCost';
 import PaymentMethods from './components/PaymentMethods';
 import LoadingPayment from './components/LoadingPayment';
+import useUser from 'state/user';
 
 const TherapistContainer = styled.header`
     display: flex;
@@ -54,6 +55,7 @@ const NewAppointment = () => {
     const [therapists, therapistsDispatcher] = useTherapist();
     const [appointments, appointmentsDispatcher] = useAppointments();
     const [selectedMethod, setSelectedMethod] = useState(null);
+    const [user] = useUser();
 
     useEffect(() => {
         const { date, time, therapistId } = location.state ?? {};
@@ -62,7 +64,7 @@ const NewAppointment = () => {
             return;
         }
         therapistsDispatcher.fetchProfileStart(therapistId);
-        const dateTime = new Date(`${dateFormat(date)} ${time}`);
+        const dateTime = new Date(time);
 
         appointmentsDispatcher.reserveStart({
             therapistId,
@@ -122,7 +124,7 @@ const NewAppointment = () => {
                 </div>
                 <div className="information">
                     <div className="texts">
-                        <h4>{`${therapists.current.title} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
+                        <h4>{`${therapists.current.title ?? ''} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
                     </div>
                 </div>
             </TherapistContainer>
@@ -166,7 +168,7 @@ const NewAppointment = () => {
                     type="button"
                     onClick={onSubmit}
                     style={{ marginTop: '20px' }}
-                    disabled={appointments.fetching.config.key === 'confirm'}
+                    disabled={appointments.fetching.config.key === 'confirm' || user.fetching.paymentMethods.state}
                 >
                     {appointments.reservation?.pricing?.total === 0
                         ? 'Confirmar'

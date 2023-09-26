@@ -10,6 +10,8 @@ export const getStatusText = ({status}) => {
             return "Rechazada";
         case 'completed':
             return "Finalizada";
+        case 'cancelled':
+            return "Cancelada";
         default:
             return '';
     }

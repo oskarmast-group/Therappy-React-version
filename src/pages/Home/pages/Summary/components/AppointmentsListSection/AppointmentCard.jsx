@@ -8,6 +8,7 @@ import { getDisplayDate } from 'utils/date';
 import Button from 'components/Button';
 import useAppointments from 'state/appointments';
 import { Ring } from '@uiball/loaders';
+import { subscribeNotificationsIfNotAlready } from 'utils/notifications';
 
 const Container = styled.div`
     margin: 0;
@@ -69,6 +70,7 @@ const AppointmentCard = ({ app }) => {
     const onAccept = (id) => {
         console.log('accept');
         appointmentsDispatcher.acceptStart({ appointmentId: id });
+        subscribeNotificationsIfNotAlready();
     };
 
     return (
@@ -96,10 +98,12 @@ const AppointmentCard = ({ app }) => {
             <Button
                 style={{ width: '50%', padding: '5px' }}
                 onClick={() => onAccept(app.id)}
+                disabled={appointments.fetching.state &&
+                    appointments.fetching.config.key === 'accept'}
             >
                 {appointments.fetching.state &&
                 appointments.fetching.config.key === 'accept' ? (
-                    <Ring color="#ffffff" size={22} />
+                    <Ring color="#fbfbfd" size={22} />
                 ) : (
                     'Aceptar'
                 )}

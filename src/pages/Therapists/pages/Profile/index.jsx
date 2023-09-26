@@ -9,8 +9,6 @@ import useTherapist from 'state/therapists';
 import styled from 'styled-components';
 import NoProfileSVG from 'resources/img/no-pic-therapist.png';
 import { Body, SectionTitle } from 'components/Text';
-import { useState } from 'react';
-import { timeAvailabilityToString } from 'utils/text';
 import DateSelection from './components/DateSelection';
 
 const TherapistContainer = styled.header`
@@ -66,17 +64,11 @@ const Scrollable = styled.div`
 const Profile = () => {
     const { therapistId } = useParams();
     const [therapists, therapistsDispatcher] = useTherapist();
-    const [availabilityString, setAvailabilityString] = useState(null);
 
     useEffect(() => {
         therapistsDispatcher.fetchProfileStart(therapistId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if(!therapists.current.timeAvailability) return;
-        setAvailabilityString(timeAvailabilityToString(therapists.current.timeAvailability));
-    }, [therapists.current.timeAvailability])
 
     return (
         <MainContainer withSideMenu={false} withBottomNavigation={false}>
@@ -94,22 +86,20 @@ const Profile = () => {
                         </div>
                         <div className="information">
                             <div className="texts">
-                                <h4>{`${therapists.current.title} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
+                                <h4>{`${therapists.current.title ?? ''} ${therapists.current.name} ${therapists.current.lastName}`}</h4>
                             </div>
-                            <RatingStars
+                            {/* <RatingStars
                                 reviewsCount={therapists.current.reviews.length}
                                 reviewAvg={
                                     therapists.current.reviews?.reduce((acc, curr) => acc + curr.rating, 0) /
                                     therapists.current.reviews.length
                                 }
-                            />
+                            /> */}
                         </div>
                     </TherapistContainer>
                     {!!therapists.current.phrase && <Phrase>{therapists.current.phrase}</Phrase>}
                     {!!therapists.current.experience && <SectionTitle>Acerca de</SectionTitle>}
                     {!!therapists.current.experience && <Body>{therapists.current.experience}</Body>}
-                    {!!availabilityString && <SectionTitle>Horario</SectionTitle>}
-                    {!!availabilityString && <Body>Disponible: {availabilityString.days}</Body>}
                     {!!therapists.current.timeAvailability && <SectionTitle>Calendario</SectionTitle>}
                     {!!therapists.current.timeAvailability && <DateSelection therapistId={therapistId} timeAvailability={therapists.current.timeAvailability} appointments={therapists.current.appointments} />}
                 </Scrollable>

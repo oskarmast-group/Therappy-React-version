@@ -60,7 +60,7 @@ const AppointmentsList = ({ list }) => {
                         )}
                     </SectionTitle>
                     {dates[key].map((app) => (
-                        <AppointmentCard app={app} />
+                        <AppointmentCard key={app.roomId} app={app} />
                     ))}
                 </li>
             ))}

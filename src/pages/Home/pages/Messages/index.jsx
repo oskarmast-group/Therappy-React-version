@@ -5,6 +5,7 @@ import useConversations from 'state/conversations';
 import useUser from 'state/user';
 import styled from 'styled-components';
 import ConversationsList from './components/ConversationsList';
+import { UserTypes } from 'resources/constants/config';
 
 const Title = styled.h1`
     margin: 0;
@@ -27,6 +28,7 @@ const Messages = () => {
     useEffect(() => {
         conversationsDispatcher.fetchStart();
     }, []);
+    
     return (
         <>
             <Title>Mensajes</Title>
@@ -34,8 +36,8 @@ const Messages = () => {
                 <Loading />
             ) : conversations.list.length === 0 ? (
                 <Notice>
-                    {user.user?.userType === 'therapist'
-                        ? 'Cuando te pongas en contacto con algún cliente tus mensajes aparecerán aquí'
+                    {user.current?.userType === UserTypes.THERAPIST
+                        ? 'Cuando te pongas en contacto con algún paciente tus mensajes aparecerán aquí'
                         : 'Cuando te pongas en contacto con algún especialista tus mensajes aparecerán aquí'}
                 </Notice>
             ) : (

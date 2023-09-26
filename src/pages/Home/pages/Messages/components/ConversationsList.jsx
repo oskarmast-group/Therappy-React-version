@@ -18,7 +18,11 @@ const ListContainer = styled.ul`
 const ConversationsList = ({ list }) => {
     return (
         <ListContainer>
-            {list.map((conversation) => (
+            {list.sort((a, b) => {
+                const dateA = a.lastMessage ? a.lastMessage.createdAt : a.createdAt; 
+                const dateB = b.lastMessage ? b.lastMessage.createdAt : b.createdAt; 
+                return new Date(dateB) - new Date(dateA);
+            }).map((conversation) => (
                 <ConversationCard key={conversation.uuid} conversation={conversation} />
             ))}
         </ListContainer>
